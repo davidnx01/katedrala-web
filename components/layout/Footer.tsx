@@ -44,7 +44,7 @@ export function Footer() {
         <div>
           <div className="mb-4 flex items-center gap-3">
             <span className="text-gold">
-              <IconCross size={30} />
+              <IconCross size={48} />
             </span>
             <span className="font-serif text-xl font-semibold text-white/90">
               {tNav("brand")}
@@ -59,21 +59,33 @@ export function Footer() {
               {t("contactColumn")}
             </h4>
             <div className="flex items-start gap-2.5 text-base text-white/65">
-              <MapPin size={18} className="mt-0.5 shrink-0 text-gold" aria-hidden="true" />
+              <MapPin
+                size={18}
+                className="mt-0.5 shrink-0 text-gold"
+                aria-hidden="true"
+              />
               <span>{t("address")}</span>
             </div>
             <a
               href={`tel:${t("phone").replace(/\s+/g, "")}`}
               className="flex items-center gap-2.5 text-base text-white/65 hover:text-white"
             >
-              <Phone size={18} className="shrink-0 text-gold" aria-hidden="true" />
+              <Phone
+                size={18}
+                className="shrink-0 text-gold"
+                aria-hidden="true"
+              />
               {t("phone")}
             </a>
             <a
               href={`mailto:${t("email")}`}
               className="flex items-center gap-2.5 text-base text-white/65 hover:text-white"
             >
-              <Mail size={18} className="shrink-0 text-gold" aria-hidden="true" />
+              <Mail
+                size={18}
+                className="shrink-0 text-gold"
+                aria-hidden="true"
+              />
               {t("email")}
             </a>
           </div>
@@ -81,7 +93,7 @@ export function Footer() {
 
         {columns.map((column) => (
           <div key={column.title}>
-            <h4 className="mb-4 text-sm font-semibold tracking-wide text-gold uppercase">
+            <h4 className="mb-4 text-base lg:text-lg font-semibold tracking-wide text-gold uppercase">
               {column.title}
             </h4>
             <ul className="flex flex-col gap-1">
@@ -89,7 +101,7 @@ export function Footer() {
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="inline-block py-2 text-base leading-snug text-white/60 transition-colors hover:text-white"
+                    className="inline-block py-2 text-base leading-snug text-white/75 transition-colors hover:text-white"
                   >
                     {link.label}
                   </Link>

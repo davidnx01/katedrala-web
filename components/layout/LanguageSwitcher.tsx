@@ -23,10 +23,10 @@ export function LanguageSwitcher({ className }: LanguageSwitcherProps) {
           aria-pressed={l === locale}
           onClick={() => router.replace(pathname, { locale: l })}
           className={cn(
-            "min-h-6 rounded px-2 py-0.5 text-[11px] font-semibold uppercase transition-colors",
+            "min-h-6 rounded px-2 py-0.5 text-[12px] cursor-pointer font-semibold uppercase transition-colors",
             l === locale
               ? "bg-gold text-navy"
-              : "text-white/35 hover:text-white/60"
+              : "text-white/35 hover:text-white/60",
           )}
         >
           {l}

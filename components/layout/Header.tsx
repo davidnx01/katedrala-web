@@ -20,13 +20,13 @@ export function Header() {
       <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-2.5 md:px-8 md:py-3 lg:px-12 lg:py-3.5">
         <Link href="/" className="mr-auto flex items-center gap-2.5">
           <span className="text-gold">
-            <IconCross size={28} />
+            <IconCross size={40} />
           </span>
           <span>
-            <span className="block font-serif text-[13px] leading-tight font-semibold text-white md:text-sm">
+            <span className="block font-serif text-sm lg:text-base leading-tight font-semibold text-white md:text-sm">
               {t("brand")}
             </span>
-            <span className="block text-[10px] tracking-wide text-white/35 uppercase">
+            <span className="block text-xs tracking-wide text-white/50 mt-0.5 uppercase">
               {t("brandSub")}
             </span>
           </span>
