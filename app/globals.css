@@ -1,0 +1,118 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: 8px;
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: 16px;
+  --radius-3xl: 24px;
+  --radius-4xl: calc(var(--radius) * 2.6);
+
+  --color-navy: #1b1f2e;
+  --color-gold: #c5a44e;
+  --color-gold-light: #f5ecd7;
+  --color-gold-dark: #8b7332;
+  --color-warm: #faf7f2;
+  --color-stone: #e8e2d6;
+  --color-surface: #f9f7f3;
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: var(--font-playfair), Georgia, "Times New Roman", serif;
+  --font-heading: var(--font-playfair), Georgia, "Times New Roman", serif;
+
+  --breakpoint-md: 40rem;
+  --breakpoint-lg: 64rem;
+}
+
+:root {
+  --background: #faf7f2;
+  --foreground: #2c2a26;
+  --card: #ffffff;
+  --card-foreground: #2c2a26;
+  --popover: #ffffff;
+  --popover-foreground: #2c2a26;
+  --primary: #c5a44e;
+  --primary-foreground: #1b1f2e;
+  --secondary: #f5ecd7;
+  --secondary-foreground: #8b7332;
+  --muted: #e8e2d6;
+  --muted-foreground: #7a756b;
+  --accent: #f9f7f3;
+  --accent-foreground: #1b1f2e;
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: #e5e0d6;
+  --input: #e5e0d6;
+  --ring: #c5a44e;
+  --radius: 0.625rem;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50 box-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}
+
+@keyframes hero-kenburns {
+  0%,
+  21.67% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  28.33%,
+  71.67% {
+    opacity: 1;
+  }
+  78.33% {
+    opacity: 0;
+    transform: scale(1.13);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+.animate-hero-kenburns {
+  animation: hero-kenburns 12s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-hero-kenburns {
+    animation: none;
+    opacity: 1;
+    transform: scale(1);
+  }
+  .animate-hero-kenburns:first-child {
+    opacity: 1;
+  }
+  .animate-hero-kenburns:not(:first-child) {
+    opacity: 0;
+  }
+}

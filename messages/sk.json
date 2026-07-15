@@ -1,0 +1,163 @@
+{
+  "Nav": {
+    "brand": "Katedrála sv. Martina",
+    "brandSub": "Bratislava",
+    "home": "Domov",
+    "parish": "Farnosť",
+    "visit": "Návšteva",
+    "churches": "Kostoly",
+    "contact": "Kontakt",
+    "openMenu": "Otvoriť menu",
+    "closeMenu": "Zatvoriť menu"
+  },
+  "Hero": {
+    "eyebrow": "Farnosť sv. Martina v Bratislave",
+    "titleLine1": "Korunovačná",
+    "titleLine2": "katedrála",
+    "titleEmphasis": "sv. Martina",
+    "subtitle": "Najvýznamnejšia sakrálna stavba Bratislavy. Miesto viery, histórie a kultúry od roku 1452.",
+    "ctaPrimary": "Otváracie hodiny",
+    "ctaSecondary": "Naplánovať návštevu",
+    "imageAlt": "Katedrála sv. Martina — exteriér, zlatá hodina"
+  },
+  "QuickLinks": {
+    "cathedral": "Katedrála",
+    "parish": "Farnosť a modlitba",
+    "visit": "Návšteva",
+    "contact": "Kontakt"
+  },
+  "Announcements": {
+    "eyebrow": "Aktuálne",
+    "title": "Farské oznamy",
+    "link": "Všetky oznamy",
+    "readMore": "Čítať viac"
+  },
+  "Calendar": {
+    "eyebrow": "Rozpis",
+    "title": "Kalendár udalostí",
+    "upcoming": "Najbližšie udalosti",
+    "viewDetail": "Zobraziť detail",
+    "previousMonth": "Predchádzajúci mesiac",
+    "nextMonth": "Nasledujúci mesiac",
+    "months": [
+      "Január", "Február", "Marec", "Apríl", "Máj", "Jún",
+      "Júl", "August", "September", "Október", "November", "December"
+    ],
+    "daysShort": ["Po", "Ut", "St", "Št", "Pi", "So", "Ne"]
+  },
+  "MassSchedule": {
+    "eyebrow": "Sväté omše",
+    "title": "Rozpis bohoslužieb",
+    "location": "Katedrála sv. Martina, Rudnayovo námestie 1",
+    "note": "V prípade výnimiek sledujte kalendár udalostí.",
+    "weekdays": "Pondelok – Piatok",
+    "saturday": "Sobota",
+    "sundayAndHolidays": "Nedeľa a sviatky",
+    "imageAlt": "Interiér katedrály — hlavný oltár"
+  },
+  "Churches": {
+    "eyebrow": "Na území farnosti",
+    "title": "Kostoly a kaplnky",
+    "link": "Zobraziť všetky"
+  },
+  "Contacts": {
+    "eyebrow": "Sme tu pre vás",
+    "title": "Kontaktujte nás",
+    "addressLabel": "Adresa",
+    "phoneLabel": "Telefón",
+    "emailLabel": "E-mail",
+    "hoursLabel": "Otváracie hodiny"
+  },
+  "Parish": {
+    "hub": {
+      "eyebrow": "Duchovný život",
+      "title": "Farnosť",
+      "breadcrumb": "Farnosť",
+      "quickNavEyebrow": "Sekcie",
+      "announcements": "Farské oznamy",
+      "wedding": "Sobáš",
+      "baptism": "Krst",
+      "lectioDivina": "Lectio divina",
+      "adoration": "Adorácia",
+      "imageAlt": "Foto: Interiér katedrály — klenba"
+    },
+    "wedding": {
+      "eyebrow": "Sviatosť",
+      "title": "Sobáš",
+      "breadcrumb": "Sobáš",
+      "paragraph1": "Sviatosť manželstva je možné prijať v Katedrále sv. Martina po splnení podmienok stanovených cirkevným právom.",
+      "paragraph2": "Snúbenci sa musia prihlásiť na farskom úrade najneskôr 3 mesiace pred plánovaným termínom sobáša. Súčasťou prípravy je kurz pre snúbencov a potrebná dokumentácia.",
+      "cta": "Kontaktovať farský úrad",
+      "imageAlt": "Foto: Sobáš v katedrále"
+    },
+    "baptism": {
+      "eyebrow": "Sviatosť",
+      "title": "Krst",
+      "breadcrumb": "Krst",
+      "paragraph1": "Sviatosť krstu sa vysluhuje spravidla v nedeľu po svätej omši o 11:00, alebo po dohode s kňazom v inom termíne.",
+      "paragraph2": "Rodičia dieťaťa sa prihlásia na farskom úrade a absolvujú prípravu na krst. Krstnými rodičmi môžu byť praktizujúci katolíci, ktorí prijali sviatosť birmovania.",
+      "cta": "Kontaktovať farský úrad",
+      "imageAlt": "Foto: Krstiteľnica v katedrále"
+    },
+    "lectioDivina": {
+      "eyebrow": "Stretnutie",
+      "title": "Lectio divina",
+      "breadcrumb": "Lectio divina",
+      "paragraph1": "Spoločné rozjímanie nad Svätým Písmom. Stretnutia sú otvorené pre všetkých farníkov bez ohľadu na vek či skúsenosti.",
+      "schedule": "Každý štvrtok, 18:30",
+      "location": "Farská sála",
+      "imageAlt": "Foto: Stretnutie nad Písmom"
+    },
+    "adoration": {
+      "eyebrow": "Modlitba",
+      "title": "Adorácia a ruženec",
+      "breadcrumb": "Adorácia",
+      "paragraph1": "Eucharistická adorácia a spoločná modlitba ruženca. Príďte stráviť čas v tichu pred Najsvätejšou Sviatosťou.",
+      "schedule": "Pondelok, 17:00 – 18:00",
+      "location": "Katedrála sv. Martina",
+      "imageAlt": "Foto: Adorácia v katedrále"
+    },
+    "announcementsArchive": {
+      "eyebrow": "Aktuálne",
+      "title": "Farské oznamy",
+      "breadcrumb": "Oznamy",
+      "imageAlt": "Foto: Interiér katedrály — lavice",
+      "paginationPrevious": "Predchádzajúca strana",
+      "paginationNext": "Nasledujúca strana"
+    },
+    "announcementDetail": {
+      "badge": "Farské oznamy",
+      "share": "Zdieľať",
+      "print": "Tlačiť",
+      "previous": "Predchádzajúci",
+      "next": "Nasledujúci",
+      "olderEyebrow": "Ďalšie oznamy",
+      "olderTitle": "Staršie oznamy",
+      "backToArchive": "Všetky oznamy"
+    }
+  },
+  "Footer": {
+    "tagline": "Korunovačná katedrála v srdci Bratislavy. Miesto viery, histórie a kultúry od roku 1452.",
+    "contactColumn": "Kontakt",
+    "address": "Rudnayovo námestie 1, Bratislava",
+    "phone": "+421 2 5443 1359",
+    "email": "katedrala@ba.ecclesia.sk",
+    "parishColumn": "Farnosť",
+    "visitColumn": "Návšteva",
+    "moreColumn": "Ďalšie",
+    "announcements": "Farské oznamy",
+    "wedding": "Sobáš",
+    "baptism": "Krst",
+    "lectioDivina": "Lectio divina",
+    "openingHours": "Otváracie hodiny",
+    "reservation": "Rezervácia",
+    "audioguides": "Audioguides",
+    "martineum": "Martineum",
+    "churchesAndChapels": "Kostoly a kaplnky",
+    "musicAndConcerts": "Hudba a koncerty",
+    "kapitulska": "Kapitulská ulica",
+    "privacy": "Ochrana údajov",
+    "copyright": "© {year} Farnosť sv. Martina v Bratislave",
+    "diocese": "Bratislavská arcidiecéza"
+  }
+}

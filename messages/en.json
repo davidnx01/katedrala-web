@@ -1,0 +1,163 @@
+{
+  "Nav": {
+    "brand": "St. Martin's Cathedral",
+    "brandSub": "Bratislava",
+    "home": "Home",
+    "parish": "Parish",
+    "visit": "Visit",
+    "churches": "Churches",
+    "contact": "Contact",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "Hero": {
+    "eyebrow": "Parish of St. Martin in Bratislava",
+    "titleLine1": "The Coronation",
+    "titleLine2": "Cathedral of",
+    "titleEmphasis": "St. Martin",
+    "subtitle": "The most significant sacred building in Bratislava. A place of faith, history and culture since 1452.",
+    "ctaPrimary": "Opening hours",
+    "ctaSecondary": "Plan your visit",
+    "imageAlt": "St. Martin's Cathedral — exterior, golden hour"
+  },
+  "QuickLinks": {
+    "cathedral": "Cathedral",
+    "parish": "Parish & prayer",
+    "visit": "Visit",
+    "contact": "Contact"
+  },
+  "Announcements": {
+    "eyebrow": "Latest",
+    "title": "Parish announcements",
+    "link": "All announcements",
+    "readMore": "Read more"
+  },
+  "Calendar": {
+    "eyebrow": "Schedule",
+    "title": "Events calendar",
+    "upcoming": "Upcoming events",
+    "viewDetail": "View detail",
+    "previousMonth": "Previous month",
+    "nextMonth": "Next month",
+    "months": [
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ],
+    "daysShort": ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]
+  },
+  "MassSchedule": {
+    "eyebrow": "Holy Mass",
+    "title": "Mass schedule",
+    "location": "St. Martin's Cathedral, Rudnayovo námestie 1",
+    "note": "Please check the events calendar for exceptions.",
+    "weekdays": "Monday – Friday",
+    "saturday": "Saturday",
+    "sundayAndHolidays": "Sunday & holy days",
+    "imageAlt": "Cathedral interior — main altar"
+  },
+  "Churches": {
+    "eyebrow": "Within the parish",
+    "title": "Churches & chapels",
+    "link": "View all"
+  },
+  "Contacts": {
+    "eyebrow": "We're here for you",
+    "title": "Contact us",
+    "addressLabel": "Address",
+    "phoneLabel": "Phone",
+    "emailLabel": "Email",
+    "hoursLabel": "Opening hours"
+  },
+  "Parish": {
+    "hub": {
+      "eyebrow": "Spiritual life",
+      "title": "Parish",
+      "breadcrumb": "Parish",
+      "quickNavEyebrow": "Sections",
+      "announcements": "Parish announcements",
+      "wedding": "Wedding",
+      "baptism": "Baptism",
+      "lectioDivina": "Lectio divina",
+      "adoration": "Adoration",
+      "imageAlt": "Photo: Cathedral interior — vaulted ceiling"
+    },
+    "wedding": {
+      "eyebrow": "Sacrament",
+      "title": "Wedding",
+      "breadcrumb": "Wedding",
+      "paragraph1": "The sacrament of matrimony can be received in St. Martin's Cathedral after meeting the conditions set by canon law.",
+      "paragraph2": "The couple must register at the parish office at least 3 months before the planned wedding date. Preparation includes a course for engaged couples and the required documentation.",
+      "cta": "Contact the parish office",
+      "imageAlt": "Photo: Wedding in the cathedral"
+    },
+    "baptism": {
+      "eyebrow": "Sacrament",
+      "title": "Baptism",
+      "breadcrumb": "Baptism",
+      "paragraph1": "Baptism is usually administered on Sunday after the 11:00 Mass, or at another time by arrangement with the priest.",
+      "paragraph2": "The child's parents register at the parish office and complete a preparation session before the baptism. Godparents must be practicing Catholics who have received the sacrament of confirmation.",
+      "cta": "Contact the parish office",
+      "imageAlt": "Photo: Baptismal font in the cathedral"
+    },
+    "lectioDivina": {
+      "eyebrow": "Gathering",
+      "title": "Lectio divina",
+      "breadcrumb": "Lectio divina",
+      "paragraph1": "A shared meditation on Sacred Scripture. Meetings are open to all parishioners regardless of age or experience.",
+      "schedule": "Every Thursday, 18:30",
+      "location": "Parish hall",
+      "imageAlt": "Photo: Scripture gathering"
+    },
+    "adoration": {
+      "eyebrow": "Prayer",
+      "title": "Adoration & the Rosary",
+      "breadcrumb": "Adoration",
+      "paragraph1": "Eucharistic adoration and shared recitation of the Rosary. Come spend time in silence before the Blessed Sacrament.",
+      "schedule": "Monday, 17:00 – 18:00",
+      "location": "St. Martin's Cathedral",
+      "imageAlt": "Photo: Adoration in the cathedral"
+    },
+    "announcementsArchive": {
+      "eyebrow": "Latest",
+      "title": "Parish announcements",
+      "breadcrumb": "Announcements",
+      "imageAlt": "Photo: Cathedral interior — pews",
+      "paginationPrevious": "Previous page",
+      "paginationNext": "Next page"
+    },
+    "announcementDetail": {
+      "badge": "Parish announcements",
+      "share": "Share",
+      "print": "Print",
+      "previous": "Previous",
+      "next": "Next",
+      "olderEyebrow": "More announcements",
+      "olderTitle": "Older announcements",
+      "backToArchive": "All announcements"
+    }
+  },
+  "Footer": {
+    "tagline": "The coronation cathedral in the heart of Bratislava. A place of faith, history and culture since 1452.",
+    "contactColumn": "Contact",
+    "address": "Rudnayovo námestie 1, Bratislava",
+    "phone": "+421 2 5443 1359",
+    "email": "katedrala@ba.ecclesia.sk",
+    "parishColumn": "Parish",
+    "visitColumn": "Visit",
+    "moreColumn": "More",
+    "announcements": "Parish announcements",
+    "wedding": "Wedding",
+    "baptism": "Baptism",
+    "lectioDivina": "Lectio divina",
+    "openingHours": "Opening hours",
+    "reservation": "Reservation",
+    "audioguides": "Audioguides",
+    "martineum": "Martineum",
+    "churchesAndChapels": "Churches & chapels",
+    "musicAndConcerts": "Music & concerts",
+    "kapitulska": "Kapitulská street",
+    "privacy": "Privacy policy",
+    "copyright": "© {year} Parish of St. Martin in Bratislava",
+    "diocese": "Archdiocese of Bratislava"
+  }
+}
