@@ -16,7 +16,7 @@ export function Header() {
   const t = useTranslations("Nav");
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/6 bg-navy/85 backdrop-blur-lg">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/6 bg-navy/85 backdrop-blur-lg py-2">
       <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-2.5 md:px-8 md:py-3 lg:px-12 lg:py-3.5">
         <Link href="/" className="mr-auto flex items-center gap-2.5">
           <span className="text-gold">
@@ -32,12 +32,12 @@ export function Header() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-1 md:flex">
+        <nav className="hidden items-center gap-2 md:flex">
           {NAV_ITEMS.map((item) => (
             <Link
               key={item.key}
               href={item.href}
-              className="rounded-md px-3.5 py-1.5 text-[13px] text-white/65 transition-colors hover:text-white"
+              className="rounded-md px-3.5 font-medium py-1.5 text-lg text-white transition-colors hover:bg-white/10 hover:text-white"
             >
               {t(item.key)}
             </Link>
