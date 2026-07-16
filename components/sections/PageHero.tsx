@@ -18,7 +18,7 @@ export function PageHero({
   imageSrc,
 }: PageHeroProps) {
   return (
-    <section className="relative h-55 overflow-hidden md:h-65 lg:h-75">
+    <section className="relative h-68 overflow-hidden md:h-72 lg:h-84">
       <ImagePlaceholder
         label={imageLabel}
         src={imageSrc}
@@ -27,11 +27,11 @@ export function PageHero({
       />
       <div className="absolute inset-0 flex flex-col justify-end items-center bg-linear-to-b from-navy/40 to-navy/80 px-4 pb-6 md:px-8 md:pb-8 lg:px-12 lg:pb-10">
         <Container className="px-0">
-          <Breadcrumb items={breadcrumbItems} light />
-          <div className="mb-2 text-xs font-semibold tracking-[0.2em] text-gold uppercase w-full text-center">
+          <Breadcrumb items={breadcrumbItems} light center />
+          <div className="text-xs font-semibold tracking-[0.2em] text-gold uppercase w-full text-center mt-8">
             {eyebrow}
           </div>
-          <h1 className="font-serif text-[32px] font-bold tracking-tight text-white lg:text-[48px]">
+          <h1 className="font-serif text-[32px] font-bold tracking-tight text-white lg:text-[48px] text-center">
             {title}
           </h1>
         </Container>

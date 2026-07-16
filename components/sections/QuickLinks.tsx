@@ -29,7 +29,7 @@ export function QuickLinks() {
       key: "contact",
       icon: <Phone size={40} aria-hidden="true" />,
       imageLabel: "/images/quick-links/kontakt.jpg",
-      href: "#",
+      href: "/kontakt",
     },
   ] as const;
 

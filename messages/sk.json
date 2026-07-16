@@ -67,7 +67,21 @@
     "addressLabel": "Adresa",
     "phoneLabel": "Telefón",
     "emailLabel": "E-mail",
-    "hoursLabel": "Otváracie hodiny"
+    "hoursLabel": "Otváracie hodiny",
+    "ibanLabel": "IBAN"
+  },
+  "ContactPage": {
+    "heroEyebrow": "Sme tu pre vás",
+    "heroTitle": "Kontakt",
+    "breadcrumb": "Kontakt",
+    "imageAlt": "Foto: Rudnayovo námestie — panoráma",
+    "locationsEyebrow": "Poloha",
+    "locationsTitle": "Kde nás nájdete",
+    "navigate": "Navigovať",
+    "ctaTitle": "Máte otázku?",
+    "ctaText": "Napíšte nám na farský úrad alebo zavolajte. Radi Vám pomôžeme s akoukoľvek otázkou.",
+    "ctaEmail": "Napísať email",
+    "ctaCall": "Zavolať"
   },
   "Parish": {
     "hub": {

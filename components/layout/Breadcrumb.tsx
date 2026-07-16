@@ -1,4 +1,5 @@
 import { Link } from "@/i18n/navigation";
+import { cn } from "@/lib/utils";
 
 interface BreadcrumbItem {
   label: string;
@@ -8,11 +9,18 @@ interface BreadcrumbItem {
 interface BreadcrumbProps {
   items: BreadcrumbItem[];
   light?: boolean;
+  center?: boolean;
 }
 
-export function Breadcrumb({ items, light }: BreadcrumbProps) {
+export function Breadcrumb({ items, light, center }: BreadcrumbProps) {
   return (
-    <nav aria-label="Breadcrumb" className="mb-3 flex flex-wrap items-center gap-1.5">
+    <nav
+      aria-label="Breadcrumb"
+      className={cn(
+        "mb-3 flex flex-wrap items-center gap-1.5",
+        center && "justify-center",
+      )}
+    >
       {items.map((item, i) => {
         const isLast = i === items.length - 1;
         return (

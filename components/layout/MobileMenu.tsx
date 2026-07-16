@@ -20,7 +20,7 @@ const NAV_ITEMS = [
   { key: "parish", href: "/farnost", icon: Church },
   { key: "visit", href: "#", icon: Compass },
   { key: "churches", href: "#", icon: Landmark },
-  { key: "contact", href: "#", icon: Mail },
+  { key: "contact", href: "/kontakt", icon: Mail },
 ] as const;
 
 const LANGUAGE_NAMES: Record<string, string> = {

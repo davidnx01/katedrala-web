@@ -67,7 +67,21 @@
     "addressLabel": "Address",
     "phoneLabel": "Phone",
     "emailLabel": "Email",
-    "hoursLabel": "Opening hours"
+    "hoursLabel": "Opening hours",
+    "ibanLabel": "IBAN"
+  },
+  "ContactPage": {
+    "heroEyebrow": "We're here for you",
+    "heroTitle": "Contact",
+    "breadcrumb": "Contact",
+    "imageAlt": "Photo: Rudnayovo námestie — panorama",
+    "locationsEyebrow": "Location",
+    "locationsTitle": "Where to find us",
+    "navigate": "Directions",
+    "ctaTitle": "Have a question?",
+    "ctaText": "Write to the parish office or give us a call. We're happy to help with any question.",
+    "ctaEmail": "Send an email",
+    "ctaCall": "Call us"
   },
   "Parish": {
     "hub": {

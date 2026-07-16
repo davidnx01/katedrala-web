@@ -82,6 +82,24 @@ export interface ContactLocation {
   iban?: string;
 }
 
+export interface ContactLocationHours {
+  dayLabel: string;
+  time: string;
+}
+
+/** Richer contact-location shape for the /kontakt page (interactive cards + map). */
+export interface ContactPageLocation {
+  id: string;
+  name: string;
+  description: string;
+  address: string;
+  city: string;
+  phone: string;
+  email: string;
+  iban?: string;
+  hours: ContactLocationHours[];
+}
+
 export interface CalendarEvent {
   id: number;
   date: string;

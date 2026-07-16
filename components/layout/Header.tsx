@@ -9,7 +9,7 @@ const NAV_ITEMS = [
   { key: "parish", href: "/farnost" },
   { key: "visit", href: "#" },
   { key: "churches", href: "#" },
-  { key: "contact", href: "#" },
+  { key: "contact", href: "/kontakt" },
 ] as const;
 
 export function Header() {

@@ -3,6 +3,7 @@ import type {
   CalendarEvent,
   ChurchPreview,
   ContactLocation,
+  ContactPageLocation,
 } from "@/types/content";
 
 /**
@@ -131,5 +132,46 @@ export const mockContacts: ContactLocation[] = [
     hours: "Po, St: 9:00 – 12:00",
     photo: { url: '/images/contacts/urad.webp' },
     description: "",
+  },
+];
+
+export const mockContactPageLocations: ContactPageLocation[] = [
+  {
+    id: "katedrala",
+    name: "Katedrála sv. Martina",
+    description: "Hlavný chrám farnosti. Sväté omše, sviatosti, adorácia.",
+    address: "Rudnayovo námestie 1",
+    city: "811 01 Bratislava",
+    phone: "+421 2 5443 1359",
+    email: "katedrala@ba.ecclesia.sk",
+    hours: [
+      { dayLabel: "Po – Pi", time: "8:00 – 17:00" },
+      { dayLabel: "Sobota", time: "8:00 – 17:00" },
+      { dayLabel: "Nedeľa", time: "7:30 – 18:30" },
+    ],
+  },
+  {
+    id: "martineum",
+    name: "Martineum",
+    description: "Informačné centrum. Vstupenky, audioguides, suveníry.",
+    address: "Rudnayovo námestie 13",
+    city: "811 01 Bratislava",
+    phone: "+421 2 5443 4054",
+    email: "martineum@ba.ecclesia.sk",
+    hours: [{ dayLabel: "Po – Ne", time: "10:00 – 17:00" }],
+  },
+  {
+    id: "urad",
+    name: "Farský úrad",
+    description: "Administratíva. Krst, sobáš, potvrdenia, matrika.",
+    address: "Rudnayovo námestie 1",
+    city: "811 01 Bratislava",
+    phone: "+421 2 5443 1359",
+    email: "farnost@ba.ecclesia.sk",
+    iban: "SK12 3456 7890 1234 5678 9012",
+    hours: [
+      { dayLabel: "Pondelok", time: "9:00 – 12:00" },
+      { dayLabel: "Streda", time: "9:00 – 12:00" },
+    ],
   },
 ];
