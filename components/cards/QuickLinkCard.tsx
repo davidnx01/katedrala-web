@@ -17,7 +17,7 @@ export function QuickLinkCard({
   return (
     <Link
       href={href}
-      className="group relative block h-35 overflow-hidden md:h-52 lg:h-64"
+      className="group relative block h-42 overflow-hidden md:h-52 lg:h-64"
     >
       <ImagePlaceholder
         label={title}
