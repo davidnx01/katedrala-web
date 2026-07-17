@@ -202,11 +202,11 @@ messages/
 
 Presné schémy (komponenty, kolekcie, single types, dynamic zones) sú zdokumentované v `cms/CLAUDE.md` — to je zdroj pravdy. Zhrnutie:
 
-- **Collections**: `Church`, `Announcement`, `Concert`, `Page` (generická flexibilná stránka pre Kapitulskú, Martineum, Sprievodcu, Audioguides, Exkurziu, Omšu s kňazom — nová stránka = nový záznam, nie nová schéma), `Reservation`/`Excursion`/`ContactMessage` (archív formulárov).
-- **Single types**: `Homepage`, `ParishPage` (`/farnost`), `VisitPage` (`/navsteva`), `ContactPage` (`/kontakt`) — každý má vlastné štrukturálne polia + `sections` dynamic zone pre kompozovateľný obsah.
-- **Zdieľané komponenty**: `shared.seo`, `shared.cta`, `shared.meta-row`, `shared.mass-time`, `shared.contact-location`, `shared.faq-item`, `layout.hero-section`, `layout.quick-link`, a desať `sections.*` komponentov (rich-text, image-text, cta-banner, gallery, faq, quick-nav, mass-schedule, announcements-preview, churches-preview, contacts).
+- **Collections**: `Church`, `Announcement`, `Concert`, `Event` (kalendár udalostí na homepage), `Page` (generická flexibilná stránka pre Kapitulskú, Martineum, Sprievodcu, Audioguides, Exkurziu, Omšu s kňazom — nová stránka = nový záznam, nie nová schéma), `Reservation`/`Excursion`/`ContactMessage` (archív formulárov).
+- **Single types**: `Homepage`, `ParishPage` (`/farnost`), `VisitPage` (`/navsteva`), `ContactPage` (`/kontakt`), `Global` (siteName/tagline/footer text — navigácia a footer odkazy zostávajú fixné v kóde, pozri Navigácia nižšie) — každý má vlastné štrukturálne polia + `sections` dynamic zone pre kompozovateľný obsah.
+- **Zdieľané komponenty**: `shared.seo`, `shared.cta`, `shared.meta-row`, `shared.mass-time`, `shared.hours-row`, `shared.contact-location`, `shared.faq-item`, `layout.hero-section` (slideshow-ready: `images[]` + 3-časťový titulok), `layout.quick-link`, `layout.quick-link-card` (homepage quick links s fotkou), a desať `sections.*` komponentov (rich-text, image-text, cta-banner, gallery, faq, quick-nav, mass-schedule, announcements-preview, churches-preview, contacts).
 
-Zodpovedajúce TypeScript typy: `types/strapi.ts` (Strapi-tvarové typy, komponenty, `FlexiblePageSection`/`HomepageSection`/`ParishPageSection`/`VisitPageSection`/`ContactPageSection` dynamic-zone union typy) a `types/content.ts` (aplikačné typy: `Church`, `Announcement`, `Concert`, `Page`, `Homepage`, `ParishPage`, `VisitPage`, `ContactPage`, `ReservationInput`/`ExcursionInput`/`ContactMessageInput`).
+Zodpovedajúce TypeScript typy: `types/strapi.ts` (Strapi-tvarové typy, komponenty, `FlexiblePageSection`/`HomepageSection`/`ParishPageSection`/`VisitPageSection`/`ContactPageSection` dynamic-zone union typy) a `types/content.ts` (aplikačné typy: `Church`, `Announcement`, `Concert`, `Event`, `Global`, `Page`, `Homepage`, `ParishPage`, `VisitPage`, `ContactPage`, `ReservationInput`/`ExcursionInput`/`ContactMessageInput`).
 
 ## API vrstva (lib/api.ts)
 
@@ -233,11 +233,15 @@ getConcertBySlug({ locale, slug }): Promise<Concert | null>
 // Generická flexibilná stránka
 getPageBySlug({ locale, slug }): Promise<Page | null>
 
+// Event (homepage kalendár)
+getEvents({ locale, upcomingOnly? }): Promise<Event[]>
+
 // Single types
 getHomepage({ locale }): Promise<Homepage>
 getParishPage({ locale }): Promise<ParishPage>
 getVisitPage({ locale }): Promise<VisitPage>
 getContactPage({ locale }): Promise<ContactPage>
+getGlobal({ locale }): Promise<Global>
 
 // Formuláre — zapisujú cez STRAPI_FORMS_TOKEN (write-only), nikdy cez read token
 createReservation(input: ReservationInput): Promise<void>

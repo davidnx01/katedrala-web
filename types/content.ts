@@ -6,6 +6,7 @@ import type {
   StrapiCta,
   StrapiHeroSection,
   StrapiMedia,
+  StrapiQuickLinkCard,
   StrapiSeo,
   VisitPageSection,
   FlexiblePageSection,
@@ -40,7 +41,7 @@ export interface Church {
   seo?: StrapiSeo;
 }
 
-export type ChurchPreview = Pick<Church, "id" | "name" | "slug" | "address" | "photo">;
+export type ChurchPreview = Pick<Church, "id" | "name" | "slug" | "address" | "photo" | "type">;
 
 export interface Announcement {
   id: number;
@@ -80,6 +81,8 @@ export interface ContactLocation {
   photo: StrapiMedia | null;
   description: string;
   iban?: string;
+  /** Short chip labels shown over the photo — homepage contacts section only. */
+  tags?: string[];
 }
 
 export interface ContactLocationHours {
@@ -121,7 +124,26 @@ export interface Page {
 
 export interface Homepage {
   hero: StrapiHeroSection;
+  quickLinks: StrapiQuickLinkCard[];
   sections: HomepageSection[];
+  seo?: StrapiSeo;
+}
+
+/** Homepage calendar entry (masses, concerts, feast days, tours, meetings...). */
+export interface Event {
+  id: number;
+  title: string;
+  date: string;
+  description?: string;
+  href?: string;
+}
+
+/** Site-wide settings — brand name + footer text. Nav/footer links stay fixed in code. */
+export interface Global {
+  siteName: string;
+  siteTagline?: string;
+  footerTagline?: string;
+  diocese?: string;
   seo?: StrapiSeo;
 }
 

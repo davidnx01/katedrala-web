@@ -59,7 +59,31 @@
   "Churches": {
     "eyebrow": "Na území farnosti",
     "title": "Kostoly a kaplnky",
-    "link": "Zobraziť všetky"
+    "link": "Zobraziť všetky",
+    "typeChurch": "Kostol",
+    "typeChapel": "Kaplnka"
+  },
+  "ChurchesPage": {
+    "heroEyebrow": "Na území farnosti",
+    "heroTitle": "Kostoly a kaplnky",
+    "breadcrumb": "Kostoly",
+    "imageAlt": "Foto: Bratislavské kostoly a kaplnky",
+    "filterAll": "Všetky",
+    "filterChurches": "Kostoly",
+    "filterChapels": "Kaplnky",
+    "empty": "V tejto kategórii zatiaľ nie sú žiadne záznamy."
+  },
+  "ChurchDetail": {
+    "breadcrumbChurches": "Kostoly",
+    "addressLabel": "Adresa",
+    "rectorLabel": "Správca",
+    "phoneLabel": "Telefón",
+    "emailLabel": "E-mail",
+    "directions": "Zobraziť na mape",
+    "massScheduleTitle": "Sväté omše",
+    "aboutTitle": "O tomto mieste",
+    "galleryTitle": "Fotogaléria",
+    "announcementsCta": "Oznamy tohto kostola"
   },
   "Contacts": {
     "eyebrow": "Sme tu pre vás",

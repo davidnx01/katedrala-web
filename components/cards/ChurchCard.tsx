@@ -1,5 +1,7 @@
+import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { ImagePlaceholder } from "@/components/media/ImagePlaceholder";
+import { Badge } from "@/components/ui/badge";
 import type { ChurchPreview } from "@/types/content";
 
 interface ChurchCardProps {
@@ -7,6 +9,8 @@ interface ChurchCardProps {
 }
 
 export function ChurchCard({ church }: ChurchCardProps) {
+  const t = useTranslations("Churches");
+
   return (
     <Link
       href={`/kostoly/${church.slug}`}
@@ -18,6 +22,9 @@ export function ChurchCard({ church }: ChurchCardProps) {
           src={church.photo?.url ?? ""}
           className="absolute w-full h-full inset-0 z-0 object-cover object-center"
         />
+        <Badge className="absolute top-2.5 left-2.5 rounded-lg border border-gold/40 bg-navy/70 px-2 py-0.5 text-[11px] font-semibold tracking-wide text-gold uppercase backdrop-blur-sm">
+          {church.type === "kostol" ? t("typeChurch") : t("typeChapel")}
+        </Badge>
       </div>
 
       <div className="p-3 md:p-3.5 lg:p-4">

@@ -59,7 +59,31 @@
   "Churches": {
     "eyebrow": "Within the parish",
     "title": "Churches & chapels",
-    "link": "View all"
+    "link": "View all",
+    "typeChurch": "Church",
+    "typeChapel": "Chapel"
+  },
+  "ChurchesPage": {
+    "heroEyebrow": "Within the parish",
+    "heroTitle": "Churches & chapels",
+    "breadcrumb": "Churches",
+    "imageAlt": "Photo: Bratislava churches and chapels",
+    "filterAll": "All",
+    "filterChurches": "Churches",
+    "filterChapels": "Chapels",
+    "empty": "There are no entries in this category yet."
+  },
+  "ChurchDetail": {
+    "breadcrumbChurches": "Churches",
+    "addressLabel": "Address",
+    "rectorLabel": "Rector",
+    "phoneLabel": "Phone",
+    "emailLabel": "Email",
+    "directions": "Get directions",
+    "massScheduleTitle": "Holy Mass",
+    "aboutTitle": "About this place",
+    "galleryTitle": "Photo gallery",
+    "announcementsCta": "Announcements for this church"
   },
   "Contacts": {
     "eyebrow": "We're here for you",

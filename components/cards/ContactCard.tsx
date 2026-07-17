@@ -2,6 +2,7 @@ import { useTranslations } from "next-intl";
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import { ImagePlaceholder } from "@/components/media/ImagePlaceholder";
 import type { ContactLocation } from "@/types/content";
+import { Badge } from "@/components/ui/badge";
 
 interface ContactCardProps {
   contact: ContactLocation;
@@ -45,6 +46,18 @@ export function ContactCard({ contact }: ContactCardProps) {
           label={`Foto: ${contact.name}`}
           className="absolute w-full h-full inset-0 object-cover object-center"
         />
+        {contact.tags && contact.tags.length > 0 && (
+          <div className="absolute inset-x-0 top-0 flex flex-wrap items-start justify-start gap-1 bg-linear-to-b from-navy/70 to-transparent p-3">
+            {contact.tags.map((tag) => (
+              <Badge
+                key={tag}
+                className="rounded-lg border border-gold/40 bg-navy/70 px-2 py-0.5 text-[11px] font-semibold tracking-wide text-gold uppercase backdrop-blur-sm"
+              >
+                {tag}
+              </Badge>
+            ))}
+          </div>
+        )}
       </div>
       <div className="w-full p-5 md:p-6 lg:p-6 flex flex-col items-start justify-start gap-4">
         <h3 className="font-serif text-lg font-bold text-navy md:text-xl lg:text-2xl">

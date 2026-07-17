@@ -8,6 +8,8 @@ import type {
   Concert,
   ContactMessageInput,
   ContactPage,
+  Event,
+  Global,
   Homepage,
   Page,
   ParishPage,
@@ -165,11 +167,12 @@ const flexibleSectionsPopulate = {
 const homepageSectionsPopulate = {
   sections: {
     on: {
-      "sections.quick-nav": { populate: { items: true } },
       "sections.announcements-preview": true,
       "sections.mass-schedule": { populate: { schedule: true, image: true } },
       "sections.churches-preview": true,
-      "sections.contacts": { populate: { locations: { populate: { photo: true } } } },
+      "sections.contacts": {
+        populate: { locations: { populate: { photo: true, hours: true } } },
+      },
     },
   },
 };
@@ -437,7 +440,12 @@ export async function getHomepage({ locale }: { locale: string }): Promise<Homep
     "homepage",
     {
       locale: sanitizeLocale(locale),
-      populate: { hero: { populate: { image: true, ctaPrimary: true, ctaSecondary: true } }, ...homepageSectionsPopulate, ...seoPopulate },
+      populate: {
+        hero: { populate: { images: true, ctaPrimary: true, ctaSecondary: true } },
+        quickLinks: { populate: { image: true } },
+        ...homepageSectionsPopulate,
+        ...seoPopulate,
+      },
     },
     { revalidate: 300, tags: ["homepage"] },
   );
@@ -480,12 +488,53 @@ export async function getContactPage({ locale }: { locale: string }): Promise<Co
     {
       locale: sanitizeLocale(locale),
       populate: {
-        locations: { populate: { photo: true } },
+        locations: { populate: { photo: true, hours: true } },
         ...flexibleSectionsPopulate,
         ...seoPopulate,
       },
     },
     { revalidate: 86400, tags: ["contact-page"] },
+  );
+  return response.data;
+}
+
+// ---------------------------------------------------------------------------
+// Event (homepage calendar)
+// ---------------------------------------------------------------------------
+
+export async function getEvents({
+  locale,
+  upcomingOnly = true,
+}: {
+  locale: string;
+  upcomingOnly?: boolean;
+}): Promise<Event[]> {
+  const response = await fetchStrapi<StrapiResponse<Event[]>>(
+    "events",
+    {
+      locale: sanitizeLocale(locale),
+      sort: ["date:asc"],
+      ...(upcomingOnly
+        ? { filters: { date: { $gte: new Date().toISOString().slice(0, 10) } } }
+        : {}),
+    },
+    { revalidate: 300, tags: ["events"] },
+  );
+  return response.data;
+}
+
+// ---------------------------------------------------------------------------
+// Global (site-wide brand/footer settings)
+// ---------------------------------------------------------------------------
+
+export async function getGlobal({ locale }: { locale: string }): Promise<Global> {
+  const response = await fetchStrapi<StrapiResponse<Global>>(
+    "global",
+    {
+      locale: sanitizeLocale(locale),
+      populate: { ...seoPopulate },
+    },
+    { revalidate: 86400, tags: ["global"] },
   );
   return response.data;
 }

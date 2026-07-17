@@ -30,7 +30,7 @@ export function Footer() {
     {
       title: t("moreColumn"),
       links: [
-        { label: t("churchesAndChapels"), href: "#" },
+        { label: t("churchesAndChapels"), href: "/kostoly" },
         { label: t("musicAndConcerts"), href: "#" },
         { label: t("kapitulska"), href: "#" },
         { label: t("privacy"), href: "#" },

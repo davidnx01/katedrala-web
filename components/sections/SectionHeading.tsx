@@ -34,7 +34,7 @@ export function SectionHeading({
           center && "items-center text-center",
         )}
       >
-        <div className="mb-2.5 text-xs font-bold tracking-widest text-gold uppercase bg-white w-fit py-1 px-2.5 rounded-[8px]">
+        <div className="w-fit rounded-lg border border-gold/40 bg-navy px-2.5 py-1 text-xs font-bold tracking-widest text-gold uppercase">
           {eyebrow}
         </div>
         <h2

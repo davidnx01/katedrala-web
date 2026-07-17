@@ -156,7 +156,6 @@ export type FlexiblePageSection =
   | MassScheduleSection;
 
 export type HomepageSection =
-  | QuickNavSection
   | AnnouncementsPreviewSection
   | MassScheduleSection
   | ChurchesPreviewSection
@@ -184,15 +183,26 @@ export interface StrapiMassTime {
   language: "sk" | "en" | "hu";
 }
 
+export interface StrapiHoursRow {
+  dayLabel: string;
+  time: string;
+}
+
 export interface StrapiContactLocation {
   name: string;
+  /** Stable frontend key (e.g. map markers) — plain string, not a Strapi uid. */
+  slug?: string;
   address: string;
+  /** e.g. "811 01 Bratislava" — kept separate from address for display + map query formatting. */
+  city?: string;
   phone?: string;
   email?: string;
-  hours?: string;
+  hours?: StrapiHoursRow[];
   photo?: StrapiMedia | null;
   description?: string;
   iban?: string;
+  /** Short chip labels shown over the photo — homepage contacts section only. */
+  tags?: string[];
 }
 
 export interface StrapiQuickLink {
@@ -203,11 +213,21 @@ export interface StrapiQuickLink {
   ctaUrl: string;
 }
 
+export interface StrapiQuickLinkCard {
+  icon: string;
+  title: string;
+  image: StrapiMedia;
+  href: string;
+}
+
 export interface StrapiHeroSection {
   eyebrow?: string;
-  title: string;
+  titleLine1: string;
+  titleLine2: string;
+  titleEmphasis: string;
   subtitle?: string;
-  image: StrapiMedia;
+  /** 2+ photos for the Ken Burns crossfade slideshow. */
+  images: StrapiMedia[];
   ctaPrimary?: StrapiCta;
   ctaSecondary?: StrapiCta;
 }
