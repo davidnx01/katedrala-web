@@ -13,14 +13,17 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
-import { mockCalendarEvents } from "@/lib/mock-data";
-import type { CalendarEvent } from "@/types/content";
+import type { Event } from "@/types/content";
+
+interface EventsCalendarProps {
+  events?: Event[];
+}
 
 function toDateKey(year: number, month: number, day: number) {
   return `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
 }
 
-export function EventsCalendar() {
+export function EventsCalendar({ events = [] }: EventsCalendarProps) {
   const t = useTranslations("Calendar");
   const [currentDate, setCurrentDate] = useState(() => new Date());
   const today = useMemo(() => new Date(), []);
@@ -32,21 +35,21 @@ export function EventsCalendar() {
   const startOffset = firstWeekday === 0 ? 6 : firstWeekday - 1;
 
   const eventsByDay = useMemo(() => {
-    const map = new Map<string, CalendarEvent[]>();
-    for (const event of mockCalendarEvents) {
+    const map = new Map<string, Event[]>();
+    for (const event of events) {
       const list = map.get(event.date) ?? [];
       list.push(event);
       map.set(event.date, list);
     }
     return map;
-  }, []);
+  }, [events]);
 
   const upcomingEvents = useMemo(
     () =>
-      mockCalendarEvents
+      events
         .filter((event) => new Date(event.date) >= today)
         .slice(0, 4),
-    [today],
+    [events, today],
   );
 
   const cells: (number | null)[] = [
@@ -191,7 +194,7 @@ export function EventsCalendar() {
                             {event.description}
                           </p>
                           <Link
-                            href={event.href}
+                            href={event.href || "/farnost"}
                             className="text-xs font-semibold text-gold"
                           >
                             {t("viewDetail")} →

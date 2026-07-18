@@ -7,7 +7,7 @@ import { MobileMenu } from "@/components/layout/MobileMenu";
 const NAV_ITEMS = [
   { key: "home", href: "/" },
   { key: "parish", href: "/farnost" },
-  { key: "visit", href: "#" },
+  { key: "visit", href: "/navsteva" },
   { key: "churches", href: "/kostoly" },
   { key: "contact", href: "/kontakt" },
 ] as const;

@@ -198,5 +198,19 @@
     "privacy": "Ochrana údajov",
     "copyright": "© {year} Farnosť sv. Martina v Bratislave",
     "diocese": "Bratislavská arcidiecéza"
+  },
+  "VisitPage": {
+    "breadcrumb": "Návšteva",
+    "heroImageAlt": "Foto: Martineum — presklená chodba spájajúca s katedrálou",
+    "martineumImageAlt": "Foto: Martineum",
+    "journeyImageAlt": "Foto: krok cesty návštevníka",
+    "cellarsImageAlt": "Foto: historické pivnice"
+  },
+  "HistoryPage": {
+    "breadcrumb": "História",
+    "heroImageAlt": "Foto: Katedrála sv. Martina — gotické klenby interiéru",
+    "historyImageAlt": "Foto: architektúra katedrály",
+    "chapelImageAlt": "Foto: Kaplnka sv. Jána Almužníka — interiér",
+    "kapitulskaImageAlt": "Foto: Kapitulská ulica"
   }
 }

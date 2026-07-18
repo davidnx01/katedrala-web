@@ -43,7 +43,15 @@ export default async function LocaleLayout({
       <body className="min-h-full flex flex-col bg-warm">
         <NextIntlClientProvider>
           <Header />
-          {children}
+          {/*
+            Safari (unlike Chrome) doesn't reliably stretch a flex-column
+            child to the container's full cross-axis width when that child's
+            content includes CSS grid — it shrinks to fit instead. `<main>`
+            varies per page so it can't be fixed at the source; wrapping it
+            here in an explicit `w-full` is the one place that covers every
+            route. Same reasoning applies to Footer below.
+          */}
+          <div className="w-full">{children}</div>
           <Footer />
         </NextIntlClientProvider>
       </body>

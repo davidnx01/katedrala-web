@@ -10,14 +10,16 @@ import type {
   ContactPage,
   Event,
   Global,
+  HistoryPage,
   Homepage,
+  MassLanguage,
   Page,
   ParishPage,
   ReservationInput,
   ExcursionInput,
   VisitPage,
 } from "@/types/content";
-import type { StrapiResponse } from "@/types/strapi";
+import type { StrapiContactLocation, StrapiResponse } from "@/types/strapi";
 
 /**
  * Server-only Strapi data-access layer.
@@ -95,6 +97,12 @@ interface FetchOptions {
   tags?: string[];
 }
 
+// In development, ISR caching means an edited Strapi field can survive a
+// hard refresh for minutes (up to each function's `revalidate` value) —
+// confusing while actively authoring content. Production keeps the real
+// per-type revalidate/tags strategy documented in web/CLAUDE.md.
+const isDev = process.env.NODE_ENV !== "production";
+
 async function fetchStrapi<T>(
   endpoint: string,
   query: Record<string, unknown> = {},
@@ -107,7 +115,7 @@ async function fetchStrapi<T>(
   try {
     res = await fetch(url, {
       headers: STRAPI_API_TOKEN ? { Authorization: `Bearer ${STRAPI_API_TOKEN}` } : undefined,
-      next: { revalidate, tags },
+      ...(isDev ? { cache: "no-store" as const } : { next: { revalidate, tags } }),
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
     });
   } catch {
@@ -193,6 +201,50 @@ const parishPageSectionsPopulate = {
 // Church
 // ---------------------------------------------------------------------------
 
+/** Raw shape of `shared.mass-time` as it actually comes back from Strapi (`times` is a comma-separated string, not JSON — see cms/CLAUDE.md). */
+interface RawMassTime {
+  dayLabel: string;
+  times: string;
+  language: MassLanguage;
+}
+
+function parseCommaList(value: string | null | undefined): string[] {
+  return (value ?? "")
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+function normalizeMassSchedule(schedule: unknown): { dayLabel: string; times: string[]; language: MassLanguage }[] {
+  return (schedule as RawMassTime[]).map((row) => ({
+    dayLabel: row.dayLabel,
+    times: parseCommaList(row.times),
+    language: row.language,
+  }));
+}
+
+/** Normalizes `schedule[].times` on any `sections.mass-schedule` dynamic-zone entry. */
+function normalizeSections<T extends { __component: string; schedule?: unknown }>(sections: T[]): T[] {
+  return sections.map((section) =>
+    section.__component === "sections.mass-schedule"
+      ? { ...section, schedule: normalizeMassSchedule(section.schedule) }
+      : section,
+  );
+}
+
+/**
+ * Strapi returns `null` (not `[]`) for an unpopulated `media, multiple: true`
+ * field, and `massSchedule[].times` comes back as a comma-separated string
+ * (see `RawMassTime`) — both are coerced here into the clean `Church` shape.
+ */
+function normalizeChurch(church: Church): Church {
+  return {
+    ...church,
+    gallery: church.gallery ?? [],
+    massSchedule: normalizeMassSchedule(church.massSchedule),
+  };
+}
+
 export async function getChurches({
   locale,
   type,
@@ -210,7 +262,7 @@ export async function getChurches({
     },
     { revalidate: 3600, tags: ["churches"] },
   );
-  return response.data;
+  return response.data.map(normalizeChurch);
 }
 
 export async function getChurchBySlug({
@@ -230,7 +282,8 @@ export async function getChurchBySlug({
     },
     { revalidate: 3600, tags: ["churches"] },
   );
-  return response.data[0] ?? null;
+  const church = response.data[0];
+  return church ? normalizeChurch(church) : null;
 }
 
 // ---------------------------------------------------------------------------
@@ -428,7 +481,9 @@ export async function getPageBySlug({
     },
     { revalidate: 86400, tags: ["pages", `page:${slug}`] },
   );
-  return response.data[0] ?? null;
+  const page = response.data[0];
+  if (!page) return null;
+  return { ...page, sections: normalizeSections(page.sections) };
 }
 
 // ---------------------------------------------------------------------------
@@ -442,14 +497,14 @@ export async function getHomepage({ locale }: { locale: string }): Promise<Homep
       locale: sanitizeLocale(locale),
       populate: {
         hero: { populate: { images: true, ctaPrimary: true, ctaSecondary: true } },
-        quickLinks: { populate: { image: true } },
+        quickLinks: { populate: { image: true, icon: true } },
         ...homepageSectionsPopulate,
         ...seoPopulate,
       },
     },
     { revalidate: 300, tags: ["homepage"] },
   );
-  return response.data;
+  return { ...response.data, sections: normalizeSections(response.data.sections) };
 }
 
 export async function getParishPage({ locale }: { locale: string }): Promise<ParishPage> {
@@ -471,6 +526,14 @@ export async function getVisitPage({ locale }: { locale: string }): Promise<Visi
       locale: sanitizeLocale(locale),
       populate: {
         heroImage: true,
+        stats: true,
+        martineumImages: true,
+        services: true,
+        journeySteps: { populate: { image: true } },
+        cellarsImage: true,
+        hours: true,
+        tickets: true,
+        restrictions: true,
         qrCodeReservation: true,
         qrCodeWallet: true,
         ...flexibleSectionsPopulate,
@@ -479,7 +542,16 @@ export async function getVisitPage({ locale }: { locale: string }): Promise<Visi
     },
     { revalidate: 86400, tags: ["visit-page"] },
   );
-  return response.data;
+  return {
+    ...response.data,
+    martineumAwards: parseCommaList(response.data.martineumAwards as unknown as string | undefined),
+    martineumImages: response.data.martineumImages ?? [],
+  };
+}
+
+/** `tags` comes back from Strapi as a comma-separated string, not JSON (see cms/CLAUDE.md). */
+function normalizeContactLocation(location: StrapiContactLocation): StrapiContactLocation {
+  return { ...location, tags: parseCommaList(location.tags as unknown as string | undefined) };
 }
 
 export async function getContactPage({ locale }: { locale: string }): Promise<ContactPage> {
@@ -495,7 +567,31 @@ export async function getContactPage({ locale }: { locale: string }): Promise<Co
     },
     { revalidate: 86400, tags: ["contact-page"] },
   );
-  return response.data;
+  return { ...response.data, locations: response.data.locations.map(normalizeContactLocation) };
+}
+
+export async function getHistoryPage({ locale }: { locale: string }): Promise<HistoryPage> {
+  const response = await fetchStrapi<StrapiResponse<HistoryPage>>(
+    "history-page",
+    {
+      locale: sanitizeLocale(locale),
+      populate: {
+        heroImage: true,
+        timelineEvents: true,
+        coronationsKings: true,
+        historyImages: true,
+        chapelImage: true,
+        kapitulskaImages: true,
+        ...seoPopulate,
+      },
+    },
+    { revalidate: 86400, tags: ["history-page"] },
+  );
+  return {
+    ...response.data,
+    historyImages: response.data.historyImages ?? [],
+    kapitulskaImages: response.data.kapitulskaImages ?? [],
+  };
 }
 
 // ---------------------------------------------------------------------------

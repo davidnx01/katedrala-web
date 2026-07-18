@@ -2,6 +2,7 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { ImagePlaceholder } from "@/components/media/ImagePlaceholder";
 import { Badge } from "@/components/ui/badge";
+import { getStrapiMediaUrl } from "@/lib/strapi-media";
 import type { ChurchPreview } from "@/types/content";
 
 interface ChurchCardProps {
@@ -19,7 +20,7 @@ export function ChurchCard({ church }: ChurchCardProps) {
       <div className="w-full h-35 md:h-42.5 lg:h-50 relative">
         <ImagePlaceholder
           label={`Foto: ${church.name}`}
-          src={church.photo?.url ?? ""}
+          src={getStrapiMediaUrl(church.photo) ?? ""}
           className="absolute w-full h-full inset-0 z-0 object-cover object-center"
         />
         <Badge className="absolute top-2.5 left-2.5 rounded-lg border border-gold/40 bg-navy/70 px-2 py-0.5 text-[11px] font-semibold tracking-wide text-gold uppercase backdrop-blur-sm">

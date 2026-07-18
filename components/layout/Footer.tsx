@@ -1,12 +1,22 @@
-import { useTranslations } from "next-intl";
+import { getTranslations, getLocale } from "next-intl/server";
 import { MapPin, Phone, Mail } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { IconCross } from "@/components/icons";
 import { Container } from "@/components/layout/Container";
+import { getContactPage } from "@/lib/api";
 
-export function Footer() {
-  const t = useTranslations("Footer");
-  const tNav = useTranslations("Nav");
+export async function Footer() {
+  const t = await getTranslations("Footer");
+  const tNav = await getTranslations("Nav");
+  const locale = await getLocale();
+  const contactPage = await getContactPage({ locale }).catch(() => null);
+  const primaryContact = contactPage?.locations?.[0];
+
+  const address = primaryContact
+    ? [primaryContact.address, primaryContact.city].filter(Boolean).join(", ")
+    : t("address");
+  const phone = primaryContact?.phone || t("phone");
+  const email = primaryContact?.email || t("email");
 
   const columns = [
     {
@@ -21,10 +31,10 @@ export function Footer() {
     {
       title: t("visitColumn"),
       links: [
-        { label: t("openingHours"), href: "#" },
-        { label: t("reservation"), href: "#" },
-        { label: t("audioguides"), href: "#" },
-        { label: t("martineum"), href: "#" },
+        { label: t("openingHours"), href: "/navsteva#info" },
+        { label: t("reservation"), href: "/navsteva#info" },
+        { label: t("audioguides"), href: "/navsteva#sluzby" },
+        { label: t("martineum"), href: "/navsteva#martineum" },
       ],
     },
     {
@@ -39,7 +49,7 @@ export function Footer() {
   ];
 
   return (
-    <footer className="border-t border-gold/25 bg-navy px-4 pt-14 pb-6 text-white/50 md:px-8 md:pt-16 md:pb-8 lg:px-12 lg:pt-20 lg:pb-10">
+    <footer className="w-full border-t border-gold/25 bg-navy px-4 pt-14 pb-6 text-white/50 md:px-8 md:pt-16 md:pb-8 lg:px-12 lg:pt-20 lg:pb-10">
       <Container className="grid grid-cols-1 gap-10 border-b border-white/10 px-0 pb-10 md:grid-cols-2 md:gap-12 md:pb-12 lg:grid-cols-[1.3fr_1fr_1fr_1fr] lg:gap-10 lg:pb-14">
         <div>
           <div className="mb-4 flex items-center gap-3">
@@ -64,10 +74,10 @@ export function Footer() {
                 className="mt-0.5 shrink-0 text-gold"
                 aria-hidden="true"
               />
-              <span>{t("address")}</span>
+              <span>{address}</span>
             </div>
             <a
-              href={`tel:${t("phone").replace(/\s+/g, "")}`}
+              href={`tel:${phone.replace(/\s+/g, "")}`}
               className="flex items-center gap-2.5 text-base text-white/65 hover:text-white"
             >
               <Phone
@@ -75,10 +85,10 @@ export function Footer() {
                 className="shrink-0 text-gold"
                 aria-hidden="true"
               />
-              {t("phone")}
+              {phone}
             </a>
             <a
-              href={`mailto:${t("email")}`}
+              href={`mailto:${email}`}
               className="flex items-center gap-2.5 text-base text-white/65 hover:text-white"
             >
               <Mail
@@ -86,7 +96,7 @@ export function Footer() {
                 className="shrink-0 text-gold"
                 aria-hidden="true"
               />
-              {t("email")}
+              {email}
             </a>
           </div>
         </div>

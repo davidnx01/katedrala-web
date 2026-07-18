@@ -9,7 +9,7 @@ import {
   getAdjacentAnnouncements,
   getAnnouncementBySlug,
   getOlderAnnouncements,
-} from "@/lib/announcements";
+} from "@/lib/api";
 
 interface AnnouncementDetailPageProps {
   params: Promise<{ locale: string; slug: string }>;
@@ -17,7 +17,7 @@ interface AnnouncementDetailPageProps {
 
 export default async function AnnouncementDetailPage({ params }: AnnouncementDetailPageProps) {
   const { locale, slug } = await params;
-  const announcement = getAnnouncementBySlug({ locale, slug });
+  const announcement = await getAnnouncementBySlug({ locale, slug }).catch(() => null);
 
   if (!announcement) {
     notFound();
@@ -27,8 +27,13 @@ export default async function AnnouncementDetailPage({ params }: AnnouncementDet
   const tNav = await getTranslations("Nav");
   const currentLocale = await getLocale();
 
-  const { previous, next } = getAdjacentAnnouncements({ slug });
-  const olderAnnouncements = getOlderAnnouncements({ excludeSlug: slug, limit: 3 });
+  const [{ previous, next }, olderAnnouncements] = await Promise.all([
+    getAdjacentAnnouncements({ locale, date: announcement.date }).catch(() => ({
+      previous: null,
+      next: null,
+    })),
+    getOlderAnnouncements({ locale, excludeSlug: slug, limit: 3 }).catch(() => []),
+  ]);
 
   const formattedDate = new Date(announcement.date).toLocaleDateString(currentLocale, {
     day: "numeric",

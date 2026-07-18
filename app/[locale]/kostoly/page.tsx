@@ -3,7 +3,7 @@ import { PageHero } from "@/components/sections/PageHero";
 import { Container } from "@/components/layout/Container";
 import { ChurchCard } from "@/components/cards/ChurchCard";
 import { Link } from "@/i18n/navigation";
-import { getChurches } from "@/lib/churches";
+import { getChurches } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import type { ChurchType } from "@/types/content";
 
@@ -23,7 +23,7 @@ export default async function ChurchesPage({ params, searchParams }: ChurchesPag
   const tNav = await getTranslations("Nav");
 
   const activeType = sanitizeType(type);
-  const churches = getChurches({ locale, type: activeType });
+  const churches = await getChurches({ locale, type: activeType }).catch(() => []);
 
   const filters: { label: string; type?: ChurchType }[] = [
     { label: t("filterAll"), type: undefined },

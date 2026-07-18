@@ -6,7 +6,7 @@ import { Container } from "@/components/layout/Container";
 import { ChurchHero } from "@/components/sections/ChurchHero";
 import { ChurchInfoCard } from "@/components/sections/ChurchInfoCard";
 import { ChurchGallery } from "@/components/sections/ChurchGallery";
-import { getChurchBySlug } from "@/lib/churches";
+import { getChurchBySlug } from "@/lib/api";
 import { getStrapiMediaUrl } from "@/lib/strapi-media";
 
 interface ChurchDetailPageProps {
@@ -17,7 +17,7 @@ export async function generateMetadata({
   params,
 }: ChurchDetailPageProps): Promise<Metadata> {
   const { locale, slug } = await params;
-  const church = getChurchBySlug({ locale, slug });
+  const church = await getChurchBySlug({ locale, slug }).catch(() => null);
 
   if (!church) return {};
 
@@ -35,7 +35,7 @@ export default async function ChurchDetailPage({
   params,
 }: ChurchDetailPageProps) {
   const { locale, slug } = await params;
-  const church = getChurchBySlug({ locale, slug });
+  const church = await getChurchBySlug({ locale, slug }).catch(() => null);
 
   if (!church) {
     notFound();

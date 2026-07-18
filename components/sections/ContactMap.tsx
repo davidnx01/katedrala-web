@@ -1,23 +1,25 @@
 import { useTranslations } from "next-intl";
 import { Navigation } from "lucide-react";
 import { cn } from "@/lib/utils";
-import type { ContactPageLocation } from "@/types/content";
+import type { StrapiContactLocation } from "@/types/strapi";
 
 interface ContactMapProps {
-  locations: ContactPageLocation[];
-  activeId: string;
-  onSelect: (id: string) => void;
+  locations: StrapiContactLocation[];
+  activeIndex: number;
+  onSelect: (index: number) => void;
 }
 
-const MARKER_POSITIONS: Record<string, { left: string; top: string }> = {
-  katedrala: { left: "48%", top: "42%" },
-  martineum: { left: "62%", top: "56%" },
-  urad: { left: "36%", top: "30%" },
-};
+/** Schematic marker slots, cycled by array position — locations aren't geocoded. */
+const MARKER_POSITIONS: { left: string; top: string }[] = [
+  { left: "48%", top: "42%" },
+  { left: "62%", top: "56%" },
+  { left: "36%", top: "30%" },
+  { left: "55%", top: "28%" },
+];
 
-export function ContactMap({ locations, activeId, onSelect }: ContactMapProps) {
+export function ContactMap({ locations, activeIndex, onSelect }: ContactMapProps) {
   const t = useTranslations("ContactPage");
-  const active = locations.find((location) => location.id === activeId);
+  const active = locations[activeIndex];
 
   return (
     <div className="relative h-75 w-full overflow-hidden rounded-2xl border border-stone bg-stone md:h-100 lg:h-115">
@@ -66,17 +68,17 @@ export function ContactMap({ locations, activeId, onSelect }: ContactMapProps) {
         </text>
       </svg>
 
-      {locations.map((location) => {
-        const isActive = location.id === activeId;
-        const pos = MARKER_POSITIONS[location.id];
+      {locations.map((location, index) => {
+        const isActive = index === activeIndex;
+        const pos = MARKER_POSITIONS[index % MARKER_POSITIONS.length];
         return (
           <button
-            key={location.id}
+            key={location.slug ?? location.name}
             type="button"
-            onClick={() => onSelect(location.id)}
+            onClick={() => onSelect(index)}
             aria-pressed={isActive}
             aria-label={location.name}
-            style={pos ? { left: pos.left, top: pos.top } : undefined}
+            style={{ left: pos.left, top: pos.top }}
             className={cn(
               "absolute flex -translate-x-1/2 -translate-y-full flex-col items-center transition-[filter,transform]",
               isActive ? "z-10 scale-110" : "z-0 scale-95 opacity-70 grayscale-[0.3]",
@@ -104,7 +106,7 @@ export function ContactMap({ locations, activeId, onSelect }: ContactMapProps) {
       {active && (
         <a
           href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-            `${active.address}, ${active.city}`,
+            [active.address, active.city].filter(Boolean).join(", "),
           )}`}
           target="_blank"
           rel="noopener noreferrer"

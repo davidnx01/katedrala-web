@@ -1,10 +1,10 @@
 import { useTranslations } from "next-intl";
 import { Clock, CreditCard, Mail, MapPin, Phone } from "lucide-react";
 import { cn } from "@/lib/utils";
-import type { ContactPageLocation } from "@/types/content";
+import type { StrapiContactLocation } from "@/types/strapi";
 
 interface ContactLocationCardProps {
-  location: ContactPageLocation;
+  location: StrapiContactLocation;
   isActive: boolean;
   onSelect: () => void;
 }
@@ -20,32 +20,34 @@ export function ContactLocationCard({
     {
       icon: MapPin,
       label: t("addressLabel"),
-      value: `${location.address}, ${location.city}`,
+      value: [location.address, location.city].filter(Boolean).join(", "),
       href: undefined,
     },
-    {
-      icon: Phone,
-      label: t("phoneLabel"),
-      value: location.phone,
-      href: `tel:${location.phone.replace(/\s/g, "")}`,
-    },
-    {
-      icon: Mail,
-      label: t("emailLabel"),
-      value: location.email,
-      href: `mailto:${location.email}`,
-    },
-    ...(location.iban
-      ? [
-          {
-            icon: CreditCard,
-            label: t("ibanLabel"),
-            value: location.iban,
-            href: undefined,
-          },
-        ]
-      : []),
-  ] as const;
+    location.phone
+      ? {
+          icon: Phone,
+          label: t("phoneLabel"),
+          value: location.phone,
+          href: `tel:${location.phone.replace(/\s/g, "")}`,
+        }
+      : undefined,
+    location.email
+      ? {
+          icon: Mail,
+          label: t("emailLabel"),
+          value: location.email,
+          href: `mailto:${location.email}`,
+        }
+      : undefined,
+    location.iban
+      ? {
+          icon: CreditCard,
+          label: t("ibanLabel"),
+          value: location.iban,
+          href: undefined,
+        }
+      : undefined,
+  ].filter((row): row is Exclude<typeof row, undefined> => row !== undefined);
 
   return (
     <button
@@ -80,7 +82,9 @@ export function ContactLocationCard({
           <h3 className="font-serif text-lg font-semibold text-navy md:text-xl">
             {location.name}
           </h3>
-          <p className="text-[13px] text-[#A39E94]">{location.description}</p>
+          {location.description && (
+            <p className="text-[13px] text-[#A39E94]">{location.description}</p>
+          )}
         </div>
       </div>
 
@@ -121,27 +125,29 @@ export function ContactLocationCard({
         })}
       </div>
 
-      <div className="w-full rounded-xl bg-surface p-3.5">
-        <div className="mb-2 flex items-center gap-1.5">
-          <Clock
-            size={14}
-            className={cn(isActive ? "text-gold" : "text-[#A39E94]")}
-            aria-hidden="true"
-          />
-          <span className="text-xs font-semibold tracking-wide text-navy">
-            {t("hoursLabel")}
-          </span>
-        </div>
-        {location.hours.map((row) => (
-          <div
-            key={row.dayLabel}
-            className="flex items-center justify-between py-1 text-sm text-[#7A756B]"
-          >
-            <span>{row.dayLabel}</span>
-            <span className="font-semibold text-[#2C2A26]">{row.time}</span>
+      {location.hours && location.hours.length > 0 && (
+        <div className="w-full rounded-xl bg-surface p-3.5">
+          <div className="mb-2 flex items-center gap-1.5">
+            <Clock
+              size={14}
+              className={cn(isActive ? "text-gold" : "text-[#A39E94]")}
+              aria-hidden="true"
+            />
+            <span className="text-xs font-semibold tracking-wide text-navy">
+              {t("hoursLabel")}
+            </span>
           </div>
-        ))}
-      </div>
+          {location.hours.map((row) => (
+            <div
+              key={row.dayLabel}
+              className="flex items-center justify-between py-1 text-sm text-[#7A756B]"
+            >
+              <span>{row.dayLabel}</span>
+              <span className="font-semibold text-[#2C2A26]">{row.time}</span>
+            </div>
+          ))}
+        </div>
+      )}
     </button>
   );
 }

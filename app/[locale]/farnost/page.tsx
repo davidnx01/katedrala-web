@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getTranslations, getLocale } from "next-intl/server";
 import {
   ScrollText,
   Heart,
@@ -7,11 +7,34 @@ import {
   Flame,
   Clock,
   MapPin,
+  Phone,
+  Mail,
+  Calendar,
+  Users,
+  type LucideIcon,
 } from "lucide-react";
 import { PageHero } from "@/components/sections/PageHero";
 import { QuickNavGrid } from "@/components/sections/QuickNavGrid";
 import { ContentSection } from "@/components/sections/ContentSection";
 import { AnnouncementsPreview } from "@/components/sections/AnnouncementsPreview";
+import { getParishPage } from "@/lib/api";
+import { getStrapiMediaUrl } from "@/lib/strapi-media";
+import { toParagraphs } from "@/lib/utils";
+import type { ImageTextSection, MetaRowIcon } from "@/types/strapi";
+
+const META_ICON_MAP: Record<MetaRowIcon, LucideIcon> = {
+  clock: Clock,
+  "map-pin": MapPin,
+  phone: Phone,
+  mail: Mail,
+  "scroll-text": ScrollText,
+  heart: Heart,
+  droplets: Droplets,
+  "book-open": BookOpen,
+  flame: Flame,
+  calendar: Calendar,
+  users: Users,
+};
 
 export default async function ParishPage() {
   const t = await getTranslations("Parish.hub");
@@ -20,13 +43,25 @@ export default async function ParishPage() {
   const tBaptism = await getTranslations("Parish.baptism");
   const tLectio = await getTranslations("Parish.lectioDivina");
   const tAdoration = await getTranslations("Parish.adoration");
+  const locale = await getLocale();
+  const parishPage = await getParishPage({ locale }).catch(() => null);
+
+  const announcementsSection = parishPage?.sections.find(
+    (section) => section.__component === "sections.announcements-preview",
+  );
+  const [weddingSection, baptismSection, lectioSection, adorationSection] = (
+    parishPage?.sections.filter(
+      (section): section is ImageTextSection => section.__component === "sections.image-text",
+    ) ?? []
+  ) as (ImageTextSection | undefined)[];
 
   return (
     <main>
       <PageHero
-        eyebrow={t("eyebrow")}
-        title={t("title")}
+        eyebrow={parishPage?.heroEyebrow || t("eyebrow")}
+        title={parishPage?.heroTitle || t("title")}
         imageLabel={t("imageAlt")}
+        imageSrc={getStrapiMediaUrl(parishPage?.heroImage) ?? undefined}
         breadcrumbItems={[
           { label: tNav("home"), href: "/" },
           { label: t("breadcrumb") },
@@ -50,46 +85,72 @@ export default async function ParishPage() {
           { icon: Flame, label: t("adoration"), href: "#adoracia" },
         ]}
       />
-      <AnnouncementsPreview />
+      <AnnouncementsPreview section={announcementsSection} />
       <ContentSection
         id="sobas"
-        eyebrow={tWedding("eyebrow")}
-        title={tWedding("title")}
-        paragraphs={[tWedding("paragraph1"), tWedding("paragraph2")]}
-        cta={{ label: tWedding("cta"), href: "/kontakt" }}
+        eyebrow={weddingSection?.eyebrow || tWedding("eyebrow")}
+        title={weddingSection?.title || tWedding("title")}
+        paragraphs={
+          weddingSection
+            ? toParagraphs(weddingSection.body)
+            : [tWedding("paragraph1"), tWedding("paragraph2")]
+        }
+        cta={{
+          label: weddingSection?.cta?.label || tWedding("cta"),
+          href: weddingSection?.cta?.href || "/kontakt",
+        }}
+        imageSrc={getStrapiMediaUrl(weddingSection?.image) ?? undefined}
         imageLabel={tWedding("imageAlt")}
         tinted
       />
       <ContentSection
         id="krst"
-        eyebrow={tBaptism("eyebrow")}
-        title={tBaptism("title")}
-        paragraphs={[tBaptism("paragraph1"), tBaptism("paragraph2")]}
-        cta={{ label: tBaptism("cta"), href: "/kontakt" }}
+        eyebrow={baptismSection?.eyebrow || tBaptism("eyebrow")}
+        title={baptismSection?.title || tBaptism("title")}
+        paragraphs={
+          baptismSection
+            ? toParagraphs(baptismSection.body)
+            : [tBaptism("paragraph1"), tBaptism("paragraph2")]
+        }
+        cta={{
+          label: baptismSection?.cta?.label || tBaptism("cta"),
+          href: baptismSection?.cta?.href || "/kontakt",
+        }}
+        imageSrc={getStrapiMediaUrl(baptismSection?.image) ?? undefined}
         imageLabel={tBaptism("imageAlt")}
         reverse
       />
       <ContentSection
         id="lectio-divina"
-        eyebrow={tLectio("eyebrow")}
-        title={tLectio("title")}
-        paragraphs={[tLectio("paragraph1")]}
-        meta={[
-          { icon: Clock, label: tLectio("schedule") },
-          { icon: MapPin, label: tLectio("location") },
-        ]}
+        eyebrow={lectioSection?.eyebrow || tLectio("eyebrow")}
+        title={lectioSection?.title || tLectio("title")}
+        paragraphs={lectioSection ? toParagraphs(lectioSection.body) : [tLectio("paragraph1")]}
+        meta={
+          lectioSection?.meta?.length
+            ? lectioSection.meta.map((row) => ({ icon: META_ICON_MAP[row.icon], label: row.label }))
+            : [
+                { icon: Clock, label: tLectio("schedule") },
+                { icon: MapPin, label: tLectio("location") },
+              ]
+        }
+        imageSrc={getStrapiMediaUrl(lectioSection?.image) ?? undefined}
         imageLabel={tLectio("imageAlt")}
         tinted
       />
       <ContentSection
         id="adoracia"
-        eyebrow={tAdoration("eyebrow")}
-        title={tAdoration("title")}
-        paragraphs={[tAdoration("paragraph1")]}
-        meta={[
-          { icon: Clock, label: tAdoration("schedule") },
-          { icon: MapPin, label: tAdoration("location") },
-        ]}
+        eyebrow={adorationSection?.eyebrow || tAdoration("eyebrow")}
+        title={adorationSection?.title || tAdoration("title")}
+        paragraphs={adorationSection ? toParagraphs(adorationSection.body) : [tAdoration("paragraph1")]}
+        meta={
+          adorationSection?.meta?.length
+            ? adorationSection.meta.map((row) => ({ icon: META_ICON_MAP[row.icon], label: row.label }))
+            : [
+                { icon: Clock, label: tAdoration("schedule") },
+                { icon: MapPin, label: tAdoration("location") },
+              ]
+        }
+        imageSrc={getStrapiMediaUrl(adorationSection?.image) ?? undefined}
         imageLabel={tAdoration("imageAlt")}
         reverse
       />

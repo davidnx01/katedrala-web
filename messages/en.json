@@ -198,5 +198,19 @@
     "privacy": "Privacy policy",
     "copyright": "© {year} Parish of St. Martin in Bratislava",
     "diocese": "Archdiocese of Bratislava"
+  },
+  "VisitPage": {
+    "breadcrumb": "Visit",
+    "heroImageAlt": "Photo: Martineum — glass corridor connecting to the cathedral",
+    "martineumImageAlt": "Photo: Martineum",
+    "journeyImageAlt": "Photo: visitor journey step",
+    "cellarsImageAlt": "Photo: historical cellars"
+  },
+  "HistoryPage": {
+    "breadcrumb": "History",
+    "heroImageAlt": "Photo: St. Martin's Cathedral — Gothic interior vaulting",
+    "historyImageAlt": "Photo: cathedral architecture",
+    "chapelImageAlt": "Photo: St. John the Almsgiver Chapel — interior",
+    "kapitulskaImageAlt": "Photo: Kapitulská street"
   }
 }

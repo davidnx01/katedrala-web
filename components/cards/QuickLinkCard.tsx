@@ -1,15 +1,16 @@
+import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { ImagePlaceholder } from "@/components/media/ImagePlaceholder";
 
 interface QuickLinkCardProps {
-  icon: React.ReactNode;
+  iconSrc?: string;
   title: string;
   imageLabel: string;
   href: string;
 }
 
 export function QuickLinkCard({
-  icon,
+  iconSrc,
   title,
   imageLabel,
   href,
@@ -26,7 +27,16 @@ export function QuickLinkCard({
       />
       <div className="absolute inset-0 bg-linear-to-b from-navy/35 to-navy/80 transition-colors duration-400 group-hover:to-navy/75" />
       <div className="absolute inset-x-0 bottom-0 flex translate-y-0 flex-col gap-1.5 p-4 transition-transform duration-300 group-hover:-translate-y-1 md:gap-2 md:p-6 lg:gap-2.5 lg:p-7">
-        <span className="text-white">{icon}</span>
+        {iconSrc && (
+          <Image
+            src={iconSrc}
+            alt=""
+            width={56}
+            height={56}
+            className="h-10 w-10 md:h-12 md:w-12 lg:h-14 lg:w-14"
+            aria-hidden="true"
+          />
+        )}
         <span className="font-serif text-2xl font-semibold text-white  lg:text-3xl">
           {title}
         </span>

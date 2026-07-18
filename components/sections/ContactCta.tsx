@@ -2,9 +2,20 @@ import { useTranslations } from "next-intl";
 import { Mail, Phone } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/ui/button";
+import type { StrapiContactLocation } from "@/types/strapi";
 
-export function ContactCta() {
+interface ContactCtaProps {
+  /** First contact location, used for the mailto/tel targets — falls back to the parish office defaults. */
+  contact?: StrapiContactLocation;
+}
+
+const FALLBACK_EMAIL = "farnost@ba.ecclesia.sk";
+const FALLBACK_PHONE = "+421 2 5443 1359";
+
+export function ContactCta({ contact }: ContactCtaProps) {
   const t = useTranslations("ContactPage");
+  const email = contact?.email || FALLBACK_EMAIL;
+  const phone = contact?.phone || FALLBACK_PHONE;
 
   return (
     <section className="py-12 md:py-16 lg:py-20">
@@ -23,7 +34,7 @@ export function ContactCta() {
             <Button
               variant="dark"
               size="lg"
-              render={<a href="mailto:farnost@ba.ecclesia.sk" />}
+              render={<a href={`mailto:${email}`} />}
               nativeButton={false}
             >
               <Mail size={16} aria-hidden="true" />
@@ -33,7 +44,7 @@ export function ContactCta() {
               variant="outline"
               size="lg"
               className="border-stone bg-white text-navy hover:bg-surface"
-              render={<a href="tel:+421254431359" />}
+              render={<a href={`tel:${phone.replace(/\s+/g, "")}`} />}
               nativeButton={false}
             >
               <Phone size={16} aria-hidden="true" />

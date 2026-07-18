@@ -4,6 +4,7 @@ import { ImagePlaceholder } from "@/components/media/ImagePlaceholder";
 import { Badge } from "@/components/ui/badge";
 import type { StrapiMedia } from "@/types/strapi";
 import { Container } from "@/components/layout/Container";
+import { getStrapiMediaUrl } from "@/lib/strapi-media";
 
 interface ChurchHeroProps {
   name: string;
@@ -25,7 +26,7 @@ export function ChurchHero({
       <Container className="relative h-105 overflow-hidden md:h-120 lg:h-140">
         <ImagePlaceholder
           label={`Foto: ${name}`}
-          src={photo?.url}
+          src={getStrapiMediaUrl(photo) ?? undefined}
           alt={photo?.alternativeText ?? name}
           priority
           className="h-full absolute w-full object-cover object-center"

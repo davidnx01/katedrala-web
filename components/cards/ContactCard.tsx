@@ -1,15 +1,20 @@
 import { useTranslations } from "next-intl";
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import { ImagePlaceholder } from "@/components/media/ImagePlaceholder";
-import type { ContactLocation } from "@/types/content";
+import { getStrapiMediaUrl } from "@/lib/strapi-media";
+import type { StrapiContactLocation } from "@/types/strapi";
 import { Badge } from "@/components/ui/badge";
 
 interface ContactCardProps {
-  contact: ContactLocation;
+  contact: StrapiContactLocation;
 }
 
 export function ContactCard({ contact }: ContactCardProps) {
   const t = useTranslations("Contacts");
+
+  const hoursText = contact.hours?.length
+    ? contact.hours.map((row) => `${row.dayLabel}: ${row.time}`).join(", ")
+    : undefined;
 
   const rows = [
     {
@@ -18,31 +23,37 @@ export function ContactCard({ contact }: ContactCardProps) {
       value: contact.address,
       href: undefined,
     },
-    {
-      icon: Phone,
-      label: t("phoneLabel"),
-      value: contact.phone,
-      href: `tel:${contact.phone.replace(/\s/g, "")}`,
-    },
-    {
-      icon: Mail,
-      label: t("emailLabel"),
-      value: contact.email,
-      href: `mailto:${contact.email}`,
-    },
-    {
-      icon: Clock,
-      label: t("hoursLabel"),
-      value: contact.hours,
-      href: undefined,
-    },
-  ] as const;
+    contact.phone
+      ? {
+          icon: Phone,
+          label: t("phoneLabel"),
+          value: contact.phone,
+          href: `tel:${contact.phone.replace(/\s/g, "")}`,
+        }
+      : undefined,
+    contact.email
+      ? {
+          icon: Mail,
+          label: t("emailLabel"),
+          value: contact.email,
+          href: `mailto:${contact.email}`,
+        }
+      : undefined,
+    hoursText
+      ? {
+          icon: Clock,
+          label: t("hoursLabel"),
+          value: hoursText,
+          href: undefined,
+        }
+      : undefined,
+  ].filter((row): row is Exclude<typeof row, undefined> => row !== undefined);
 
   return (
     <div className="rounded-2xl border border-stone bg-white overflow-hidden">
       <div className="w-full h-30 md:h-32.5 lg:h-58 relative overflow-hidden">
         <ImagePlaceholder
-          src={contact.photo?.url ?? ""}
+          src={getStrapiMediaUrl(contact.photo) ?? ""}
           label={`Foto: ${contact.name}`}
           className="absolute w-full h-full inset-0 object-cover object-center"
         />

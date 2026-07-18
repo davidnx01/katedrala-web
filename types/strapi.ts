@@ -214,9 +214,9 @@ export interface StrapiQuickLink {
 }
 
 export interface StrapiQuickLinkCard {
-  icon: string;
+  icon: StrapiMedia | null;
   title: string;
-  image: StrapiMedia;
+  image: StrapiMedia | null;
   href: string;
 }
 
@@ -230,4 +230,44 @@ export interface StrapiHeroSection {
   images: StrapiMedia[];
   ctaPrimary?: StrapiCta;
   ctaSecondary?: StrapiCta;
+}
+
+export interface StrapiStatItem {
+  value: string;
+  label: string;
+}
+
+export type IconCardIcon = "ticket" | "headphones" | "gift" | "gallery";
+
+export interface StrapiIconCard {
+  icon: IconCardIcon;
+  title: string;
+  description: string;
+}
+
+export interface StrapiJourneyStep {
+  title: string;
+  description: string;
+  image?: StrapiMedia | null;
+}
+
+export interface StrapiTicketRow {
+  label: string;
+  price: string;
+}
+
+export interface StrapiRestrictionItem {
+  icon: string;
+  text: string;
+}
+
+export interface StrapiTimelineEvent {
+  year: string;
+  title: string;
+  description: string;
+}
+
+export interface StrapiCoronationKing {
+  name: string;
+  year: string;
 }

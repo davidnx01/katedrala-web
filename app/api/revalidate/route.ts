@@ -24,6 +24,7 @@ const MODEL_TO_TAG: Record<string, string> = {
   "parish-page": "parish-page",
   "visit-page": "visit-page",
   "contact-page": "contact-page",
+  "history-page": "history-page",
   event: "events",
   global: "global",
 };

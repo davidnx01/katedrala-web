@@ -1,10 +1,10 @@
 import { useTranslations } from "next-intl";
 import { ChevronRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
-import type { CalendarEvent } from "@/types/content";
+import type { Event } from "@/types/content";
 
 interface EventCardProps {
-  event: CalendarEvent;
+  event: Event;
 }
 
 export function EventCard({ event }: EventCardProps) {
@@ -15,7 +15,7 @@ export function EventCard({ event }: EventCardProps) {
 
   return (
     <Link
-      href={event.href}
+      href={event.href || "/farnost"}
       className="flex items-center gap-3 rounded-xl border border-white/5 bg-white/3 px-3.5 py-3 transition-colors hover:bg-white/6 md:gap-4 md:px-4.5 md:py-3.5 lg:gap-5 lg:px-5 lg:py-4"
     >
       <div className="flex h-11 w-11 shrink-0 flex-col gap-1 items-center justify-center rounded-lg border border-gold/15 bg-gold/8 md:h-12 md:w-12 lg:h-13 lg:w-13">

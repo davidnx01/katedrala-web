@@ -3,7 +3,7 @@ import { PageHero } from "@/components/sections/PageHero";
 import { Container } from "@/components/layout/Container";
 import { AnnouncementCard } from "@/components/cards/AnnouncementCard";
 import { Pagination } from "@/components/layout/Pagination";
-import { getAnnouncements } from "@/lib/announcements";
+import { getAnnouncements } from "@/lib/api";
 
 interface AnnouncementsArchivePageProps {
   params: Promise<{ locale: string }>;
@@ -19,10 +19,15 @@ export default async function AnnouncementsArchivePage({
   const t = await getTranslations("Parish.announcementsArchive");
   const tNav = await getTranslations("Nav");
 
-  const { items, pagination } = getAnnouncements({
+  const result = await getAnnouncements({
     locale,
     page: page ? Number(page) : 1,
-  });
+  }).catch(() => ({
+    items: [],
+    pagination: undefined,
+  }));
+  const items = result.items;
+  const pagination = result.pagination ?? { page: 1, pageSize: 6, pageCount: 1, total: 0 };
 
   return (
     <main>

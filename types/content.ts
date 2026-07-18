@@ -3,11 +3,19 @@ import type {
   HomepageSection,
   ParishPageSection,
   StrapiContactLocation,
+  StrapiCoronationKing,
   StrapiCta,
   StrapiHeroSection,
+  StrapiHoursRow,
+  StrapiIconCard,
+  StrapiJourneyStep,
   StrapiMedia,
   StrapiQuickLinkCard,
+  StrapiRestrictionItem,
   StrapiSeo,
+  StrapiStatItem,
+  StrapiTicketRow,
+  StrapiTimelineEvent,
   VisitPageSection,
   FlexiblePageSection,
 } from "./strapi";
@@ -72,45 +80,6 @@ export interface QuickLink {
   ctaUrl: string;
 }
 
-export interface ContactLocation {
-  name: string;
-  address: string;
-  phone: string;
-  email: string;
-  hours: string;
-  photo: StrapiMedia | null;
-  description: string;
-  iban?: string;
-  /** Short chip labels shown over the photo — homepage contacts section only. */
-  tags?: string[];
-}
-
-export interface ContactLocationHours {
-  dayLabel: string;
-  time: string;
-}
-
-/** Richer contact-location shape for the /kontakt page (interactive cards + map). */
-export interface ContactPageLocation {
-  id: string;
-  name: string;
-  description: string;
-  address: string;
-  city: string;
-  phone: string;
-  email: string;
-  iban?: string;
-  hours: ContactLocationHours[];
-}
-
-export interface CalendarEvent {
-  id: number;
-  date: string;
-  title: string;
-  description: string;
-  href: string;
-}
-
 /** Generic flexible content page (Kapitulská ulica, Martineum, Sprievodca, Audioguides, Exkurzia, Omša s kňazom, ...). */
 export interface Page {
   id: number;
@@ -158,7 +127,39 @@ export interface ParishPage {
 export interface VisitPage {
   heroEyebrow?: string;
   heroTitle: string;
+  heroTitleEmphasis?: string;
+  heroSubtitle?: string;
+  heroCtaPrimaryLabel?: string;
+  heroCtaSecondaryLabel?: string;
   heroImage: StrapiMedia | null;
+  stats: StrapiStatItem[];
+  martineumEyebrow?: string;
+  martineumTitle?: string;
+  martineumBody?: string;
+  /** Comma-separated in Strapi (see cms/CLAUDE.md), parsed to a list in lib/api.ts. */
+  martineumAwards?: string[];
+  martineumImages: StrapiMedia[];
+  servicesEyebrow?: string;
+  servicesTitle?: string;
+  services: StrapiIconCard[];
+  journeyEyebrow?: string;
+  journeyTitle?: string;
+  journeySteps: StrapiJourneyStep[];
+  cellarsEyebrow?: string;
+  cellarsTitle?: string;
+  cellarsBody?: string;
+  cellarsImage?: StrapiMedia | null;
+  cellarsCtaLabel?: string;
+  practicalEyebrow?: string;
+  practicalTitle?: string;
+  hours: StrapiHoursRow[];
+  tickets: StrapiTicketRow[];
+  reservationTitle?: string;
+  reservationBody?: string;
+  reservationCtaLabel?: string;
+  restrictionsEyebrow?: string;
+  restrictionsTitle?: string;
+  restrictions: StrapiRestrictionItem[];
   mainSquareUrl?: string;
   walletCardUrl?: string;
   qrCodeReservation?: StrapiMedia | null;
@@ -172,6 +173,40 @@ export interface ContactPage {
   heroTitle: string;
   locations: StrapiContactLocation[];
   sections: ContactPageSection[];
+  seo?: StrapiSeo;
+}
+
+export interface HistoryPage {
+  heroEyebrow?: string;
+  heroTitle: string;
+  heroTitleEmphasis?: string;
+  heroSubtitle?: string;
+  heroImage: StrapiMedia | null;
+  timelineEyebrow?: string;
+  timelineTitle?: string;
+  timelineEvents: StrapiTimelineEvent[];
+  coronationsEyebrow?: string;
+  coronationsTitle?: string;
+  coronationsBody?: string;
+  coronationsListLabel?: string;
+  coronationsKings: StrapiCoronationKing[];
+  historyEyebrow?: string;
+  historyTitle?: string;
+  historyBody?: string;
+  historyImages: StrapiMedia[];
+  chapelEyebrow?: string;
+  chapelTitle?: string;
+  chapelBody?: string;
+  chapelImage?: StrapiMedia | null;
+  kapitulskaEyebrow?: string;
+  kapitulskaTitle?: string;
+  kapitulskaBody?: string;
+  kapitulskaImages: StrapiMedia[];
+  todayEyebrow?: string;
+  todayTitle?: string;
+  todayBody?: string;
+  todayCtaPrimaryLabel?: string;
+  todayCtaSecondaryLabel?: string;
   seo?: StrapiSeo;
 }
 

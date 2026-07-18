@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import type { StrapiMedia } from "@/types/strapi";
+import { getStrapiMediaUrl } from "@/lib/strapi-media";
 
 interface ChurchGalleryProps {
   title: string;
@@ -32,7 +33,7 @@ export function ChurchGallery({ title, churchName, images }: ChurchGalleryProps)
             className="relative h-32 overflow-hidden rounded-xl border border-stone transition-opacity hover:opacity-90 md:h-40"
           >
             <Image
-              src={image.url}
+              src={getStrapiMediaUrl(image) ?? ""}
               alt={image.alternativeText ?? `${churchName} — foto ${index + 1}`}
               fill
               className="object-cover"
@@ -89,7 +90,7 @@ export function ChurchGallery({ title, churchName, images }: ChurchGalleryProps)
             onClick={(e) => e.stopPropagation()}
           >
             <Image
-              src={images[activeIndex].url}
+              src={getStrapiMediaUrl(images[activeIndex]) ?? ""}
               alt={images[activeIndex].alternativeText ?? `${churchName} — foto ${activeIndex + 1}`}
               fill
               className="object-contain"
