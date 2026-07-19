@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { getLocale } from "next-intl/server";
 import { Hero } from "@/components/sections/Hero";
 import { QuickLinks } from "@/components/sections/QuickLinks";
@@ -6,7 +7,32 @@ import { EventsCalendar } from "@/components/sections/EventsCalendar";
 import { MassSchedule } from "@/components/sections/MassSchedule";
 import { ChurchesPreview } from "@/components/sections/ChurchesPreview";
 import { ContactsSection } from "@/components/sections/ContactsSection";
-import { getHomepage, getEvents } from "@/lib/api";
+import { getHomepage, getEvents, getGlobal } from "@/lib/api";
+import { buildMetadata } from "@/lib/seo";
+
+interface HomePageProps {
+  params: Promise<{ locale: string }>;
+}
+
+export async function generateMetadata({ params }: HomePageProps): Promise<Metadata> {
+  const { locale } = await params;
+  const [homepage, global] = await Promise.all([
+    getHomepage({ locale }).catch(() => null),
+    getGlobal({ locale }).catch(() => null),
+  ]);
+
+  const metadata = buildMetadata({
+    title: homepage?.seo?.metaTitle || "Katedrála sv. Martina | Bratislava",
+    description: homepage?.seo?.metaDescription,
+    image: homepage?.seo?.ogImage,
+    noIndex: homepage?.seo?.noIndex,
+    global,
+  });
+
+  // Homepage title is already the full site title — skip the root layout's
+  // "%s | Katedrála sv. Martina" template so it doesn't get appended twice.
+  return { ...metadata, title: { absolute: String(metadata.title ?? "") } };
+}
 
 export default async function HomePage() {
   const locale = await getLocale();

@@ -1,15 +1,35 @@
+import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { PageHero } from "@/components/sections/PageHero";
 import { Container } from "@/components/layout/Container";
 import { ChurchCard } from "@/components/cards/ChurchCard";
 import { Link } from "@/i18n/navigation";
-import { getChurches } from "@/lib/api";
+import { getChurches, getGlobal } from "@/lib/api";
+import { buildMetadata } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 import type { ChurchType } from "@/types/content";
 
 interface ChurchesPageProps {
   params: Promise<{ locale: string }>;
   searchParams: Promise<{ type?: string }>;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const global = await getGlobal({ locale }).catch(() => null);
+
+  return buildMetadata({
+    title: locale === "en" ? "Churches & chapels" : "Kostoly a kaplnky",
+    description:
+      locale === "en"
+        ? "All churches and chapels within the Parish of St. Martin in Bratislava — address, Mass schedule, rector and contact for each."
+        : "Prehľad všetkých kostolov a kaplniek na území Farnosti sv. Martina v Bratislave — adresa, rozpis bohoslužieb, správca a kontakt ku každému z nich.",
+    global,
+  });
 }
 
 function sanitizeType(value: string | undefined): ChurchType | undefined {

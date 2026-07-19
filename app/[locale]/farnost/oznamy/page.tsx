@@ -1,13 +1,33 @@
+import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { PageHero } from "@/components/sections/PageHero";
 import { Container } from "@/components/layout/Container";
 import { AnnouncementCard } from "@/components/cards/AnnouncementCard";
 import { Pagination } from "@/components/layout/Pagination";
-import { getAnnouncements } from "@/lib/api";
+import { getAnnouncements, getGlobal } from "@/lib/api";
+import { buildMetadata } from "@/lib/seo";
 
 interface AnnouncementsArchivePageProps {
   params: Promise<{ locale: string }>;
   searchParams: Promise<{ page?: string }>;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const global = await getGlobal({ locale }).catch(() => null);
+
+  return buildMetadata({
+    title: locale === "en" ? "Parish announcements" : "Farské oznamy",
+    description:
+      locale === "en"
+        ? "All current announcements from the Parish of St. Martin in Bratislava — services, sacraments and parish life news."
+        : "Všetky aktuálne oznamy Farnosti sv. Martina v Bratislave — bohoslužby, sviatosti a novinky z farského života.",
+    global,
+  });
 }
 
 export default async function AnnouncementsArchivePage({

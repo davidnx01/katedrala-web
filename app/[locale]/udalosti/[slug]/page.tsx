@@ -1,15 +1,33 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations, getLocale } from "next-intl/server";
 import { Calendar, ChevronRight, Clock, MapPin } from "lucide-react";
 import { Breadcrumb } from "@/components/layout/Breadcrumb";
 import { Container } from "@/components/layout/Container";
 import { Link } from "@/i18n/navigation";
-import { getEventBySlug, getUpcomingEvents } from "@/lib/api";
+import { getEventBySlug, getGlobal, getUpcomingEvents } from "@/lib/api";
 import { cn, formatTime, toParagraphs } from "@/lib/utils";
 import { EVENT_CATEGORY_BADGE_CLASSES, EVENT_CATEGORY_COLORS } from "@/lib/event-categories";
+import { buildMetadata, excerpt } from "@/lib/seo";
 
 interface EventDetailPageProps {
   params: Promise<{ locale: string; slug: string }>;
+}
+
+export async function generateMetadata({ params }: EventDetailPageProps): Promise<Metadata> {
+  const { locale, slug } = await params;
+  const [event, global] = await Promise.all([
+    getEventBySlug({ locale, slug }).catch(() => null),
+    getGlobal({ locale }).catch(() => null),
+  ]);
+
+  if (!event) return {};
+
+  return buildMetadata({
+    title: event.title,
+    description: excerpt(event.description),
+    global,
+  });
 }
 
 export default async function EventDetailPage({ params }: EventDetailPageProps) {
@@ -45,7 +63,7 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
         <Breadcrumb
           items={[
             { label: tNav("home"), href: "/" },
-            { label: t("breadcrumbCalendar"), href: "/#kalendar" },
+            { label: t("breadcrumbCalendar"), href: "/udalosti" },
             { label: event.title },
           ]}
         />
@@ -111,7 +129,7 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
         <div className="my-10 border-t border-stone" />
 
         <Link
-          href="/#kalendar"
+          href="/udalosti"
           className="text-[13px] font-medium text-gold hover:underline"
         >
           ← {t("backToCalendar")}

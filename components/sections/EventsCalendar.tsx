@@ -232,6 +232,12 @@ export function EventsCalendar({ events = [] }: EventsCalendarProps) {
                 <EventCard key={event.id} event={event} />
               ))}
             </div>
+            <Link
+              href="/udalosti"
+              className="mt-3 inline-block text-sm font-semibold text-gold hover:underline"
+            >
+              {t("viewFullCalendar")} →
+            </Link>
           </div>
         </div>
       </Container>

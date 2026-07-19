@@ -14,7 +14,10 @@ const playfairDisplay = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Katedrála sv. Martina | Bratislava",
+  title: {
+    default: "Katedrála sv. Martina | Bratislava",
+    template: "%s | Katedrála sv. Martina",
+  },
   description:
     "Farnosť sv. Martina v Bratislave — korunovačná katedrála, kostoly a kaplnky, farské oznamy a informácie pre návštevníkov.",
 };

@@ -45,6 +45,16 @@
   --color-cat-excursion-light: #f5ecd7;
   --color-cat-baptism: #2f9e5c;
   --color-cat-baptism-light: #e6f4ea;
+  --color-cat-mass: #3b6ea5;
+  --color-cat-mass-light: #eaf1fa;
+  --color-cat-adoration: #0e9488;
+  --color-cat-adoration-light: #e1f5f3;
+  --color-cat-wedding: #db2777;
+  --color-cat-wedding-light: #fce7f3;
+  --color-cat-lectio: #92400e;
+  --color-cat-lectio-light: #fbeee0;
+  --color-cat-tour: #ea580c;
+  --color-cat-tour-light: #feeee3;
 
   --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-serif: var(--font-playfair), Georgia, "Times New Roman", serif;

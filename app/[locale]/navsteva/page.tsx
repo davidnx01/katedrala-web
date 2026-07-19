@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { getTranslations, getLocale } from "next-intl/server";
 import { VisitHero } from "@/components/sections/VisitHero";
 import { VisitStats } from "@/components/sections/VisitStats";
@@ -7,7 +8,29 @@ import { VisitJourney } from "@/components/sections/VisitJourney";
 import { VisitCellars } from "@/components/sections/VisitCellars";
 import { VisitPracticalInfo } from "@/components/sections/VisitPracticalInfo";
 import { VisitRestrictions } from "@/components/sections/VisitRestrictions";
-import { getVisitPage } from "@/lib/api";
+import { getVisitPage, getGlobal } from "@/lib/api";
+import { buildMetadata } from "@/lib/seo";
+
+interface VisitPageProps {
+  params: Promise<{ locale: string }>;
+}
+
+export async function generateMetadata({ params }: VisitPageProps): Promise<Metadata> {
+  const { locale } = await params;
+  const [visitPage, global, t] = await Promise.all([
+    getVisitPage({ locale }).catch(() => null),
+    getGlobal({ locale }).catch(() => null),
+    getTranslations({ locale, namespace: "VisitPage" }),
+  ]);
+
+  return buildMetadata({
+    title: visitPage?.seo?.metaTitle || visitPage?.heroTitle || t("breadcrumb"),
+    description: visitPage?.seo?.metaDescription,
+    image: visitPage?.seo?.ogImage,
+    noIndex: visitPage?.seo?.noIndex,
+    global,
+  });
+}
 
 export default async function VisitPage() {
   const t = await getTranslations("VisitPage");

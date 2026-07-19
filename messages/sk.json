@@ -38,6 +38,7 @@
     "title": "Kalendár udalostí",
     "upcoming": "Najbližšie udalosti",
     "viewDetail": "Zobraziť detail",
+    "viewFullCalendar": "Zobraziť celý kalendár",
     "previousMonth": "Predchádzajúci mesiac",
     "nextMonth": "Nasledujúci mesiac",
     "months": [
@@ -49,17 +50,40 @@
       "pohreb": "Pohreb",
       "koncert": "Koncert",
       "sukromna_exkurzia": "Súkromná exkurzia",
-      "krst": "Krst"
+      "krst": "Krst",
+      "omsa": "Svätá omša",
+      "adoracia": "Adorácia",
+      "sobas": "Sobáš",
+      "lectio": "Lectio divina",
+      "prehliadka": "Prehliadka"
     }
   },
   "EventDetail": {
-    "breadcrumbCalendar": "Kalendár udalostí",
+    "breadcrumbCalendar": "Udalosti",
     "dateLabel": "Dátum",
     "timeLabel": "Čas konania",
     "locationLabel": "Miesto konania",
     "backToCalendar": "Späť na kalendár",
     "upcomingEyebrow": "Ďalšie termíny",
     "upcomingTitle": "Nasledujúce udalosti"
+  },
+  "EventsPage": {
+    "heroEyebrow": "Kalendár",
+    "heroTitle": "Udalosti",
+    "breadcrumb": "Udalosti",
+    "imageAlt": "Foto: Katedrála — interiér počas koncertu",
+    "weeklyEyebrow": "Týždenný prehľad",
+    "today": "Dnes",
+    "previousWeek": "Predchádzajúci týždeň",
+    "nextWeek": "Nasledujúci týždeň",
+    "emptyWeek": "V tomto týždni nie sú naplánované žiadne udalosti.",
+    "viewFullDetail": "Zobraziť celý detail",
+    "close": "Zavrieť",
+    "upcomingEyebrow": "Čo nás čaká",
+    "ctaEyebrow": "Plánovanie",
+    "ctaTitle": "Naplánujte si návštevu",
+    "ctaBody": "Pozrite si voľné termíny v kalendári a naplánujte si prehliadku katedrály, exkurziu alebo pútnickú svätú omšu.",
+    "ctaPrimaryLabel": "Naplánovať návštevu"
   },
   "MassSchedule": {
     "eyebrow": "Sväté omše",

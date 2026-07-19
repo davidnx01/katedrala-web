@@ -38,6 +38,7 @@
     "title": "Events calendar",
     "upcoming": "Upcoming events",
     "viewDetail": "View detail",
+    "viewFullCalendar": "View full calendar",
     "previousMonth": "Previous month",
     "nextMonth": "Next month",
     "months": [
@@ -49,17 +50,40 @@
       "pohreb": "Funeral",
       "koncert": "Concert",
       "sukromna_exkurzia": "Private tour",
-      "krst": "Baptism"
+      "krst": "Baptism",
+      "omsa": "Holy Mass",
+      "adoracia": "Adoration",
+      "sobas": "Wedding",
+      "lectio": "Lectio divina",
+      "prehliadka": "Guided tour"
     }
   },
   "EventDetail": {
-    "breadcrumbCalendar": "Events calendar",
+    "breadcrumbCalendar": "Events",
     "dateLabel": "Date",
     "timeLabel": "Time",
     "locationLabel": "Location",
     "backToCalendar": "Back to calendar",
     "upcomingEyebrow": "Coming up",
     "upcomingTitle": "Upcoming events"
+  },
+  "EventsPage": {
+    "heroEyebrow": "Calendar",
+    "heroTitle": "Events",
+    "breadcrumb": "Events",
+    "imageAlt": "Photo: Cathedral — interior during a concert",
+    "weeklyEyebrow": "Weekly overview",
+    "today": "Today",
+    "previousWeek": "Previous week",
+    "nextWeek": "Next week",
+    "emptyWeek": "No events are scheduled this week.",
+    "viewFullDetail": "View full detail",
+    "close": "Close",
+    "upcomingEyebrow": "Coming up",
+    "ctaEyebrow": "Planning",
+    "ctaTitle": "Plan your visit",
+    "ctaBody": "Check the free slots in the calendar and plan a cathedral tour, private excursion, or pilgrimage Mass.",
+    "ctaPrimaryLabel": "Plan your visit"
   },
   "MassSchedule": {
     "eyebrow": "Holy Mass",

@@ -277,7 +277,7 @@ export async function getChurchBySlug({
     {
       locale: sanitizeLocale(locale),
       filters: { slug: { $eq: slug } },
-      populate: { photo: true, gallery: true, massSchedule: true, ...seoPopulate },
+      populate: { photo: true, gallery: true, massSchedule: true },
       pagination: { limit: 1 },
     },
     { revalidate: 3600, tags: ["churches"] },
@@ -342,7 +342,6 @@ export async function getAnnouncementBySlug({
     {
       locale: sanitizeLocale(locale),
       filters: { slug: { $eq: slug } },
-      populate: seoPopulate,
       pagination: { limit: 1 },
     },
     { revalidate: 60, tags: ["announcements"] },
@@ -452,7 +451,7 @@ export async function getConcertBySlug({
     {
       locale: sanitizeLocale(locale),
       filters: { slug: { $eq: slug } },
-      populate: { photo: true, ...seoPopulate },
+      populate: { photo: true },
       pagination: { limit: 1 },
     },
     { revalidate: 3600, tags: ["concerts"] },

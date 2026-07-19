@@ -46,7 +46,6 @@ export interface Church {
   latitude: number | null;
   longitude: number | null;
   order: number;
-  seo?: StrapiSeo;
 }
 
 export type ChurchPreview = Pick<Church, "id" | "name" | "slug" | "address" | "photo" | "type">;
@@ -57,7 +56,6 @@ export interface Announcement {
   slug: string;
   date: string;
   content: string;
-  seo?: StrapiSeo;
 }
 
 export interface Concert {
@@ -67,7 +65,6 @@ export interface Concert {
   date: string;
   description: string;
   photo: StrapiMedia | null;
-  seo?: StrapiSeo;
 }
 
 export type Cta = StrapiCta;
@@ -99,7 +96,16 @@ export interface Homepage {
 }
 
 /** Determines the calendar dot/badge color — see lib/event-categories.ts for the color mapping. */
-export type EventCategory = "pohreb" | "koncert" | "sukromna_exkurzia" | "krst";
+export type EventCategory =
+  | "pohreb"
+  | "koncert"
+  | "sukromna_exkurzia"
+  | "krst"
+  | "omsa"
+  | "adoracia"
+  | "sobas"
+  | "lectio"
+  | "prehliadka";
 
 /** Homepage calendar entry (masses, concerts, feast days, tours, meetings...). Has its own detail page at /udalosti/[slug]. */
 export interface Event {

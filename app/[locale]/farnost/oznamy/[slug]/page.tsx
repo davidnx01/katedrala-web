@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations, getLocale } from "next-intl/server";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -8,11 +9,31 @@ import { Link } from "@/i18n/navigation";
 import {
   getAdjacentAnnouncements,
   getAnnouncementBySlug,
+  getGlobal,
   getOlderAnnouncements,
 } from "@/lib/api";
+import { buildMetadata, excerpt } from "@/lib/seo";
 
 interface AnnouncementDetailPageProps {
   params: Promise<{ locale: string; slug: string }>;
+}
+
+export async function generateMetadata({
+  params,
+}: AnnouncementDetailPageProps): Promise<Metadata> {
+  const { locale, slug } = await params;
+  const [announcement, global] = await Promise.all([
+    getAnnouncementBySlug({ locale, slug }).catch(() => null),
+    getGlobal({ locale }).catch(() => null),
+  ]);
+
+  if (!announcement) return {};
+
+  return buildMetadata({
+    title: announcement.title,
+    description: excerpt(announcement.content),
+    global,
+  });
 }
 
 export default async function AnnouncementDetailPage({ params }: AnnouncementDetailPageProps) {

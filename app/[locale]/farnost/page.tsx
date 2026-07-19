@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { getTranslations, getLocale } from "next-intl/server";
 import {
   ScrollText,
@@ -17,8 +18,9 @@ import { PageHero } from "@/components/sections/PageHero";
 import { QuickNavGrid } from "@/components/sections/QuickNavGrid";
 import { ContentSection } from "@/components/sections/ContentSection";
 import { AnnouncementsPreview } from "@/components/sections/AnnouncementsPreview";
-import { getParishPage } from "@/lib/api";
+import { getParishPage, getGlobal } from "@/lib/api";
 import { getStrapiMediaUrl } from "@/lib/strapi-media";
+import { buildMetadata } from "@/lib/seo";
 import { toParagraphs } from "@/lib/utils";
 import type { ImageTextSection, MetaRowIcon } from "@/types/strapi";
 
@@ -35,6 +37,27 @@ const META_ICON_MAP: Record<MetaRowIcon, LucideIcon> = {
   calendar: Calendar,
   users: Users,
 };
+
+interface ParishPageProps {
+  params: Promise<{ locale: string }>;
+}
+
+export async function generateMetadata({ params }: ParishPageProps): Promise<Metadata> {
+  const { locale } = await params;
+  const [parishPage, global, t] = await Promise.all([
+    getParishPage({ locale }).catch(() => null),
+    getGlobal({ locale }).catch(() => null),
+    getTranslations({ locale, namespace: "Parish.hub" }),
+  ]);
+
+  return buildMetadata({
+    title: parishPage?.seo?.metaTitle || t("title"),
+    description: parishPage?.seo?.metaDescription,
+    image: parishPage?.seo?.ogImage,
+    noIndex: parishPage?.seo?.noIndex,
+    global,
+  });
+}
 
 export default async function ParishPage() {
   const t = await getTranslations("Parish.hub");

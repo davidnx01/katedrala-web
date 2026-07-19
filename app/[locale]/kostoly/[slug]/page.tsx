@@ -6,8 +6,8 @@ import { Container } from "@/components/layout/Container";
 import { ChurchHero } from "@/components/sections/ChurchHero";
 import { ChurchInfoCard } from "@/components/sections/ChurchInfoCard";
 import { ChurchGallery } from "@/components/sections/ChurchGallery";
-import { getChurchBySlug } from "@/lib/api";
-import { getStrapiMediaUrl } from "@/lib/strapi-media";
+import { getChurchBySlug, getGlobal } from "@/lib/api";
+import { buildMetadata, excerpt } from "@/lib/seo";
 
 interface ChurchDetailPageProps {
   params: Promise<{ locale: string; slug: string }>;
@@ -17,18 +17,19 @@ export async function generateMetadata({
   params,
 }: ChurchDetailPageProps): Promise<Metadata> {
   const { locale, slug } = await params;
-  const church = await getChurchBySlug({ locale, slug }).catch(() => null);
+  const [church, global] = await Promise.all([
+    getChurchBySlug({ locale, slug }).catch(() => null),
+    getGlobal({ locale }).catch(() => null),
+  ]);
 
   if (!church) return {};
 
-  return {
-    title: church.seo?.metaTitle ?? `${church.name} | Katedrála sv. Martina`,
-    description: church.seo?.metaDescription ?? church.about.split("\n\n")[0],
-    robots: church.seo?.noIndex ? { index: false } : undefined,
-    openGraph: church.seo?.ogImage
-      ? { images: [getStrapiMediaUrl(church.seo.ogImage) ?? ""] }
-      : undefined,
-  };
+  return buildMetadata({
+    title: church.name,
+    description: excerpt(church.about),
+    image: church.photo,
+    global,
+  });
 }
 
 export default async function ChurchDetailPage({
