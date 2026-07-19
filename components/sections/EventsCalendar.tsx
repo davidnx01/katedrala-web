@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
-import { ChevronLeft, ChevronRight, Info } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { Container } from "@/components/layout/Container";
 import { SectionHeading } from "@/components/sections/SectionHeading";
@@ -12,7 +12,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
+import { cn, formatTime } from "@/lib/utils";
+import { EVENT_CATEGORY_COLORS } from "@/lib/event-categories";
 import type { Event } from "@/types/content";
 
 interface EventsCalendarProps {
@@ -64,7 +65,7 @@ export function EventsCalendar({ events = [] }: EventsCalendarProps) {
     today.getDate() === day;
 
   return (
-    <section className="bg-navy py-12 md:py-16 lg:py-20">
+    <section id="kalendar" className="bg-navy py-12 md:py-16 lg:py-20">
       <Container>
         <SectionHeading
           eyebrow={t("eyebrow")}
@@ -146,7 +147,10 @@ export function EventsCalendar({ events = [] }: EventsCalendarProps) {
                         {dayEvents.map((event) => (
                           <span
                             key={event.id}
-                            className="size-1 rounded-full bg-gold"
+                            className={cn(
+                              "size-1.5 rounded-full ring-1 ring-white/40",
+                              EVENT_CATEGORY_COLORS[event.category],
+                            )}
                           />
                         ))}
                       </div>
@@ -181,20 +185,31 @@ export function EventsCalendar({ events = [] }: EventsCalendarProps) {
                           )}
                         >
                           <div className="mb-1 flex items-start gap-1.5">
-                            <Info
-                              size={13}
-                              className="mt-0.5 shrink-0 text-gold/50"
+                            <span
+                              className={cn(
+                                "mt-1.5 size-2 shrink-0 rounded-full",
+                                EVENT_CATEGORY_COLORS[event.category],
+                              )}
                               aria-hidden="true"
                             />
-                            <h4 className="text-sm leading-snug font-semibold text-navy">
-                              {event.title}
-                            </h4>
+                            <div className="min-w-0">
+                              <h4 className="text-sm leading-snug font-semibold text-navy">
+                                {event.title}
+                              </h4>
+                              <div className="mt-0.5 flex items-center gap-1.5 text-[11px] font-medium text-[#A39E94]">
+                                <span>{t(`categories.${event.category}`)}</span>
+                                <span aria-hidden="true">·</span>
+                                <span>
+                                  {formatTime(event.timeFrom)}–{formatTime(event.timeTo)}
+                                </span>
+                              </div>
+                            </div>
                           </div>
                           <p className="mt-1 mb-2 text-[13px] leading-relaxed text-[#7A756B]">
                             {event.description}
                           </p>
                           <Link
-                            href={event.href || "/farnost"}
+                            href={`/udalosti/${event.slug}`}
                             className="text-xs font-semibold text-gold"
                           >
                             {t("viewDetail")} →

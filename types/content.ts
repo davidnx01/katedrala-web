@@ -98,13 +98,20 @@ export interface Homepage {
   seo?: StrapiSeo;
 }
 
-/** Homepage calendar entry (masses, concerts, feast days, tours, meetings...). */
+/** Determines the calendar dot/badge color — see lib/event-categories.ts for the color mapping. */
+export type EventCategory = "pohreb" | "koncert" | "sukromna_exkurzia" | "krst";
+
+/** Homepage calendar entry (masses, concerts, feast days, tours, meetings...). Has its own detail page at /udalosti/[slug]. */
 export interface Event {
   id: number;
   title: string;
+  slug: string;
   date: string;
-  description?: string;
-  href?: string;
+  category: EventCategory;
+  timeFrom: string;
+  timeTo: string;
+  location: string;
+  description: string;
 }
 
 /** Site-wide settings — brand name + footer text. Nav/footer links stay fixed in code. */

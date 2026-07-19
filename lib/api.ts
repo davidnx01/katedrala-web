@@ -619,6 +619,49 @@ export async function getEvents({
   return response.data;
 }
 
+export async function getEventBySlug({
+  locale,
+  slug,
+}: {
+  locale: string;
+  slug: string;
+}): Promise<Event | null> {
+  const response = await fetchStrapi<StrapiResponse<Event[]>>(
+    "events",
+    {
+      locale: sanitizeLocale(locale),
+      filters: { slug: { $eq: slug } },
+      pagination: { limit: 1 },
+    },
+    { revalidate: 300, tags: ["events"] },
+  );
+  return response.data[0] ?? null;
+}
+
+export async function getUpcomingEvents({
+  locale,
+  excludeSlug,
+  fromDate,
+  limit = 3,
+}: {
+  locale: string;
+  excludeSlug: string;
+  fromDate: string;
+  limit?: number;
+}): Promise<Event[]> {
+  const response = await fetchStrapi<StrapiResponse<Event[]>>(
+    "events",
+    {
+      locale: sanitizeLocale(locale),
+      filters: { slug: { $ne: excludeSlug }, date: { $gte: fromDate } },
+      sort: ["date:asc"],
+      pagination: { limit: sanitizePageSize(limit, 12) },
+    },
+    { revalidate: 300, tags: ["events"] },
+  );
+  return response.data;
+}
+
 // ---------------------------------------------------------------------------
 // Global (site-wide brand/footer settings)
 // ---------------------------------------------------------------------------

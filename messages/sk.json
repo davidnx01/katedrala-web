@@ -44,7 +44,22 @@
       "Január", "Február", "Marec", "Apríl", "Máj", "Jún",
       "Júl", "August", "September", "Október", "November", "December"
     ],
-    "daysShort": ["Po", "Ut", "St", "Št", "Pi", "So", "Ne"]
+    "daysShort": ["Po", "Ut", "St", "Št", "Pi", "So", "Ne"],
+    "categories": {
+      "pohreb": "Pohreb",
+      "koncert": "Koncert",
+      "sukromna_exkurzia": "Súkromná exkurzia",
+      "krst": "Krst"
+    }
+  },
+  "EventDetail": {
+    "breadcrumbCalendar": "Kalendár udalostí",
+    "dateLabel": "Dátum",
+    "timeLabel": "Čas konania",
+    "locationLabel": "Miesto konania",
+    "backToCalendar": "Späť na kalendár",
+    "upcomingEyebrow": "Ďalšie termíny",
+    "upcomingTitle": "Nasledujúce udalosti"
   },
   "MassSchedule": {
     "eyebrow": "Sväté omše",

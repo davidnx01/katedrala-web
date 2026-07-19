@@ -37,6 +37,15 @@
   --color-stone: #e8e2d6;
   --color-surface: #f9f7f3;
 
+  --color-cat-funeral: #0a0a0a;
+  --color-cat-funeral-light: #f0f0f0;
+  --color-cat-concert: #8b5cf6;
+  --color-cat-concert-light: #f3ecfe;
+  --color-cat-excursion: #c5a44e;
+  --color-cat-excursion-light: #f5ecd7;
+  --color-cat-baptism: #2f9e5c;
+  --color-cat-baptism-light: #e6f4ea;
+
   --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-serif: var(--font-playfair), Georgia, "Times New Roman", serif;
   --font-heading: var(--font-playfair), Georgia, "Times New Roman", serif;

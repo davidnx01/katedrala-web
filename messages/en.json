@@ -44,7 +44,22 @@
       "January", "February", "March", "April", "May", "June",
       "July", "August", "September", "October", "November", "December"
     ],
-    "daysShort": ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]
+    "daysShort": ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
+    "categories": {
+      "pohreb": "Funeral",
+      "koncert": "Concert",
+      "sukromna_exkurzia": "Private tour",
+      "krst": "Baptism"
+    }
+  },
+  "EventDetail": {
+    "breadcrumbCalendar": "Events calendar",
+    "dateLabel": "Date",
+    "timeLabel": "Time",
+    "locationLabel": "Location",
+    "backToCalendar": "Back to calendar",
+    "upcomingEyebrow": "Coming up",
+    "upcomingTitle": "Upcoming events"
   },
   "MassSchedule": {
     "eyebrow": "Holy Mass",
