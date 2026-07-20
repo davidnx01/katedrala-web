@@ -15,6 +15,12 @@ export function formatTime(time: string): string {
   return time.slice(0, 5);
 }
 
+/** Formats a full ISO datetime string down to local "HH:mm". */
+export function formatClockTime(isoDateTime: string): string {
+  const date = new Date(isoDateTime);
+  return `${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
+}
+
 /** Converts a Strapi time value ("HH:mm:ss.SSS") to decimal hours (e.g. "09:30:00.000" -> 9.5). */
 export function timeToDecimalHours(time: string): number {
   const [hours, minutes] = time.split(":").map(Number);

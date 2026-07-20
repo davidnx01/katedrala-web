@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Playfair_Display } from "next/font/google";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
@@ -20,6 +20,15 @@ export const metadata: Metadata = {
   },
   description:
     "Farnosť sv. Martina v Bratislave — korunovačná katedrála, kostoly a kaplnky, farské oznamy a informácie pre návštevníkov.",
+};
+
+// Site has one fixed light design (no dark theme). Without this, Chromium's
+// "Auto Dark Mode for Web Content" (Windows, tied to the OS theme) can
+// repaint brand/accent colors — e.g. the /udalosti category dots looking
+// washed out on Windows while rendering correctly on macOS Safari, which
+// has no equivalent forced-dark heuristic.
+export const viewport: Viewport = {
+  colorScheme: "light",
 };
 
 export function generateStaticParams() {

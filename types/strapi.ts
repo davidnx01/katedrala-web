@@ -186,6 +186,7 @@ export interface StrapiMassTime {
 export interface StrapiHoursRow {
   dayLabel: string;
   time: string;
+  note?: string;
 }
 
 export interface StrapiContactLocation {
@@ -270,4 +271,12 @@ export interface StrapiTimelineEvent {
 export interface StrapiCoronationKing {
   name: string;
   year: string;
+}
+
+export interface StrapiRecordingItem {
+  title: string;
+  year?: string;
+  type: string;
+  description: string;
+  photo?: StrapiMedia | null;
 }

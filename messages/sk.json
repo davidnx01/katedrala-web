@@ -251,5 +251,14 @@
     "historyImageAlt": "Foto: architektúra katedrály",
     "chapelImageAlt": "Foto: Kaplnka sv. Jána Almužníka — interiér",
     "kapitulskaImageAlt": "Foto: Kapitulská ulica"
+  },
+  "MusicPage": {
+    "breadcrumb": "Hudba a koncerty",
+    "heroImageAlt": "Foto: Hlavný organ Katedrály sv. Martina",
+    "organImageAlt": "Foto: Hlavný organ — prospekt s ružami",
+    "choirImageAlt": "Foto: Zbor Vox Cantoris pri vystúpení v katedrále",
+    "massesImageAlt": "Foto: Spievaná svätá omša — zbor a organ",
+    "choralOrganImageAlt": "Foto: Chórový organ",
+    "freeLabel": "Vstup voľný"
   }
 }

@@ -27,6 +27,7 @@ const MODEL_TO_TAG: Record<string, string> = {
   "history-page": "history-page",
   event: "events",
   global: "global",
+  "music-page": "music-page",
 };
 
 function isValidSecret(provided: string | null): boolean {

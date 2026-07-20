@@ -13,6 +13,7 @@ import type {
   HistoryPage,
   Homepage,
   MassLanguage,
+  MusicPage,
   Page,
   ParishPage,
   ReservationInput,
@@ -590,6 +591,34 @@ export async function getHistoryPage({ locale }: { locale: string }): Promise<Hi
     ...response.data,
     historyImages: response.data.historyImages ?? [],
     kapitulskaImages: response.data.kapitulskaImages ?? [],
+  };
+}
+
+export async function getMusicPage({ locale }: { locale: string }): Promise<MusicPage> {
+  const response = await fetchStrapi<StrapiResponse<MusicPage>>(
+    "music-page",
+    {
+      locale: sanitizeLocale(locale),
+      populate: {
+        heroImage: true,
+        organStats: true,
+        organImages: true,
+        choirImage: true,
+        choirSocialLinks: true,
+        massesSchedule: true,
+        massesImage: true,
+        recordings: { populate: { photo: true } },
+        choralOrganImage: true,
+        choralOrganStats: true,
+        ...seoPopulate,
+      },
+    },
+    { revalidate: 86400, tags: ["music-page"] },
+  );
+  return {
+    ...response.data,
+    organImages: response.data.organImages ?? [],
+    recordings: response.data.recordings ?? [],
   };
 }
 

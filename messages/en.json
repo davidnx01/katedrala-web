@@ -251,5 +251,14 @@
     "historyImageAlt": "Photo: cathedral architecture",
     "chapelImageAlt": "Photo: St. John the Almsgiver Chapel — interior",
     "kapitulskaImageAlt": "Photo: Kapitulská street"
+  },
+  "MusicPage": {
+    "breadcrumb": "Music and Concerts",
+    "heroImageAlt": "Photo: The main organ of St. Martin's Cathedral",
+    "organImageAlt": "Photo: Main organ — rose-decorated case",
+    "choirImageAlt": "Photo: Vox Cantoris choir performing in the cathedral",
+    "massesImageAlt": "Photo: Sung Mass — choir and organ",
+    "choralOrganImageAlt": "Photo: Choir organ",
+    "freeLabel": "Free admission"
   }
 }

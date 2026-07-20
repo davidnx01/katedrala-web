@@ -11,6 +11,7 @@ import type {
   StrapiJourneyStep,
   StrapiMedia,
   StrapiQuickLinkCard,
+  StrapiRecordingItem,
   StrapiRestrictionItem,
   StrapiSeo,
   StrapiStatItem,
@@ -65,6 +66,7 @@ export interface Concert {
   date: string;
   description: string;
   photo: StrapiMedia | null;
+  isFree: boolean;
 }
 
 export type Cta = StrapiCta;
@@ -220,6 +222,42 @@ export interface HistoryPage {
   todayBody?: string;
   todayCtaPrimaryLabel?: string;
   todayCtaSecondaryLabel?: string;
+  seo?: StrapiSeo;
+}
+
+export interface MusicPage {
+  heroEyebrow?: string;
+  heroTitle: string;
+  heroTitleEmphasis?: string;
+  heroSubtitle?: string;
+  heroImage: StrapiMedia | null;
+  organEyebrow?: string;
+  organTitle?: string;
+  organBody?: string;
+  organStats: StrapiStatItem[];
+  organImages: StrapiMedia[];
+  organQuoteText?: string;
+  organQuoteAuthor?: string;
+  choirEyebrow?: string;
+  choirTitle?: string;
+  choirBody?: string;
+  choirImage: StrapiMedia | null;
+  choirSocialLinks: StrapiCta[];
+  massesEyebrow?: string;
+  massesTitle?: string;
+  massesBody?: string;
+  massesSchedule: StrapiHoursRow[];
+  massesImage: StrapiMedia | null;
+  concertsEyebrow?: string;
+  concertsTitle?: string;
+  recordingsEyebrow?: string;
+  recordingsTitle?: string;
+  recordings: StrapiRecordingItem[];
+  choralOrganEyebrow?: string;
+  choralOrganTitle?: string;
+  choralOrganBody?: string;
+  choralOrganImage: StrapiMedia | null;
+  choralOrganStats: StrapiStatItem[];
   seo?: StrapiSeo;
 }
 
