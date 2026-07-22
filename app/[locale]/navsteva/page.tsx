@@ -3,7 +3,7 @@ import { getTranslations, getLocale } from "next-intl/server";
 import { VisitHero } from "@/components/sections/VisitHero";
 import { VisitStats } from "@/components/sections/VisitStats";
 import { MartineumShowcase } from "@/components/sections/MartineumShowcase";
-import { VisitServices } from "@/components/sections/VisitServices";
+import { VisitSpaces } from "@/components/sections/VisitSpaces";
 import { VisitJourney } from "@/components/sections/VisitJourney";
 import { VisitCellars } from "@/components/sections/VisitCellars";
 import { VisitPracticalInfo } from "@/components/sections/VisitPracticalInfo";
@@ -56,10 +56,11 @@ export default async function VisitPage() {
         images={visitPage.martineumImages}
         imageLabel={t("martineumImageAlt")}
       />
-      <VisitServices
-        eyebrow={visitPage.servicesEyebrow ?? ""}
-        title={visitPage.servicesTitle ?? ""}
-        services={visitPage.services}
+      <VisitSpaces
+        eyebrow={visitPage.spacesEyebrow ?? ""}
+        title={visitPage.spacesTitle ?? ""}
+        spaces={visitPage.spaces}
+        imageLabel={t("spacesImageAlt")}
       />
       <VisitJourney
         eyebrow={visitPage.journeyEyebrow ?? ""}

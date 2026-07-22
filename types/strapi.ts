@@ -238,12 +238,24 @@ export interface StrapiStatItem {
   label: string;
 }
 
-export type IconCardIcon = "ticket" | "headphones" | "gift" | "gallery";
-
-export interface StrapiIconCard {
-  icon: IconCardIcon;
+export interface StrapiVenueFeature {
+  icon: string;
   title: string;
   description: string;
+}
+
+export interface StrapiVenueSpace {
+  /** Stable frontend key (e.g. active-tab state) — plain string, not a Strapi uid. */
+  slug: string;
+  label: string;
+  description: string;
+  image?: StrapiMedia | null;
+  /** Optional CTA button — rendered only when both label and href are set. */
+  ctaLabel?: string;
+  ctaHref?: string;
+  /** Optional opening-hours callout — rendered only when non-empty. */
+  hours?: StrapiHoursRow[];
+  features: StrapiVenueFeature[];
 }
 
 export interface StrapiJourneyStep {

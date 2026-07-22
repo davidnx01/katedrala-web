@@ -7,7 +7,6 @@ import type {
   StrapiCta,
   StrapiHeroSection,
   StrapiHoursRow,
-  StrapiIconCard,
   StrapiJourneyStep,
   StrapiMedia,
   StrapiQuickLinkCard,
@@ -17,6 +16,7 @@ import type {
   StrapiStatItem,
   StrapiTicketRow,
   StrapiTimelineEvent,
+  StrapiVenueSpace,
   VisitPageSection,
   FlexiblePageSection,
 } from "./strapi";
@@ -154,9 +154,9 @@ export interface VisitPage {
   /** Comma-separated in Strapi (see cms/CLAUDE.md), parsed to a list in lib/api.ts. */
   martineumAwards?: string[];
   martineumImages: StrapiMedia[];
-  servicesEyebrow?: string;
-  servicesTitle?: string;
-  services: StrapiIconCard[];
+  spacesEyebrow?: string;
+  spacesTitle?: string;
+  spaces: StrapiVenueSpace[];
   journeyEyebrow?: string;
   journeyTitle?: string;
   journeySteps: StrapiJourneyStep[];
