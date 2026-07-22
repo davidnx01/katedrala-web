@@ -14,7 +14,9 @@ interface HomePageProps {
   params: Promise<{ locale: string }>;
 }
 
-export async function generateMetadata({ params }: HomePageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: HomePageProps): Promise<Metadata> {
   const { locale } = await params;
   const [homepage, global] = await Promise.all([
     getHomepage({ locale }).catch(() => null),
@@ -29,15 +31,15 @@ export async function generateMetadata({ params }: HomePageProps): Promise<Metad
     global,
   });
 
-  // Homepage title is already the full site title — skip the root layout's
-  // "%s | Katedrála sv. Martina" template so it doesn't get appended twice.
   return { ...metadata, title: { absolute: String(metadata.title ?? "") } };
 }
 
 export default async function HomePage() {
   const locale = await getLocale();
   const homepage = await getHomepage({ locale }).catch(() => null);
-  const events = await getEvents({ locale, upcomingOnly: false }).catch(() => []);
+  const events = await getEvents({ locale, upcomingOnly: false }).catch(
+    () => [],
+  );
 
   const announcementsSection = homepage?.sections.find(
     (section) => section.__component === "sections.announcements-preview",

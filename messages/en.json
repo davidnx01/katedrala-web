@@ -1,4 +1,11 @@
 {
+  "NotFound": {
+    "eyebrow": "Error 404",
+    "title": "Page not found",
+    "body": "The page you're looking for doesn't exist or has been moved. Try heading back to the homepage, or check one of the site's main sections.",
+    "ctaHome": "Back to homepage",
+    "ctaContact": "Contact us"
+  },
   "Nav": {
     "brand": "St. Martin's Cathedral",
     "brandSub": "Bratislava",

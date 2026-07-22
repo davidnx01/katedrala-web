@@ -1,4 +1,11 @@
 {
+  "NotFound": {
+    "eyebrow": "Chyba 404",
+    "title": "Stránka nenájdená",
+    "body": "Stránka, ktorú hľadáte, neexistuje alebo bola presunutá. Skúste sa vrátiť na domovskú stránku, alebo si pozrite niektorú z hlavných sekcií webu.",
+    "ctaHome": "Späť na domovskú stránku",
+    "ctaContact": "Kontaktujte nás"
+  },
   "Nav": {
     "brand": "Katedrála sv. Martina",
     "brandSub": "Bratislava",

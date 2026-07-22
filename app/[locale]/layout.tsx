@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { SITE_URL } from "@/lib/seo";
 import "../globals.css";
 
 const playfairDisplay = Playfair_Display({
@@ -14,6 +15,7 @@ const playfairDisplay = Playfair_Display({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Katedrála sv. Martina | Bratislava",
     template: "%s | Katedrála sv. Martina",

@@ -3,6 +3,9 @@ import { getStrapiMediaUrl } from "@/lib/strapi-media";
 import type { StrapiMedia } from "@/types/strapi";
 import type { Global } from "@/types/content";
 
+/** Production domain — used by sitemap.ts, robots.ts and the root layout's metadataBase. */
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+
 /** Strips common markdown syntax so richtext content reads cleanly as a plain-text meta description. */
 export function stripMarkdown(text: string): string {
   return text
