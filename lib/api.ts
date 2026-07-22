@@ -528,7 +528,7 @@ export async function getVisitPage({ locale }: { locale: string }): Promise<Visi
         heroImage: true,
         stats: true,
         martineumImages: true,
-        services: true,
+        spaces: { populate: { image: true, hours: true, features: true } },
         journeySteps: { populate: { image: true } },
         cellarsImage: true,
         hours: true,
