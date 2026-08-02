@@ -42,7 +42,9 @@ interface ParishPageProps {
   params: Promise<{ locale: string }>;
 }
 
-export async function generateMetadata({ params }: ParishPageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: ParishPageProps): Promise<Metadata> {
   const { locale } = await params;
   const [parishPage, global, t] = await Promise.all([
     getParishPage({ locale }).catch(() => null),
@@ -72,11 +74,11 @@ export default async function ParishPage() {
   const announcementsSection = parishPage?.sections.find(
     (section) => section.__component === "sections.announcements-preview",
   );
-  const [weddingSection, baptismSection, lectioSection, adorationSection] = (
-    parishPage?.sections.filter(
-      (section): section is ImageTextSection => section.__component === "sections.image-text",
-    ) ?? []
-  ) as (ImageTextSection | undefined)[];
+  const [weddingSection, baptismSection, lectioSection, adorationSection] =
+    (parishPage?.sections.filter(
+      (section): section is ImageTextSection =>
+        section.__component === "sections.image-text",
+    ) ?? []) as (ImageTextSection | undefined)[];
 
   return (
     <main>
@@ -84,7 +86,7 @@ export default async function ParishPage() {
         eyebrow={parishPage?.heroEyebrow || t("eyebrow")}
         title={parishPage?.heroTitle || t("title")}
         imageLabel={t("imageAlt")}
-        imageSrc={getStrapiMediaUrl(parishPage?.heroImage) ?? undefined}
+        // imageSrc={getStrapiMediaUrl(parishPage?.heroImage) ?? undefined}
         breadcrumbItems={[
           { label: tNav("home"), href: "/" },
           { label: t("breadcrumb") },
@@ -147,10 +149,17 @@ export default async function ParishPage() {
         id="lectio-divina"
         eyebrow={lectioSection?.eyebrow || tLectio("eyebrow")}
         title={lectioSection?.title || tLectio("title")}
-        paragraphs={lectioSection ? toParagraphs(lectioSection.body) : [tLectio("paragraph1")]}
+        paragraphs={
+          lectioSection
+            ? toParagraphs(lectioSection.body)
+            : [tLectio("paragraph1")]
+        }
         meta={
           lectioSection?.meta?.length
-            ? lectioSection.meta.map((row) => ({ icon: META_ICON_MAP[row.icon], label: row.label }))
+            ? lectioSection.meta.map((row) => ({
+                icon: META_ICON_MAP[row.icon],
+                label: row.label,
+              }))
             : [
                 { icon: Clock, label: tLectio("schedule") },
                 { icon: MapPin, label: tLectio("location") },
@@ -164,10 +173,17 @@ export default async function ParishPage() {
         id="adoracia"
         eyebrow={adorationSection?.eyebrow || tAdoration("eyebrow")}
         title={adorationSection?.title || tAdoration("title")}
-        paragraphs={adorationSection ? toParagraphs(adorationSection.body) : [tAdoration("paragraph1")]}
+        paragraphs={
+          adorationSection
+            ? toParagraphs(adorationSection.body)
+            : [tAdoration("paragraph1")]
+        }
         meta={
           adorationSection?.meta?.length
-            ? adorationSection.meta.map((row) => ({ icon: META_ICON_MAP[row.icon], label: row.label }))
+            ? adorationSection.meta.map((row) => ({
+                icon: META_ICON_MAP[row.icon],
+                label: row.label,
+              }))
             : [
                 { icon: Clock, label: tAdoration("schedule") },
                 { icon: MapPin, label: tAdoration("location") },
