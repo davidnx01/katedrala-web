@@ -138,7 +138,14 @@
     "phoneLabel": "Telefón",
     "emailLabel": "E-mail",
     "hoursLabel": "Otváracie hodiny",
-    "ibanLabel": "IBAN"
+    "ibanLabel": "IBAN",
+    "emergencyPhoneLabel": "Núdzová linka",
+    "icoLabel": "IČO",
+    "dicLabel": "DIČ",
+    "billingLabel": "Fakturačné údaje",
+    "whatsHereLabel": "Čo tu vybavíte",
+    "link": "Kontakty",
+    "staffLabel": "Duchovní a pracovníci farnosti"
   },
   "ContactPage": {
     "heroEyebrow": "Sme tu pre vás",

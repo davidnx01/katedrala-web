@@ -138,7 +138,14 @@
     "phoneLabel": "Phone",
     "emailLabel": "Email",
     "hoursLabel": "Opening hours",
-    "ibanLabel": "IBAN"
+    "ibanLabel": "IBAN",
+    "emergencyPhoneLabel": "Emergency line",
+    "icoLabel": "Company ID",
+    "dicLabel": "Tax ID",
+    "billingLabel": "Billing details",
+    "whatsHereLabel": "What you can do here",
+    "link": "Contacts",
+    "staffLabel": "Parish clergy and staff"
   },
   "ContactPage": {
     "heroEyebrow": "We're here for you",

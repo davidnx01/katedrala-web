@@ -189,6 +189,12 @@ export interface StrapiHoursRow {
   note?: string;
 }
 
+export interface StrapiStaffMember {
+  role: string;
+  name: string;
+  email?: string;
+}
+
 export interface StrapiContactLocation {
   name: string;
   /** Stable frontend key (e.g. map markers) — plain string, not a Strapi uid. */
@@ -197,11 +203,19 @@ export interface StrapiContactLocation {
   /** e.g. "811 01 Bratislava" — kept separate from address for display + map query formatting. */
   city?: string;
   phone?: string;
+  /** Núdzový telefón mimo bežných úradných hodín/agendy. */
+  emergencyPhone?: string;
   email?: string;
   hours?: StrapiHoursRow[];
   photo?: StrapiMedia | null;
   description?: string;
   iban?: string;
+  /** Právny názov účtu — súčasť fakturačných údajov, vyplnené len na jednej lokácii. */
+  accountHolderName?: string;
+  ico?: string;
+  dic?: string;
+  /** Duchovní/pracovníci pôsobiaci na tejto lokácii. */
+  staff?: StrapiStaffMember[];
   /** Short chip labels shown over the photo — homepage contacts section only. */
   tags?: string[];
 }

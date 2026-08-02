@@ -15,7 +15,11 @@ export async function ContactsSection() {
   return (
     <section className="bg-surface py-12 md:py-16 lg:py-20">
       <Container>
-        <SectionHeading eyebrow={t("eyebrow")} title={t("title")} center />
+        <SectionHeading
+          eyebrow={t("eyebrow")}
+          title={t("title")}
+          link={{ label: t("link"), href: "/kontakt" }}
+        />
         <div className="grid grid-cols-1 gap-3 md:grid-cols-2 md:gap-4 lg:grid-cols-3 lg:gap-5">
           {locations.map((contact) => (
             <ContactCard key={contact.slug ?? contact.name} contact={contact} />

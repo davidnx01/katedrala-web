@@ -10,6 +10,11 @@ export function toParagraphs(body?: string): string[] {
   return (body ?? "").split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean);
 }
 
+/** Splits a semicolon-separated contact-location description into individual list items. */
+export function splitDescription(description: string): string[] {
+  return description.split(";").map((item) => item.trim()).filter(Boolean);
+}
+
 /** Formats a Strapi time value ("HH:mm:ss.SSS") down to "HH:mm". */
 export function formatTime(time: string): string {
   return time.slice(0, 5);

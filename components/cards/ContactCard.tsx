@@ -31,6 +31,14 @@ export function ContactCard({ contact }: ContactCardProps) {
           href: `tel:${contact.phone.replace(/\s/g, "")}`,
         }
       : undefined,
+    contact.emergencyPhone
+      ? {
+          icon: Phone,
+          label: t("emergencyPhoneLabel"),
+          value: `${t("emergencyPhoneLabel")}: ${contact.emergencyPhone}`,
+          href: `tel:${contact.emergencyPhone.replace(/\s/g, "")}`,
+        }
+      : undefined,
     contact.email
       ? {
           icon: Mail,

@@ -560,7 +560,7 @@ export async function getContactPage({ locale }: { locale: string }): Promise<Co
     {
       locale: sanitizeLocale(locale),
       populate: {
-        locations: { populate: { photo: true, hours: true } },
+        locations: { populate: { photo: true, hours: true, staff: true } },
         ...flexibleSectionsPopulate,
         ...seoPopulate,
       },
