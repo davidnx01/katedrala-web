@@ -1,5 +1,5 @@
 import { useTranslations } from "next-intl";
-import { Check, ChevronDown, Clock, CreditCard, ListChecks, Mail, MapPin, Phone, User } from "lucide-react";
+import { Check, ChevronDown, Clock, ListChecks, Mail, MapPin, Phone } from "lucide-react";
 import { cn, splitDescription } from "@/lib/utils";
 import type { StrapiContactLocation } from "@/types/strapi";
 
@@ -47,21 +47,7 @@ export function ContactLocationCard({
           href: `mailto:${location.email}`,
         }
       : undefined,
-    location.iban
-      ? {
-          icon: CreditCard,
-          label: t("ibanLabel"),
-          value: location.iban,
-          href: undefined,
-        }
-      : undefined,
   ].filter((row): row is Exclude<typeof row, undefined> => row !== undefined);
-
-  const billingRows = [
-    location.accountHolderName,
-    location.ico ? `${t("icoLabel")}: ${location.ico}` : undefined,
-    location.dic ? `${t("dicLabel")}: ${location.dic}` : undefined,
-  ].filter((row): row is string => Boolean(row));
 
   return (
     <button
@@ -191,56 +177,6 @@ export function ContactLocationCard({
         </div>
       )}
 
-      {location.staff && location.staff.length > 0 && (
-        <div className="w-full rounded-xl bg-surface p-3.5">
-          <div className="mb-2 flex items-center gap-1.5">
-            <User
-              size={14}
-              className={cn(isActive ? "text-gold" : "text-[#A39E94]")}
-              aria-hidden="true"
-            />
-            <span className="text-xs font-semibold tracking-wide text-navy">
-              {t("staffLabel")}
-            </span>
-          </div>
-          <div className="flex flex-col gap-1">
-            {location.staff.map((person) => (
-              <div
-                key={`${person.role}-${person.name}`}
-                className="flex items-center justify-between gap-2 py-1 text-sm text-[#7A756B]"
-              >
-                <span>
-                  <span className="font-semibold text-[#2C2A26]">{person.role}:</span>{" "}
-                  {person.name}
-                </span>
-                {person.email && (
-                  <a
-                    href={`mailto:${person.email}`}
-                    onClick={(e) => e.stopPropagation()}
-                    aria-label={`${person.role} ${person.name}: ${person.email}`}
-                    className="shrink-0 text-gold hover:text-navy"
-                  >
-                    <Mail size={14} aria-hidden="true" />
-                  </a>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {billingRows.length > 0 && (
-        <div className="w-full rounded-xl bg-surface p-3.5">
-          <div className="mb-1.5 text-xs font-semibold tracking-wide text-navy">
-            {t("billingLabel")}
-          </div>
-          {billingRows.map((row) => (
-            <p key={row} className="py-0.5 text-sm text-[#7A756B]">
-              {row}
-            </p>
-          ))}
-        </div>
-      )}
     </button>
   );
 }
