@@ -14,6 +14,7 @@ import type {
   Homepage,
   MassLanguage,
   MusicPage,
+  Navigation,
   Page,
   ParishPage,
   ReservationInput,
@@ -704,6 +705,28 @@ export async function getGlobal({ locale }: { locale: string }): Promise<Global>
     { revalidate: 86400, tags: ["global"] },
   );
   return response.data;
+}
+
+// ---------------------------------------------------------------------------
+// Navigation (header, mobile menu, footer link structure)
+// ---------------------------------------------------------------------------
+
+export async function getNavigation({ locale }: { locale: string }): Promise<Navigation> {
+  const response = await fetchStrapi<StrapiResponse<Navigation>>(
+    "navigation",
+    {
+      locale: sanitizeLocale(locale),
+      populate: {
+        headerLinks: true,
+        footerColumns: { populate: { links: true } },
+      },
+    },
+    { revalidate: 86400, tags: ["navigation"] },
+  );
+  return {
+    headerLinks: response.data.headerLinks ?? [],
+    footerColumns: response.data.footerColumns ?? [],
+  };
 }
 
 // ---------------------------------------------------------------------------

@@ -5,10 +5,12 @@ import type {
   StrapiContactLocation,
   StrapiCoronationKing,
   StrapiCta,
+  StrapiFooterColumn,
   StrapiHeroSection,
   StrapiHoursRow,
   StrapiJourneyStep,
   StrapiMedia,
+  StrapiNavLink,
   StrapiQuickLinkCard,
   StrapiRecordingItem,
   StrapiRestrictionItem,
@@ -287,4 +289,10 @@ export interface ContactMessageInput {
   subject?: string;
   message: string;
   locale: string;
+}
+
+/** Single source of truth for header, mobile menu, and footer link structure. */
+export interface Navigation {
+  headerLinks: StrapiNavLink[];
+  footerColumns: StrapiFooterColumn[];
 }

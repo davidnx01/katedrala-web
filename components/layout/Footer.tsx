@@ -3,13 +3,16 @@ import { MapPin, Phone, Mail } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { IconCross } from "@/components/icons";
 import { Container } from "@/components/layout/Container";
-import { getContactPage } from "@/lib/api";
+import { getContactPage, getNavigation } from "@/lib/api";
 
 export async function Footer() {
   const t = await getTranslations("Footer");
   const tNav = await getTranslations("Nav");
   const locale = await getLocale();
-  const contactPage = await getContactPage({ locale }).catch(() => null);
+  const [contactPage, navigation] = await Promise.all([
+    getContactPage({ locale }).catch(() => null),
+    getNavigation({ locale }).catch(() => null),
+  ]);
   const primaryContact = contactPage?.locations?.[0];
 
   const address = primaryContact
@@ -18,7 +21,7 @@ export async function Footer() {
   const phone = primaryContact?.phone || t("phone");
   const email = primaryContact?.email || t("email");
 
-  const columns = [
+  const fallbackColumns = [
     {
       title: t("parishColumn"),
       links: [
@@ -47,6 +50,7 @@ export async function Footer() {
       ],
     },
   ];
+  const columns = navigation?.footerColumns.length ? navigation.footerColumns : fallbackColumns;
 
   return (
     <footer className="w-full border-t border-gold/25 bg-navy px-4 pt-14 pb-6 text-white/50 md:px-8 md:pt-16 md:pb-8 lg:px-12 lg:pt-20 lg:pb-10">

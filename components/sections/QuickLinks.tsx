@@ -55,7 +55,7 @@ export function QuickLinks({ quickLinks = [] }: QuickLinksProps) {
   const links = cmsLinks.length > 0 ? cmsLinks : fallbackLinks;
 
   return (
-    <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+    <section className="grid grid-cols-1 gap-px bg-white sm:grid-cols-2 lg:grid-cols-4">
       {links.map((link) => (
         <QuickLinkCard
           key={link.key}

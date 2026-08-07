@@ -306,3 +306,15 @@ export interface StrapiRecordingItem {
   description: string;
   photo?: StrapiMedia | null;
 }
+
+export interface StrapiNavLink {
+  label: string;
+  href: string;
+  /** Header/mobile-menu only — lucide icon name (e.g. "home", "church"). Ignored in footer columns. */
+  icon?: string;
+}
+
+export interface StrapiFooterColumn {
+  title: string;
+  links: StrapiNavLink[];
+}

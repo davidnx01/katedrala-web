@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Menu, Home, Church, Compass, Landmark, Mail, Check } from "lucide-react";
+import { Menu, Home, Church, Compass, Landmark, Mail, Link2, Check } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
@@ -14,21 +15,27 @@ import {
 } from "@/components/ui/sheet";
 import { IconCross } from "@/components/icons";
 import { cn } from "@/lib/utils";
+import type { StrapiNavLink } from "@/types/strapi";
 
-const NAV_ITEMS = [
-  { key: "home", href: "/", icon: Home },
-  { key: "parish", href: "/farnost", icon: Church },
-  { key: "visit", href: "/navsteva", icon: Compass },
-  { key: "churches", href: "/kostoly", icon: Landmark },
-  { key: "contact", href: "/kontakt", icon: Mail },
-] as const;
+/** Maps the free-text `icon` field on a nav link (Strapi) to a lucide component. */
+const ICON_MAP: Record<string, LucideIcon> = {
+  home: Home,
+  church: Church,
+  compass: Compass,
+  landmark: Landmark,
+  mail: Mail,
+};
 
 const LANGUAGE_NAMES: Record<string, string> = {
   sk: "Slovenčina",
   en: "English",
 };
 
-export function MobileMenu() {
+interface MobileMenuProps {
+  links: StrapiNavLink[];
+}
+
+export function MobileMenu({ links }: MobileMenuProps) {
   const t = useTranslations("Nav");
   const locale = useLocale();
   const pathname = usePathname();
@@ -64,13 +71,13 @@ export function MobileMenu() {
         </SheetHeader>
 
         <nav className="flex flex-col gap-1 px-3 py-4">
-          {NAV_ITEMS.map((item) => {
-            const Icon = item.icon;
-            const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+          {links.map((link) => {
+            const Icon = (link.icon && ICON_MAP[link.icon]) || Link2;
+            const active = link.href === "/" ? pathname === "/" : pathname.startsWith(link.href);
             return (
               <Link
-                key={item.key}
-                href={item.href}
+                key={link.href}
+                href={link.href}
                 onClick={() => setOpen(false)}
                 className={cn(
                   "flex min-h-14 items-center gap-3 rounded-xl px-3 text-base font-medium transition-colors",
@@ -84,7 +91,7 @@ export function MobileMenu() {
                   className={active ? "text-gold" : "text-white/40"}
                   aria-hidden="true"
                 />
-                {t(item.key)}
+                {link.label}
               </Link>
             );
           })}

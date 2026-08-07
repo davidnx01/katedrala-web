@@ -1,19 +1,23 @@
-import { useTranslations } from "next-intl";
+import { getTranslations, getLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { IconCross } from "@/components/icons";
 import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
 import { MobileMenu } from "@/components/layout/MobileMenu";
+import { getNavigation } from "@/lib/api";
+import type { StrapiNavLink } from "@/types/strapi";
 
-const NAV_ITEMS = [
-  { key: "home", href: "/" },
-  { key: "parish", href: "/farnost" },
-  { key: "visit", href: "/navsteva" },
-  { key: "churches", href: "/kostoly" },
-  { key: "contact", href: "/kontakt" },
-] as const;
+export async function Header() {
+  const t = await getTranslations("Nav");
+  const locale = await getLocale();
+  const navigation = await getNavigation({ locale }).catch(() => null);
 
-export function Header() {
-  const t = useTranslations("Nav");
+  const fallbackLinks: StrapiNavLink[] = [
+    { label: t("home"), href: "/" },
+    { label: t("parish"), href: "/farnost" },
+    { label: t("visit"), href: "/navsteva" },
+    { label: t("contact"), href: "/kontakt" },
+  ];
+  const headerLinks = navigation?.headerLinks.length ? navigation.headerLinks : fallbackLinks;
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-white/6 bg-navy/85 backdrop-blur-lg py-2">
@@ -33,19 +37,19 @@ export function Header() {
         </Link>
 
         <nav className="hidden items-center gap-2 md:flex">
-          {NAV_ITEMS.map((item) => (
+          {headerLinks.map((link) => (
             <Link
-              key={item.key}
-              href={item.href}
+              key={link.href}
+              href={link.href}
               className="rounded-md px-3.5 font-medium py-1.5 text-lg text-white transition-colors hover:bg-white/10 hover:text-white"
             >
-              {t(item.key)}
+              {link.label}
             </Link>
           ))}
         </nav>
 
         <LanguageSwitcher className="ml-4 hidden md:flex" />
-        <MobileMenu />
+        <MobileMenu links={headerLinks} />
       </div>
     </header>
   );

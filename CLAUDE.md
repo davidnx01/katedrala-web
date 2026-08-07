@@ -107,18 +107,13 @@ Pozadie stránky: `bg-warm`. Karty: `bg-white`. Tmavé sekcie: `bg-navy`. Nadpis
 
 ## Navigácia
 
-### Hlavná (5 položiek)
-1. Domov
-2. Farnosť
-3. Návšteva
-4. Kostoly
-5. Kontakt
+Header (desktop + mobilné menu), footer stĺpce a všetky ich odkazy sa **kompletne ťahajú zo Strapi** cez `Navigation` single type (`getNavigation()`, `lib/api.ts`) — nie sú fixné v kóde. `Header.tsx` je async Server Component, fetchne `headerLinks` a posiela ich ako props aj do `MobileMenu.tsx` (client component), takže desktop aj mobil čerpajú z toho istého zoznamu. `Footer.tsx` rovnako fetchne `footerColumns`.
 
-### Footer (sekundárna)
-- Kapitulská ulica
-- Hudba a koncerty
-- Martineum
-- Ochrana údajov
+Aktuálny obsah (nastavený v Strapi, editovateľný):
+- **Header** (4 položky): Domov, Farnosť, Návšteva, Kontakt — "Kostoly" bolo presunuté do footeru.
+- **Footer**: 3 stĺpce (Farnosť / Návšteva / Ďalšie), "Kostoly a kaplnky" je v stĺpci Ďalšie.
+
+Ak `Navigation` v Strapi nemá (ešte) obsah, `Header.tsx`/`Footer.tsx` padnú na hardcoded fallback pole (texty cez i18n `Nav`/`Footer` namespace) — web nikdy nezostane bez navigácie.
 
 ### Jazykový prepínač
 SK/EN, viditeľný v headeri. Prepnutie zachová aktuálnu stránku.
@@ -207,10 +202,10 @@ messages/
 Presné schémy (komponenty, kolekcie, single types, dynamic zones) sú zdokumentované v `cms/CLAUDE.md` — to je zdroj pravdy. Zhrnutie:
 
 - **Collections**: `Church`, `Announcement`, `Concert`, `Event` (kalendár udalostí na homepage), `Page` (generická flexibilná stránka pre Kapitulskú, Martineum, Sprievodcu, Audioguides, Exkurziu, Omšu s kňazom — nová stránka = nový záznam, nie nová schéma), `Reservation`/`Excursion`/`ContactMessage` (archív formulárov).
-- **Single types**: `Homepage`, `ParishPage` (`/farnost`), `VisitPage` (`/navsteva`), `ContactPage` (`/kontakt`), `HistoryPage` (`/historia`), `MusicPage` (`/hudba` — koncerty na stránke sú live dáta z `Concert`, nie CMS pole), `Global` (siteName/tagline/footer text — navigácia a footer odkazy zostávajú fixné v kóde, pozri Navigácia nižšie) — každý má vlastné štrukturálne polia (HistoryPage/VisitPage/MusicPage majú fixné poradie sekcií v kóde namiesto dynamic zone) + prípadne `sections` dynamic zone pre kompozovateľný obsah.
-- **Zdieľané komponenty**: `shared.seo`, `shared.cta`, `shared.meta-row`, `shared.mass-time`, `shared.hours-row` (dayLabel/time/note?), `shared.contact-location`, `shared.faq-item`, `layout.hero-section` (slideshow-ready: `images[]` + 3-časťový titulok), `layout.quick-link`, `layout.quick-link-card` (homepage quick links s fotkou), `layout.stat-item`, `layout.journey-step`, `layout.ticket-row`, `layout.restriction-item`, `layout.timeline-event`, `layout.coronation-king`, `layout.recording-item`, `layout.venue-feature`, `layout.venue-space` (prepínacie záložky „Čo tu nájdete“ na `/navsteva`), a desať `sections.*` komponentov (rich-text, image-text, cta-banner, gallery, faq, quick-nav, mass-schedule, announcements-preview, churches-preview, contacts).
+- **Single types**: `Homepage`, `ParishPage` (`/farnost`), `VisitPage` (`/navsteva`), `ContactPage` (`/kontakt`), `HistoryPage` (`/historia`), `MusicPage` (`/hudba` — koncerty na stránke sú live dáta z `Concert`, nie CMS pole), `Global` (siteName/tagline/footer text), `Navigation` (header, mobilné menu, footer odkazy — pozri Navigácia nižšie) — každý má vlastné štrukturálne polia (HistoryPage/VisitPage/MusicPage majú fixné poradie sekcií v kóde namiesto dynamic zone) + prípadne `sections` dynamic zone pre kompozovateľný obsah.
+- **Zdieľané komponenty**: `shared.seo`, `shared.cta`, `shared.meta-row`, `shared.mass-time`, `shared.hours-row` (dayLabel/time/note?), `shared.contact-location`, `shared.faq-item`, `layout.hero-section` (slideshow-ready: `images[]` + 3-časťový titulok), `layout.quick-link`, `layout.quick-link-card` (homepage quick links s fotkou), `layout.stat-item`, `layout.journey-step`, `layout.ticket-row`, `layout.restriction-item`, `layout.timeline-event`, `layout.coronation-king`, `layout.recording-item`, `layout.venue-feature`, `layout.venue-space` (prepínacie záložky „Čo tu nájdete“ na `/navsteva`), `layout.nav-link`, `layout.footer-column` (Navigation), a desať `sections.*` komponentov (rich-text, image-text, cta-banner, gallery, faq, quick-nav, mass-schedule, announcements-preview, churches-preview, contacts).
 
-Zodpovedajúce TypeScript typy: `types/strapi.ts` (Strapi-tvarové typy, komponenty, `FlexiblePageSection`/`HomepageSection`/`ParishPageSection`/`VisitPageSection`/`ContactPageSection` dynamic-zone union typy) a `types/content.ts` (aplikačné typy: `Church`, `Announcement`, `Concert` (má `isFree`), `Event`, `Global`, `Page`, `Homepage`, `ParishPage`, `VisitPage`, `ContactPage`, `HistoryPage`, `MusicPage`, `ReservationInput`/`ExcursionInput`/`ContactMessageInput`).
+Zodpovedajúce TypeScript typy: `types/strapi.ts` (Strapi-tvarové typy, komponenty, `FlexiblePageSection`/`HomepageSection`/`ParishPageSection`/`VisitPageSection`/`ContactPageSection` dynamic-zone union typy) a `types/content.ts` (aplikačné typy: `Church`, `Announcement`, `Concert` (má `isFree`), `Event`, `Global`, `Navigation`, `Page`, `Homepage`, `ParishPage`, `VisitPage`, `ContactPage`, `HistoryPage`, `MusicPage`, `ReservationInput`/`ExcursionInput`/`ContactMessageInput`).
 
 ## API vrstva (lib/api.ts)
 
@@ -248,6 +243,7 @@ getContactPage({ locale }): Promise<ContactPage>
 getHistoryPage({ locale }): Promise<HistoryPage>
 getMusicPage({ locale }): Promise<MusicPage>
 getGlobal({ locale }): Promise<Global>
+getNavigation({ locale }): Promise<Navigation>  // header + mobilné menu + footer odkazy
 
 // Formuláre — zapisujú cez STRAPI_FORMS_TOKEN (write-only), nikdy cez read token
 createReservation(input: ReservationInput): Promise<void>
