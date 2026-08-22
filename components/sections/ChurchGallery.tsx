@@ -36,7 +36,7 @@ export function ChurchGallery({ title, churchName, images }: ChurchGalleryProps)
               src={getStrapiMediaUrl(image) ?? ""}
               alt={image.alternativeText ?? `${churchName} — foto ${index + 1}`}
               fill
-              className="object-cover"
+              className="object-cover object-center"
             />
           </button>
         ))}

@@ -29,7 +29,7 @@ export function ChurchHero({
           src={getStrapiMediaUrl(photo) ?? undefined}
           alt={photo?.alternativeText ?? name}
           priority
-          className="h-full absolute w-full object-cover object-center"
+          className="h-full w-full"
         />
         <div className="absolute inset-0 flex flex-col justify-end bg-linear-to-b from-navy/20 via-navy/30 to-navy/85 px-4 pb-6 md:px-8 md:pb-8 lg:px-12 lg:pb-10">
           <div className="w-full max-w-7xl">

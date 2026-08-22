@@ -9,7 +9,11 @@ interface HistoryHeroProps {
   imageLabel: string;
 }
 
-export function HistoryHero({ historyPage, breadcrumbItems, imageLabel }: HistoryHeroProps) {
+export function HistoryHero({
+  historyPage,
+  breadcrumbItems,
+  imageLabel,
+}: HistoryHeroProps) {
   return (
     <section className="relative mt-11 h-[65vh] max-h-[650px] min-h-[400px] overflow-hidden md:mt-12 md:h-[70vh] lg:mt-[50px] lg:h-[75vh]">
       <ImagePlaceholder
@@ -30,7 +34,9 @@ export function HistoryHero({ historyPage, breadcrumbItems, imageLabel }: Histor
           <h1 className="mb-3.5 max-w-2xl font-serif text-4xl leading-[1.02] font-normal tracking-tight text-white lg:text-[64px]">
             {historyPage.heroTitle}{" "}
             {historyPage.heroTitleEmphasis && (
-              <span className="font-bold italic">{historyPage.heroTitleEmphasis}</span>
+              <span className="font-bold italic">
+                {historyPage.heroTitleEmphasis}
+              </span>
             )}
           </h1>
           {historyPage.heroSubtitle && (

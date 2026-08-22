@@ -1,7 +1,7 @@
 import { getTranslations, getLocale } from "next-intl/server";
 import { MapPin, Phone, Mail } from "lucide-react";
 import { Link } from "@/i18n/navigation";
-import { IconCross } from "@/components/icons";
+import { Logo } from "@/components/icons";
 import { Container } from "@/components/layout/Container";
 import { getContactPage, getNavigation } from "@/lib/api";
 
@@ -57,9 +57,7 @@ export async function Footer() {
       <Container className="grid grid-cols-1 gap-10 border-b border-white/10 px-0 pb-10 md:grid-cols-2 md:gap-12 md:pb-12 lg:grid-cols-[1.3fr_1fr_1fr_1fr] lg:gap-10 lg:pb-14">
         <div>
           <div className="mb-4 flex items-center gap-3">
-            <span className="text-gold">
-              <IconCross size={48} />
-            </span>
+            <Logo size={48} />
             <span className="font-serif text-xl font-semibold text-white/90">
               {tNav("brand")}
             </span>

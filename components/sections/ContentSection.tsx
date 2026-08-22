@@ -21,6 +21,9 @@ interface ContentSectionProps {
   imageSrc?: string;
   reverse?: boolean;
   tinted?: boolean;
+  className?: {
+    image: string;
+  };
 }
 
 export function ContentSection({
@@ -34,20 +37,27 @@ export function ContentSection({
   imageSrc,
   reverse,
   tinted,
+  className,
 }: ContentSectionProps) {
   return (
-    <section id={id} className={cn("py-12 md:py-16 lg:py-20", tinted && "bg-surface")}>
+    <section
+      id={id}
+      className={cn("py-12 md:py-16 lg:py-20", tinted && "bg-surface")}
+    >
       <Container
         className={cn(
           "grid grid-cols-1 items-center gap-8 md:gap-10 lg:grid-cols-2 lg:gap-16",
-          reverse && "lg:[&>*:first-child]:order-2"
+          reverse && "lg:[&>*:first-child]:order-2",
         )}
       >
         <div>
           <SectionHeading eyebrow={eyebrow} title={title} />
           <div className="-mt-4 flex flex-col gap-4">
             {paragraphs.map((paragraph, i) => (
-              <p key={i} className="text-[15px] leading-relaxed text-[#7A756B] md:text-base">
+              <p
+                key={i}
+                className="text-[15px] leading-relaxed text-[#7A756B] md:text-base"
+              >
                 {paragraph}
               </p>
             ))}
@@ -58,8 +68,15 @@ export function ContentSection({
               {meta.map((row) => {
                 const Icon = row.icon;
                 return (
-                  <div key={row.label} className="flex items-center gap-2.5 text-sm text-[#2C2A26]">
-                    <Icon size={16} className="shrink-0 text-gold" aria-hidden="true" />
+                  <div
+                    key={row.label}
+                    className="flex items-center gap-2.5 text-sm text-[#2C2A26]"
+                  >
+                    <Icon
+                      size={16}
+                      className="shrink-0 text-gold"
+                      aria-hidden="true"
+                    />
                     <span className="font-medium">{row.label}</span>
                   </div>
                 );
@@ -76,12 +93,14 @@ export function ContentSection({
             </Link>
           )}
         </div>
-
         <ImagePlaceholder
           label={imageLabel}
           src={imageSrc}
           alt={imageLabel}
-          className="h-60 rounded-2xl md:h-75 lg:h-90"
+          className={cn(
+            "h-60 rounded-2xl md:h-75 lg:h-90 max-w-[564px]",
+            className?.image,
+          )}
         />
       </Container>
     </section>

@@ -31,7 +31,10 @@ export function MusicOrganShowcase({
           <SectionHeading eyebrow={eyebrow} title={title} />
           <div className="-mt-4 flex flex-col gap-4">
             {toParagraphs(body).map((paragraph, i) => (
-              <p key={i} className="text-base leading-[1.75] text-[#7A756B] md:text-[17px]">
+              <p
+                key={i}
+                className="text-base leading-[1.75] text-[#7A756B] md:text-[17px]"
+              >
                 {paragraph}
               </p>
             ))}
@@ -47,7 +50,9 @@ export function MusicOrganShowcase({
                   <div className="font-serif text-2xl leading-none font-bold text-gold md:text-[28px] lg:text-3xl">
                     {stat.value}
                   </div>
-                  <div className="mt-1 text-[13px] text-[#A39E94]">{stat.label}</div>
+                  <div className="mt-1 text-[13px] text-[#A39E94]">
+                    {stat.label}
+                  </div>
                 </div>
               ))}
             </div>
@@ -55,11 +60,13 @@ export function MusicOrganShowcase({
         </div>
 
         <div className="flex flex-col gap-3">
-          <div className="relative h-60 overflow-hidden rounded-2xl md:h-75 lg:h-95">
-            <ImagePlaceholder label={imageLabel} src={getStrapiMediaUrl(img1) ?? undefined} alt={imageLabel} className="h-full" />
-          </div>
-          <div className="relative h-35 overflow-hidden rounded-2xl md:h-42 lg:h-50">
-            <ImagePlaceholder label={imageLabel} src={getStrapiMediaUrl(img2) ?? undefined} alt={imageLabel} className="h-full" />
+          <div className="relative h-76 overflow-hidden rounded-2xl md:h-92 lg:h-154">
+            <ImagePlaceholder
+              label={imageLabel}
+              src={getStrapiMediaUrl(img1) ?? undefined}
+              alt={imageLabel}
+              className="h-full"
+            />
           </div>
         </div>
       </Container>

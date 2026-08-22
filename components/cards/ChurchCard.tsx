@@ -21,7 +21,7 @@ export function ChurchCard({ church }: ChurchCardProps) {
         <ImagePlaceholder
           label={`Foto: ${church.name}`}
           src={getStrapiMediaUrl(church.photo) ?? ""}
-          className="absolute w-full h-full inset-0 z-0 object-cover object-center"
+          className="h-full w-full"
         />
         <Badge className="absolute top-2.5 left-2.5 rounded-lg border border-gold/40 bg-navy/70 px-2 py-0.5 text-[11px] font-semibold tracking-wide text-gold uppercase backdrop-blur-sm">
           {church.type === "kostol" ? t("typeChurch") : t("typeChapel")}

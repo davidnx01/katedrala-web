@@ -63,7 +63,7 @@ export function ContactCard({ contact }: ContactCardProps) {
         <ImagePlaceholder
           src={getStrapiMediaUrl(contact.photo) ?? ""}
           label={`Foto: ${contact.name}`}
-          className="absolute w-full h-full inset-0 object-cover object-center"
+          className="h-full w-full"
         />
         {contact.tags && contact.tags.length > 0 && (
           <div className="absolute inset-x-0 top-0 flex flex-wrap items-start justify-start gap-1 bg-linear-to-b from-navy/70 to-transparent p-3">

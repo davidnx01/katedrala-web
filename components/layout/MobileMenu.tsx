@@ -13,7 +13,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { IconCross } from "@/components/icons";
+import { Logo } from "@/components/icons";
 import { cn } from "@/lib/utils";
 import type { StrapiNavLink } from "@/types/strapi";
 
@@ -56,9 +56,7 @@ export function MobileMenu({ links }: MobileMenuProps) {
       >
         <SheetHeader className="border-b border-white/8 px-5 py-5">
           <div className="flex items-center gap-2.5">
-            <span className="text-gold">
-              <IconCross size={26} />
-            </span>
+            <Logo size={26} />
             <div>
               <SheetTitle className="font-serif text-base text-white">
                 {t("brand")}

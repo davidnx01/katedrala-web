@@ -2,7 +2,7 @@ import { getTranslations } from "next-intl/server";
 import { Home } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/ui/button";
-import { IconCross } from "@/components/icons";
+import { Logo } from "@/components/icons";
 import { Link } from "@/i18n/navigation";
 
 export default async function NotFound() {
@@ -11,7 +11,7 @@ export default async function NotFound() {
   return (
     <main className="flex min-h-[70vh] items-center py-16 md:py-24">
       <Container className="flex max-w-[560px] flex-col items-center text-center">
-        <IconCross size={48} className="mb-6 text-gold" />
+        <Logo size={48} className="mb-6" />
         <div className="mb-3 text-xs font-semibold tracking-[0.2em] text-gold uppercase">
           {t("eyebrow")}
         </div>

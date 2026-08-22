@@ -3,21 +3,17 @@ interface IconProps {
   className?: string;
 }
 
-export function IconCross({ size = 40, className }: IconProps) {
+const LOGO_ASPECT_RATIO = 778 / 895;
+
+export function Logo({ size = 40, className }: IconProps) {
   return (
-    <svg
-      width={size}
+    // eslint-disable-next-line @next/next/no-img-element -- decorative vector mark, no benefit from next/image optimization
+    <img
+      src="/images/logo.svg"
+      alt=""
+      width={Math.round(size * LOGO_ASPECT_RATIO)}
       height={size}
-      viewBox="0 0 40 40"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.2"
-      strokeLinecap="round"
       className={className}
-      aria-hidden="true"
-    >
-      <line x1="20" y1="4" x2="20" y2="36" />
-      <line x1="10" y1="14" x2="30" y2="14" />
-    </svg>
+    />
   );
 }

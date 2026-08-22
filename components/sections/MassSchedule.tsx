@@ -75,7 +75,7 @@ export function MassSchedule({ section }: MassScheduleProps) {
           <ImagePlaceholder
             label={t("imageAlt")}
             src={imageSrc}
-            className="absolute w-full h-full inset-0 z-0 object-cover object-center"
+            className="h-full w-full"
           />
         </div>
       </Container>

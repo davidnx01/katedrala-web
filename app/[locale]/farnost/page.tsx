@@ -143,6 +143,7 @@ export default async function ParishPage() {
         }}
         imageSrc={getStrapiMediaUrl(baptismSection?.image) ?? undefined}
         imageLabel={tBaptism("imageAlt")}
+        className={{ image: "h-110 md:h-176 lg:h-182" }}
         reverse
       />
       <ContentSection

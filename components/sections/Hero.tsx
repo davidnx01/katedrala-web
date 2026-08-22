@@ -48,7 +48,7 @@ export function Hero({ hero }: HeroProps) {
       />
       <div className="absolute inset-0 flex flex-col justify-end bg-linear-to-b from-navy/15 via-navy/40 to-navy/85 px-4 pb-12 md:px-8 md:pb-14 lg:px-12 lg:pb-32">
         <div className="mx-auto w-full max-w-7xl">
-          <div className="mb-2.5 text-xs font-semibold tracking-[0.2em] text-gold uppercase md:mb-3 lg:mb-4">
+          <div className="mb-2.5 text-xs font-semibold tracking-[0.2em] text-gold uppercase md:mb-3 lg:mb-4 bg-navy w-fit px-3 py-1 rounded-md">
             {eyebrow}
           </div>
           <h1 className="mb-4 max-w-3xl font-serif text-4xl leading-[1.02] font-normal tracking-tight text-white lg:text-[64px]">
