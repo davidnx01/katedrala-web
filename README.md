@@ -40,3 +40,5 @@ Web beží na `http://localhost:3000`.
 3. (Voliteľné) V Strapi admine nastav webhook, aby sa zmeny obsahu prejavili
    na webe okamžite — presný postup je v `../cms` README/CLAUDE.md sekcia
    "On-demand revalidation webhook".
+
+<!-- Overenie deploy webhooku: 2026-08-26 -->
