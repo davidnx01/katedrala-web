@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getLocale } from "next-intl/server";
 import { Hero } from "@/components/sections/Hero";
-// import { QuickLinks } from "@/components/sections/QuickLinks";
+import { QuickLinks } from "@/components/sections/QuickLinks";
 import { AnnouncementsPreview } from "@/components/sections/AnnouncementsPreview";
 import { EventsCalendar } from "@/components/sections/EventsCalendar";
 import { MassSchedule } from "@/components/sections/MassSchedule";
@@ -51,7 +51,7 @@ export default async function HomePage() {
   return (
     <main>
       <Hero hero={homepage?.hero} />
-      {/* <QuickLinks quickLinks={homepage?.quickLinks} /> */}
+      <QuickLinks quickLinks={homepage?.quickLinks} />
       <AnnouncementsPreview section={announcementsSection} />
       <EventsCalendar events={events} />
       <MassSchedule section={massScheduleSection} />
