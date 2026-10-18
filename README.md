@@ -42,3 +42,5 @@ Web beží na `http://localhost:3000`.
    "On-demand revalidation webhook".
 
 <!-- Overenie deploy webhooku: 2026-08-26 -->
+
+<!-- Trigger rebuild po doplnení fotiek do Strapi: 2026-10-18 -->

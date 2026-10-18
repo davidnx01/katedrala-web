@@ -225,13 +225,26 @@ function normalizeMassSchedule(schedule: unknown): { dayLabel: string; times: st
   }));
 }
 
-/** Normalizes `schedule[].times` on any `sections.mass-schedule` dynamic-zone entry. */
-function normalizeSections<T extends { __component: string; schedule?: unknown }>(sections: T[]): T[] {
-  return sections.map((section) =>
-    section.__component === "sections.mass-schedule"
-      ? { ...section, schedule: normalizeMassSchedule(section.schedule) }
-      : section,
-  );
+/**
+ * Normalizes `schedule[].times` on any `sections.mass-schedule` entry and
+ * `locations[].tags` on any `sections.contacts` entry (both comma-separated
+ * strings in Strapi, not JSON — see cms/CLAUDE.md).
+ */
+function normalizeSections<
+  T extends { __component: string; schedule?: unknown; locations?: unknown },
+>(sections: T[]): T[] {
+  return sections.map((section) => {
+    if (section.__component === "sections.mass-schedule") {
+      return { ...section, schedule: normalizeMassSchedule(section.schedule) };
+    }
+    if (section.__component === "sections.contacts") {
+      return {
+        ...section,
+        locations: (section.locations as StrapiContactLocation[]).map(normalizeContactLocation),
+      };
+    }
+    return section;
+  });
 }
 
 /**

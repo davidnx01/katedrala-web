@@ -1,14 +1,16 @@
-import { getTranslations, getLocale } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { Container } from "@/components/layout/Container";
 import { SectionHeading } from "@/components/sections/SectionHeading";
 import { ContactCard } from "@/components/cards/ContactCard";
-import { getContactPage } from "@/lib/api";
+import type { ContactsSection as ContactsSectionData } from "@/types/strapi";
 
-export async function ContactsSection() {
+interface ContactsSectionProps {
+  section?: ContactsSectionData;
+}
+
+export async function ContactsSection({ section }: ContactsSectionProps) {
   const t = await getTranslations("Contacts");
-  const locale = await getLocale();
-  const contactPage = await getContactPage({ locale }).catch(() => null);
-  const locations = contactPage?.locations ?? [];
+  const locations = section?.locations ?? [];
 
   if (locations.length === 0) return null;
 
@@ -16,8 +18,8 @@ export async function ContactsSection() {
     <section className="bg-surface py-12 md:py-16 lg:py-20">
       <Container>
         <SectionHeading
-          eyebrow={t("eyebrow")}
-          title={t("title")}
+          eyebrow={section?.eyebrow || t("eyebrow")}
+          title={section?.title || t("title")}
           link={{ label: t("link"), href: "/kontakt" }}
         />
         <div className="grid grid-cols-1 gap-3 md:grid-cols-2 md:gap-4 lg:grid-cols-3 lg:gap-5">

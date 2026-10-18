@@ -47,6 +47,9 @@ export default async function HomePage() {
   const massScheduleSection = homepage?.sections.find(
     (section) => section.__component === "sections.mass-schedule",
   );
+  const contactsSection = homepage?.sections.find(
+    (section) => section.__component === "sections.contacts",
+  );
 
   return (
     <main>
@@ -56,7 +59,7 @@ export default async function HomePage() {
       <EventsCalendar events={events} />
       <MassSchedule section={massScheduleSection} />
       <ChurchesPreview />
-      <ContactsSection />
+      <ContactsSection section={contactsSection} />
     </main>
   );
 }

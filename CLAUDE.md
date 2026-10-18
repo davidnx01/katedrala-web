@@ -2,6 +2,14 @@
 
 > Web pre farnosť a Dom sv. Martina. Dvojjazyčný (SK/EN). Cieľovka: farníci (60%), turisti (30%), kultúra (10%). Prístupný pre 12–65+ rokov.
 
+> **Klientsky kontext (obchodné rozhodnutia, denník, otvorené otázky):**
+> `~/Documents/Obsidian/Poznámky/webdavid/Katedrála sv. Martina/Katedrála sv. Martina.md`
+> Prečítaj to pred akoukoľvek dizajnovou/produktovou prácou na tomto projekte.
+>
+> **Pozor:** časti tohto súboru popisujú plánovanú, nie hotovú funkcionalitu
+> (pozri "Čo nie je hotové" v Obsidian poznámke, overené 2026-08-24). Kód je
+> zdroj pravdy, nie tento súbor.
+
 ## Tech stack
 
 - Next.js 15+ (App Router)
