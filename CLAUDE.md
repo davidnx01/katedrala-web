@@ -197,9 +197,6 @@ types/
   strapi.ts                  ← Strapi response/komponent/dynamic-zone typy
   content.ts                 ← aplikačné content model typy
 
-app/api/
-  revalidate/route.ts        ← on-demand ISR webhook receiver (Strapi → Next.js)
-
 messages/
   sk.json                    ← slovenské preklady
   en.json                    ← anglické preklady
@@ -272,11 +269,9 @@ Richtext polia (markdown) sa renderujú výhradne cez `react-markdown` — nikdy
 - `StrapiFetchError` nesie status/endpoint, ale nikdy neleakuje internú Strapi odpoveď do UI — stránky ho zachytávajú a renderujú `notFound()`/generický error stav.
 - CORS na strane Strapi obmedzený na `FRONTEND_URLS` (nikdy `*`).
 
-### On-demand revalidation
+### Cachovanie
 
-`app/api/revalidate/route.ts` prijíma Strapi webhooky (`x-revalidate-secret` header, timing-safe porovnanie) a volá `revalidateTag()` — publikovaný obsah sa prejaví okamžite namiesto čakania na časový interval. Nastavenie webhooku: `cms/CLAUDE.md`.
-
-Revalidácia (timed fallback): announcements 60s, churches/concerts 3600s, homepage/parish-page 300s, visit-page/contact-page/pages 86400s.
+Žiadne. Každý fetch do Strapi (`fetchStrapi()` v `lib/api.ts`) beží s `cache: "no-store"` — každá stránka sa renderuje nanovo pri každom requeste. Publikovaný obsah v Strapi je okamžite živý, bez ISR, bez revalidate okien, bez webhooku.
 
 ## Prístupnosť (WCAG 2.1 AA)
 

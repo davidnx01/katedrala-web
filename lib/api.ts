@@ -91,25 +91,12 @@ export function sanitizePageSize(value: number, max: number = MAX_PAGE_SIZE): nu
 // ---------------------------------------------------------------------------
 // Core fetch wrapper
 // ---------------------------------------------------------------------------
+//
+// Always `cache: "no-store"` — every page renders fresh on every request.
+// No ISR, no revalidate windows, no on-demand revalidation webhook: a
+// publish in Strapi is live on the next request, in every environment.
 
-interface FetchOptions {
-  /** Seconds; `false` disables ISR caching (revalidate on every request). */
-  revalidate?: number | false;
-  /** Cache tags for on-demand revalidation via /api/revalidate. */
-  tags?: string[];
-}
-
-// In development, ISR caching means an edited Strapi field can survive a
-// hard refresh for minutes (up to each function's `revalidate` value) —
-// confusing while actively authoring content. Production keeps the real
-// per-type revalidate/tags strategy documented in web/CLAUDE.md.
-const isDev = process.env.NODE_ENV !== "production";
-
-async function fetchStrapi<T>(
-  endpoint: string,
-  query: Record<string, unknown> = {},
-  { revalidate = 60, tags }: FetchOptions = {},
-): Promise<T> {
+async function fetchStrapi<T>(endpoint: string, query: Record<string, unknown> = {}): Promise<T> {
   const queryString = qs.stringify(query, { encodeValuesOnly: true, arrayFormat: "brackets" });
   const url = `${STRAPI_URL}/api/${endpoint}${queryString ? `?${queryString}` : ""}`;
 
@@ -117,7 +104,7 @@ async function fetchStrapi<T>(
   try {
     res = await fetch(url, {
       headers: STRAPI_API_TOKEN ? { Authorization: `Bearer ${STRAPI_API_TOKEN}` } : undefined,
-      ...(isDev ? { cache: "no-store" as const } : { next: { revalidate, tags } }),
+      cache: "no-store",
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
     });
   } catch {
@@ -275,7 +262,6 @@ export async function getChurches({
       populate: { photo: true, gallery: true, massSchedule: true },
       ...(type ? { filters: { type: { $eq: type } } } : {}),
     },
-    { revalidate: 3600, tags: ["churches"] },
   );
   return response.data.map(normalizeChurch);
 }
@@ -295,7 +281,6 @@ export async function getChurchBySlug({
       populate: { photo: true, gallery: true, massSchedule: true },
       pagination: { limit: 1 },
     },
-    { revalidate: 3600, tags: ["churches"] },
   );
   const church = response.data[0];
   return church ? normalizeChurch(church) : null;
@@ -321,7 +306,6 @@ export async function getAnnouncements({
       sort: ["date:desc"],
       pagination: { page: sanitizePage(page), pageSize: sanitizePageSize(pageSize) },
     },
-    { revalidate: 60, tags: ["announcements"] },
   );
   return { items: response.data, pagination: response.meta.pagination };
 }
@@ -340,7 +324,6 @@ export async function getLatestAnnouncements({
       sort: ["date:desc"],
       pagination: { limit: sanitizePageSize(limit, 12) },
     },
-    { revalidate: 60, tags: ["announcements"] },
   );
   return response.data;
 }
@@ -359,7 +342,6 @@ export async function getAnnouncementBySlug({
       filters: { slug: { $eq: slug } },
       pagination: { limit: 1 },
     },
-    { revalidate: 60, tags: ["announcements"] },
   );
   return response.data[0] ?? null;
 }
@@ -388,7 +370,6 @@ export async function getAdjacentAnnouncements({
         sort: ["date:desc"],
         pagination: { limit: 1 },
       },
-      { revalidate: 60, tags: ["announcements"] },
     ),
     fetchStrapi<StrapiResponse<Announcement[]>>(
       "announcements",
@@ -398,7 +379,6 @@ export async function getAdjacentAnnouncements({
         sort: ["date:asc"],
         pagination: { limit: 1 },
       },
-      { revalidate: 60, tags: ["announcements"] },
     ),
   ]);
 
@@ -425,7 +405,6 @@ export async function getOlderAnnouncements({
       sort: ["date:desc"],
       pagination: { limit: sanitizePageSize(limit, 12) },
     },
-    { revalidate: 60, tags: ["announcements"] },
   );
   return response.data;
 }
@@ -449,7 +428,6 @@ export async function getConcerts({
       populate: { photo: true },
       ...(upcomingOnly ? { filters: { date: { $gte: new Date().toISOString() } } } : {}),
     },
-    { revalidate: 3600, tags: ["concerts"] },
   );
   return response.data;
 }
@@ -469,7 +447,6 @@ export async function getConcertBySlug({
       populate: { photo: true },
       pagination: { limit: 1 },
     },
-    { revalidate: 3600, tags: ["concerts"] },
   );
   return response.data[0] ?? null;
 }
@@ -493,7 +470,6 @@ export async function getPageBySlug({
       populate: { heroImage: true, ...flexibleSectionsPopulate, ...seoPopulate },
       pagination: { limit: 1 },
     },
-    { revalidate: 86400, tags: ["pages", `page:${slug}`] },
   );
   const page = response.data[0];
   if (!page) return null;
@@ -516,7 +492,6 @@ export async function getHomepage({ locale }: { locale: string }): Promise<Homep
         ...seoPopulate,
       },
     },
-    { revalidate: 300, tags: ["homepage"] },
   );
   return { ...response.data, sections: normalizeSections(response.data.sections) };
 }
@@ -528,7 +503,6 @@ export async function getParishPage({ locale }: { locale: string }): Promise<Par
       locale: sanitizeLocale(locale),
       populate: { heroImage: true, ...parishPageSectionsPopulate, ...seoPopulate },
     },
-    { revalidate: 300, tags: ["parish-page"] },
   );
   return response.data;
 }
@@ -554,7 +528,6 @@ export async function getVisitPage({ locale }: { locale: string }): Promise<Visi
         ...seoPopulate,
       },
     },
-    { revalidate: 86400, tags: ["visit-page"] },
   );
   return {
     ...response.data,
@@ -579,7 +552,6 @@ export async function getContactPage({ locale }: { locale: string }): Promise<Co
         ...seoPopulate,
       },
     },
-    { revalidate: 86400, tags: ["contact-page"] },
   );
   return { ...response.data, locations: response.data.locations.map(normalizeContactLocation) };
 }
@@ -599,7 +571,6 @@ export async function getHistoryPage({ locale }: { locale: string }): Promise<Hi
         ...seoPopulate,
       },
     },
-    { revalidate: 86400, tags: ["history-page"] },
   );
   return {
     ...response.data,
@@ -627,7 +598,6 @@ export async function getMusicPage({ locale }: { locale: string }): Promise<Musi
         ...seoPopulate,
       },
     },
-    { revalidate: 86400, tags: ["music-page"] },
   );
   return {
     ...response.data,
@@ -656,7 +626,6 @@ export async function getEvents({
         ? { filters: { date: { $gte: new Date().toISOString().slice(0, 10) } } }
         : {}),
     },
-    { revalidate: 300, tags: ["events"] },
   );
   return response.data;
 }
@@ -675,7 +644,6 @@ export async function getEventBySlug({
       filters: { slug: { $eq: slug } },
       pagination: { limit: 1 },
     },
-    { revalidate: 300, tags: ["events"] },
   );
   return response.data[0] ?? null;
 }
@@ -699,7 +667,6 @@ export async function getUpcomingEvents({
       sort: ["date:asc"],
       pagination: { limit: sanitizePageSize(limit, 12) },
     },
-    { revalidate: 300, tags: ["events"] },
   );
   return response.data;
 }
@@ -715,7 +682,6 @@ export async function getGlobal({ locale }: { locale: string }): Promise<Global>
       locale: sanitizeLocale(locale),
       populate: { ...seoPopulate },
     },
-    { revalidate: 86400, tags: ["global"] },
   );
   return response.data;
 }
@@ -734,7 +700,6 @@ export async function getNavigation({ locale }: { locale: string }): Promise<Nav
         footerColumns: { populate: { links: true } },
       },
     },
-    { revalidate: 86400, tags: ["navigation"] },
   );
   return {
     headerLinks: response.data.headerLinks ?? [],
