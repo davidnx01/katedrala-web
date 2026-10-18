@@ -69,7 +69,7 @@ export function MassSchedule({ section }: MassScheduleProps) {
               </div>
             </div>
           ))}
-          <p className="mt-4 text-[13px] text-[#A39E94] italic">{note}</p>
+          <p className="mt-4 text-[13px] font-bold text-[#A39E94]">{note}</p>
         </div>
         <div className="sm:max-w-[560px] w-full h-70 rounded-2xl md:h-90 lg:h-110 overflow-hidden relative">
           <ImagePlaceholder

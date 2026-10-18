@@ -30,7 +30,7 @@ export function MusicHero({ musicPage, breadcrumbItems, imageLabel }: MusicHeroP
           <h1 className="mb-3.5 max-w-2xl font-serif text-4xl leading-[1.02] font-normal tracking-tight text-white lg:text-[64px]">
             {musicPage.heroTitle}{" "}
             {musicPage.heroTitleEmphasis && (
-              <span className="font-bold italic">{musicPage.heroTitleEmphasis}</span>
+              <span className="font-bold">{musicPage.heroTitleEmphasis}</span>
             )}
           </h1>
           {musicPage.heroSubtitle && (

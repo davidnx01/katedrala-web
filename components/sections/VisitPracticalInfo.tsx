@@ -61,7 +61,7 @@ export function VisitPracticalInfo({
                 <span className="font-semibold text-gold">{ticket.price}</span>
               </div>
             ))}
-            <p className="mt-2.5 text-xs text-[#A39E94] italic">Ceny sú orientačné — presné ceny v Martineum.</p>
+            <p className="mt-2.5 text-xs font-bold text-[#A39E94]">Ceny sú orientačné — presné ceny v Martineum.</p>
           </div>
 
           <div className="flex flex-col rounded-[20px] border border-white/6 bg-navy p-6 md:p-7 lg:p-8">
