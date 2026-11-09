@@ -3,6 +3,7 @@ import { MapPin, Phone, Mail } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { Logo } from "@/components/icons";
 import { Container } from "@/components/layout/Container";
+import { CookieSettingsButton } from "@/components/consent/CookieSettingsButton";
 import { getContactPage, getNavigation } from "@/lib/api";
 
 export async function Footer() {
@@ -46,7 +47,6 @@ export async function Footer() {
         { label: t("churchesAndChapels"), href: "/kostoly" },
         { label: t("musicAndConcerts"), href: "/hudba" },
         { label: t("kapitulska"), href: "#" },
-        { label: t("privacy"), href: "#" },
       ],
     },
   ];
@@ -124,8 +124,26 @@ export async function Footer() {
         ))}
       </Container>
 
-      <Container className="flex flex-wrap justify-between gap-3 px-0 pt-6 text-sm text-white/35">
+      <Container className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 px-0 pt-6 text-sm text-white/35">
         <span>{t("copyright", { year: new Date().getFullYear() })}</span>
+        <ul className="flex flex-wrap gap-x-5">
+          <li>
+            <Link href="/ochrana-udajov" className="inline-block py-2 text-white/55 transition-colors hover:text-white">
+              {t("privacy")}
+            </Link>
+          </li>
+          <li>
+            <Link href="/cookies" className="inline-block py-2 text-white/55 transition-colors hover:text-white">
+              {t("cookies")}
+            </Link>
+          </li>
+          <li>
+            <CookieSettingsButton
+              label={t("cookieSettings")}
+              className="cursor-pointer py-2 text-white/55 transition-colors hover:text-white"
+            />
+          </li>
+        </ul>
         <span>{t("diocese")}</span>
       </Container>
     </footer>

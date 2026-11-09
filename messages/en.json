@@ -43,7 +43,10 @@
   "Calendar": {
     "eyebrow": "Schedule",
     "title": "Events calendar",
+    "combinedEyebrow": "What's on",
+    "combinedTitle": "Calendar & announcements",
     "upcoming": "Upcoming events",
+    "noUpcoming": "There are no upcoming events at the moment.",
     "viewDetail": "View detail",
     "viewFullCalendar": "View full calendar",
     "previousMonth": "Previous month",
@@ -129,6 +132,8 @@
     "massScheduleTitle": "Holy Mass",
     "aboutTitle": "About this place",
     "galleryTitle": "Photo gallery",
+    "contactTitle": "Contact",
+    "moreChurchesTitle": "Other churches and chapels",
     "announcementsCta": "Announcements for this church"
   },
   "Contacts": {
@@ -250,7 +255,9 @@
     "kapitulska": "Kapitulská street",
     "privacy": "Privacy policy",
     "copyright": "© {year} Parish of St. Martin in Bratislava",
-    "diocese": "Archdiocese of Bratislava"
+    "diocese": "Archdiocese of Bratislava",
+    "cookies": "Cookies",
+    "cookieSettings": "Cookie settings"
   },
   "VisitPage": {
     "breadcrumb": "Visit",
@@ -258,7 +265,10 @@
     "martineumImageAlt": "Photo: Martineum",
     "spacesImageAlt": "Photo: Martineum space",
     "journeyImageAlt": "Photo: visitor journey step",
-    "cellarsImageAlt": "Photo: historical cellars"
+    "cellarsImageAlt": "Photo: historical cellars",
+    "hoursTitle": "Opening hours",
+    "ticketsTitle": "Admission",
+    "pricesNote": "Prices are indicative — exact prices at the Martineum."
   },
   "HistoryPage": {
     "breadcrumb": "History",
@@ -275,5 +285,213 @@
     "massesImageAlt": "Photo: Sung Mass — choir and organ",
     "choralOrganImageAlt": "Photo: Choir organ",
     "freeLabel": "Free admission"
+  },
+  "Metadata": {
+    "siteName": "St. Martin's Cathedral",
+    "title": "St. Martin's Cathedral | Bratislava",
+    "description": "The Parish of St. Martin in Bratislava — the coronation cathedral, churches and chapels, parish announcements and visitor information."
+  },
+  "ContactForm": {
+    "eyebrow": "Write to us",
+    "title": "Contact form",
+    "intro": "Fill in the form and the parish office will reply by e-mail. Required fields are marked with an asterisk.",
+    "nameLabel": "Full name",
+    "emailLabel": "E-mail",
+    "subjectLabel": "Subject (optional)",
+    "messageLabel": "Message",
+    "consent": "I agree to the processing of my personal data to handle my message. See the <link>privacy policy</link> for details.",
+    "submit": "Send message",
+    "sending": "Sending…",
+    "successTitle": "Thank you, your message has been sent",
+    "successBody": "We have sent a confirmation to your e-mail address. The parish office will get back to you as soon as possible.",
+    "sendAnother": "Write another message",
+    "errors": {
+      "required": "Please fill in this field.",
+      "invalidEmail": "Enter a valid e-mail address.",
+      "tooShort": "Enter at least {min} characters.",
+      "tooLong": "Use at most {max} characters.",
+      "consent": "Your consent is required to send the message.",
+      "sendFailed": "The message could not be sent. Please try again or write to us directly by e-mail.",
+      "rateLimited": "Too many attempts. Please try again in a few minutes."
+    },
+    "email": {
+      "ownerSubject": "New website message: {name}",
+      "ownerIntro": "A new message arrived through the website contact form.",
+      "fromLabel": "From",
+      "emailLabel": "E-mail",
+      "subjectLabel": "Subject",
+      "languageLabel": "Site language",
+      "messageLabel": "Message",
+      "noSubject": "(no subject)",
+      "confirmSubject": "Confirmation: your message has been received",
+      "confirmGreeting": "Hello {name},",
+      "confirmBody": "thank you for your message. The parish office has received it and will reply as soon as possible.",
+      "confirmCopyLabel": "A copy of your message:",
+      "confirmFooter": "This is an automated message. If you need to add anything, write to us at {email}.",
+      "signature": "Parish of St. Martin in Bratislava"
+    }
+  },
+  "CookieConsent": {
+    "regionLabel": "Cookie information",
+    "infoTitle": "Cookies",
+    "infoBody": "This website only uses strictly necessary cookies that keep it working (for example, remembering your chosen language). No consent is needed for these.",
+    "infoAccept": "Got it",
+    "consentTitle": "Cookie settings",
+    "consentBody": "We use necessary cookies and, with your consent, additional ones that help us improve the website. You can change your choice at any time.",
+    "acceptAll": "Accept all",
+    "rejectAll": "Reject optional",
+    "customize": "Settings",
+    "save": "Save choice",
+    "back": "Back",
+    "close": "Close and reject optional cookies",
+    "learnMore": "More about cookies",
+    "alwaysOn": "Always on",
+    "categories": {
+      "necessary": {
+        "title": "Necessary",
+        "description": "Keep the website working — they remember your language and your cookie choice. They cannot be switched off."
+      },
+      "analytics": {
+        "title": "Analytics",
+        "description": "Help us understand which parts of the website visitors use so we can improve them. The data is statistical."
+      }
+    }
+  },
+  "Cookies": {
+    "eyebrow": "Legal information",
+    "title": "Cookies",
+    "breadcrumb": "Cookies",
+    "imageAlt": "Photo: St. Martin's Cathedral",
+    "updated": "Last updated: {date}",
+    "intro": "A cookie is a small text file that a website stores on your device. Under Section 109(8) of Slovak Act No. 452/2021 Coll. on electronic communications we need your consent to store any cookies other than strictly necessary ones.",
+    "tableTitle": "Cookies we use",
+    "columns": {
+      "name": "Name",
+      "purpose": "Purpose",
+      "duration": "Duration",
+      "category": "Type"
+    },
+    "table": [
+      {
+        "name": "NEXT_LOCALE",
+        "purpose": "Remembers the language you selected.",
+        "duration": "1 year",
+        "category": "Necessary"
+      },
+      {
+        "name": "cookie_consent",
+        "purpose": "Stores your cookie choice so we do not ask again.",
+        "duration": "12 months",
+        "category": "Necessary"
+      }
+    ],
+    "sections": [
+      {
+        "id": "pouzivame",
+        "title": "What we use",
+        "paragraphs": [
+          "As of the last update we only use strictly necessary (technical) cookies, which do not require consent. We do not use analytics, advertising or third-party tracking cookies. Fonts are bundled with the website and are not loaded from external servers."
+        ]
+      },
+      {
+        "id": "zmena",
+        "title": "How to change your settings",
+        "paragraphs": [
+          "You can change your choice at any time with the “Cookie settings” button in the page footer. You can also delete cookies in your browser settings."
+        ]
+      },
+      {
+        "id": "buducnost",
+        "title": "Future changes",
+        "paragraphs": [
+          "If we start using analytics or other optional cookies, we will ask for your consent before using them and update this page."
+        ]
+      }
+    ]
+  },
+  "Privacy": {
+    "eyebrow": "Legal information",
+    "title": "Privacy policy",
+    "breadcrumb": "Privacy policy",
+    "imageAlt": "Photo: St. Martin's Cathedral",
+    "updated": "Last updated: {date}",
+    "intro": "This policy explains what personal data we process when operating this website, why we need it and what rights you have. We process data in accordance with Regulation (EU) 2016/679 (GDPR) and Slovak Act No. 18/2018 Coll. on personal data protection.",
+    "operatorTitle": "Controller",
+    "operatorName": "Parish of St. Martin in Bratislava",
+    "operatorLabels": {
+      "address": "Address",
+      "email": "E-mail",
+      "phone": "Phone",
+      "ico": "Company ID (IČO)"
+    },
+    "relatedCookies": "Cookie information",
+    "sections": [
+      {
+        "id": "ucely",
+        "title": "What data we process and why",
+        "paragraphs": [
+          "The website requires no registration and we do not use advertising or tracking tools."
+        ],
+        "items": [
+          "Contact form — name, e-mail address, subject (optional), message text and site language. Purpose: handling your enquiry and replying to it. Legal basis: your consent (Art. 6(1)(a) GDPR), given by ticking the checkbox before sending. Retention: at most 12 months after the message has been handled.",
+          "Technical visit data — IP address, access time and browser type are written to the server’s security logs. Purpose: securing and reliably operating the website and preventing abuse. Legal basis: legitimate interest (Art. 6(1)(f) GDPR). Retention: short-term, within the standard logs of the hosting provider.",
+          "Cookies — information about them is on a separate page."
+        ]
+      },
+      {
+        "id": "prijemcovia",
+        "title": "Who we share data with",
+        "paragraphs": [
+          "We do not sell or publish personal data. Contact form data is accessible to authorised parish staff and to our processors:"
+        ],
+        "items": [
+          "the e-mail service provider Resend (Resend, Inc., USA) — delivery of form messages; transfers outside the European Economic Area rely on appropriate safeguards (standard contractual clauses or an adequacy decision),",
+          "the hosting and server infrastructure provider on which the website and its content system run (storage of form messages and server logs)."
+        ],
+        "outro": [
+          "External services the website links to (for example MainSquare for online orders and tickets) process data under their own responsibility and policies."
+        ]
+      },
+      {
+        "id": "prava",
+        "title": "Your rights",
+        "paragraphs": [
+          "You have the right to:"
+        ],
+        "items": [
+          "access your personal data (Art. 15 GDPR),",
+          "have inaccurate data corrected (Art. 16),",
+          "have data erased (Art. 17),",
+          "restrict processing (Art. 18),",
+          "data portability (Art. 20),",
+          "object to processing based on legitimate interest (Art. 21),",
+          "withdraw your consent at any time — withdrawal does not affect the lawfulness of processing before it."
+        ],
+        "outro": [
+          "You can exercise your rights by e-mail or in writing using the controller’s contact details above."
+        ]
+      },
+      {
+        "id": "staznost",
+        "title": "Complaint to the supervisory authority",
+        "paragraphs": [
+          "If you believe we process your personal data unlawfully, you can lodge a complaint with the Office for Personal Data Protection of the Slovak Republic (Úrad na ochranu osobných údajov SR), Hraničná 12, 820 07 Bratislava 27, dataprotection.gov.sk."
+        ]
+      },
+      {
+        "id": "bezpecnost",
+        "title": "Security and automated decision-making",
+        "paragraphs": [
+          "We protect data with technical and organisational measures such as an encrypted connection (HTTPS) and restricted access to the content administration. We do not carry out automated decision-making or profiling."
+        ]
+      },
+      {
+        "id": "zmeny",
+        "title": "Changes to this policy",
+        "paragraphs": [
+          "We may update this policy. The current version is always published on this page together with the date of the last update."
+        ]
+      }
+    ]
   }
 }

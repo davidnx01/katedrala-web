@@ -1,24 +1,25 @@
 # PROJECT.md — Katedrála sv. Martina, Bratislava
 
-> Web pre farnosť a Dom sv. Martina. Dvojjazyčný (SK/EN). Cieľovka: farníci (60%), turisti (30%), kultúra (10%). Prístupný pre 12–65+ rokov.
+> Web pre farnosť a Dom sv. Martina. Viacjazyčný (dnes SK/EN, architektúra pripravená na ďalšie). Cieľovka: farníci (60%), turisti (30%), kultúra (10%). Prístupný pre 12–65+ rokov.
 
-> **Klientsky kontext (obchodné rozhodnutia, denník, otvorené otázky):**
-> `~/Documents/Obsidian/Poznámky/webdavid/Katedrála sv. Martina/Katedrála sv. Martina.md`
+> **Klientsky kontext (obchodné rozhodnutia, denník, otvorené otázky, zoznam „Čo nie je hotové“):**
+> `~/Documents/Obsidian/Poznámky/Darwon/Klienti/Katedrála sv. Martina/Katedrála sv. Martina.md`
 > Prečítaj to pred akoukoľvek dizajnovou/produktovou prácou na tomto projekte.
+> Plán cache: `…/Podklady/Plán cache — rýchlosť a okamžité aktualizácie.md`.
 >
-> **Pozor:** časti tohto súboru popisujú plánovanú, nie hotovú funkcionalitu
-> (pozri "Čo nie je hotové" v Obsidian poznámke, overené 2026-08-24). Kód je
-> zdroj pravdy, nie tento súbor.
+> **Pozor:** kód je zdroj pravdy. Čo v tomto súbore ešte nie je postavené, je označené „plánované“ / „nie je hotové“.
 
 ## Tech stack
 
-- Next.js 15+ (App Router)
+- Next.js 16 (App Router, Turbopack, `proxy.ts` namiesto `middleware.ts`) — pred písaním kódu čítaj `node_modules/next/dist/docs/` (pozri `AGENTS.md`)
 - TypeScript (strict, no `any`)
 - Tailwind CSS 4+
-- shadcn/ui
+- shadcn/ui na `@base-ui/react`
+- next-intl 4 (i18n)
 - Strapi 5 (self-hosted, headless CMS)
-- Playfair Display (serif headings, Google Fonts)
-- Resend (email z formulárov)
+- zod 4 (validácia formulárov)
+- Resend (e-maily z formulárov)
+- Playfair Display (serif nadpisy, `next/font/google` — fonty sa sťahujú pri builde, za behu sa z Google nenačítavajú)
 
 ## Coding standards
 
@@ -131,76 +132,60 @@ SK/EN, viditeľný v headeri. Prepnutie zachová aktuálnu stránku.
 ```
 app/
   [locale]/
-    layout.tsx              ← root layout, fonty, metadata
+    layout.tsx              ← root layout, fonty, generateMetadata (texty z i18n `Metadata`), CookieConsent
     page.tsx                ← homepage
-    farnost/
-      page.tsx              ← listing (oznamy, sviatosti)
-      oznamy/
-        page.tsx            ← archív oznamov
-        [slug]/page.tsx     ← detail oznamu
-      sobas/page.tsx
-      krst/page.tsx
-      lectio-divina/page.tsx
-      adoracia/page.tsx
-    navsteva/
-      page.tsx              ← info pre turistov
-      rezervacia/page.tsx
-      exkurzia/page.tsx
-      omsa-s-knazom/page.tsx
-      sprievodca/page.tsx
-      audioguides/page.tsx
-    kostoly/
-      page.tsx              ← listing (7 kostolov + 6 kaplniek)
-      [slug]/page.tsx       ← detail kostola/kaplnky
-    kontakt/page.tsx
-    historia/page.tsx        ← /historia (pevné polia, fixné poradie sekcií v kóde)
-    hudba/page.tsx           ← /hudba (pevné polia, fixné poradie sekcií; koncerty ťahané naživo z Concert)
-    udalosti/
-      page.tsx               ← týždenný kalendár udalostí
-      [slug]/page.tsx        ← detail udalosti
-    kapitulska/page.tsx
-    martineum/page.tsx
+    farnost/page.tsx        ← farnosť (sobáš/krst/lectio/adorácia = sekcie na tejto stránke)
+    farnost/oznamy/page.tsx, [slug]/page.tsx
+    navsteva/page.tsx
+    kostoly/page.tsx, [slug]/page.tsx
+    kontakt/page.tsx        ← lokácie + kontaktný formulár + CTA
+    historia/page.tsx       ← pevné polia, fixné poradie sekcií v kóde
+    hudba/page.tsx          ← pevné polia; sekcia koncertov je DOČASNE ZAKOMENTOVANÁ (kým nebude reálny program)
+    udalosti/page.tsx, [slug]/page.tsx
+    ochrana-udajov/page.tsx ← zásady ochrany osobných údajov (GDPR)
+    cookies/page.tsx        ← cookie politika
+    [...rest]/page.tsx      ← catch-all → notFound() (aby sa zobrazil štýlovaný 404)
+    not-found.tsx
+  sitemap.ts, robots.ts
 
 components/
-  layout/
-    Header.tsx
-    Footer.tsx
-    Container.tsx
-    MobileMenu.tsx
-    LanguageSwitcher.tsx
-  cards/
-    ContactCard.tsx
-    ChurchCard.tsx
-    AnnouncementCard.tsx
-    QuickLinkCard.tsx
-    EventCard.tsx
-  sections/
-    Hero.tsx
-    MassSchedule.tsx
-    ChurchesPreview.tsx
-    ContactsSection.tsx
-    AnnouncementsPreview.tsx
-  forms/
-    ReservationForm.tsx
-    ExcursionForm.tsx
-    ContactForm.tsx
-  ui/                        ← shadcn (Button, Dialog, Sheet, Input...)
+  layout/    Header, Footer, MobileMenu, LanguageSwitcher, Container, Breadcrumb, Pagination
+  cards/     ContactCard, ChurchCard, AnnouncementCard, QuickLinkCard, EventCard, ConcertCard, RecordingCard, ...
+  sections/  sekcie stránok (Hero*, History*, Music*, Visit*, Contact*, LegalDocument, OperatorCard, CookieTable, ...)
+  forms/     ContactForm, FormField, form-styles
+  consent/   CookieConsent, CookieCategoryToggle, CookieSettingsButton
+  media/     ImagePlaceholder
+  ui/        shadcn (button, badge, popover, sheet)
+  icons.tsx
 
 lib/
-  api.ts                     ← Strapi fetch funkcie (server-only)
-  strapi-media.ts            ← getStrapiMediaUrl() — bezpečné aj v Client Components
-  announcements.ts           ← mock-backed data layer (dočasné, kým Strapi nemá obsah — pozri nižšie)
-  mock-data.ts                ← placeholder dáta, tvarovo zhodné so Strapi typmi
-  utils.ts                   ← helper funkcie
+  api.ts                 ← Strapi fetch funkcie (server-only)
+  strapi-media.ts        ← getStrapiMediaUrl() — bezpečné aj v Client Components
+  seo.ts                 ← buildMetadata(), DEFAULT_OG_IMAGE, SITE_URL, excerpt()
+  consent.ts             ← stav cookie súhlasu (client-safe)
+  legal.ts               ← dátum poslednej aktualizácie právnych textov
+  mail.ts                ← sendMail() cez Resend (server-only)
+  contact-email.ts       ← šablóny e-mailov z kontaktného formulára
+  rate-limit.ts          ← jednoduchý limiter v pamäti procesu
+  actions/contact.ts     ← Server Action kontaktného formulára
+  validation/contact.ts  ← zod schéma + typy + chybové kódy
+  event-categories.ts, utils.ts
 
-types/
-  strapi.ts                  ← Strapi response/komponent/dynamic-zone typy
-  content.ts                 ← aplikačné content model typy
+i18n/
+  config.ts              ← ENABLED_LOCALES + DEFAULT_LOCALE (jediné miesto, kde sa povoľujú jazyky)
+  languages.json/.ts     ← katalóg známych jazykov (názov, OG locale, smer písma)
+  routing.ts, request.ts, navigation.ts
 
-messages/
-  sk.json                    ← slovenské preklady
-  en.json                    ← anglické preklady
+messages/                ← <kód>.json na každý povolený jazyk (sk.json, en.json)
+scripts/                 ← add-locale.mjs, check-messages.mjs (pnpm i18n:add / i18n:check)
+types/                   ← strapi.ts, content.ts, legal.ts
 ```
+
+### Plánované, zatiaľ NEEXISTUJE
+- Render kolekcie `Page` (Kapitulská ulica, Martineum, Hudba a koncerty sú v Strapi, ale web ich nenačítava — `getPageBySlug` nemá volajúceho).
+- `navsteva/rezervacia`, `exkurzia`, `omsa-s-knazom`, `sprievodca`, `audioguides` — rozhodnúť, či budú `Page`, sekcie, alebo externý odkaz.
+- Rezervačný formulár a formulár na exkurziu (exkurzie idú cez **externý link**, ktorý dodá David; rezervácie čakajú na rozhodnutie o MainSquare).
+- Veľká stránka „obsadenosť katedrály“.
 
 ## Strapi content types
 
@@ -271,7 +256,7 @@ Richtext polia (markdown) sa renderujú výhradne cez `react-markdown` — nikdy
 
 ### Cachovanie
 
-Žiadne. Každý fetch do Strapi (`fetchStrapi()` v `lib/api.ts`) beží s `cache: "no-store"` — každá stránka sa renderuje nanovo pri každom requeste. Publikovaný obsah v Strapi je okamžite živý, bez ISR, bez revalidate okien, bez webhooku.
+Žiadne. Každý fetch do Strapi (`fetchStrapi()` v `lib/api.ts`) beží s `cache: "no-store"` — každá stránka sa renderuje nanovo pri každom requeste. Publikovaný obsah v Strapi je okamžite živý, bez ISR, bez revalidate okien, bez webhooku. Nevýhoda: každá návšteva zaťažuje CMS a pri jeho výpadku padne celý web. **Plánované:** tagované cachovanie + Strapi webhook tak, aby bol web rýchly, ale oznamy a kalendár udalostí sa obnovovali okamžite — plán a kroky sú v Obsidiane (`Podklady/Plán cache — rýchlosť a okamžité aktualizácie.md`). Do zavedenia nepridávaj žiadne `revalidate`/`force-cache`.
 
 ## Prístupnosť (WCAG 2.1 AA)
 
@@ -282,15 +267,23 @@ Richtext polia (markdown) sa renderujú výhradne cez `react-markdown` — nikdy
 - Focus-visible ring na interaktívnych prvkoch.
 - Žiadne hover-only informácie.
 - `tel:` a `mailto:` linky na telefónoch a emailoch.
-- Skip to content link.
+- Skip to content link — **zatiaľ NEEXISTUJE** (treba pridať).
 - Min 48px touch target na mobile.
 
-## Formuláre (Resend + Next.js Server Action)
+## Formuláre
 
-Formuláre: ReservationForm, ExcursionForm, ContactForm.
-Submit → Server Action → Resend API → email na farský úrad + potvrdenie odosielateľovi.
-Voliteľne: uložiť záznam do Strapi collection (Reservation, Excursion) pre archív v admin paneli.
-Validácia: zod schema, client + server side.
+### Kontaktný formulár (hotový) — `/kontakt`
+`components/forms/ContactForm.tsx` (client, `useActionState`) → `lib/actions/contact.ts` (Server Action) → `lib/validation/contact.ts` (zod, rovnaká schéma na klientovi aj serveri).
+- Chybové kódy zo zod (`required`, `invalidEmail`, `tooShort`, `tooLong`, `consent`) sú zároveň kľúče `ContactForm.errors.*` v i18n.
+- Ochrana: honeypot pole `website`, časová pasca (`startedAt`, < 2,5 s = bot), rate limit 5 odoslaní / 10 min / IP (v pamäti procesu — len záťažová poistka, skutočná ochrana patrí pred aplikáciu), povinný súhlas s GDPR (odkaz na `/ochrana-udajov`).
+- Odoslanie: e-mail na farský úrad (vždy v predvolenom jazyku, `replyTo` = odosielateľ) + potvrdenie odosielateľovi v jeho jazyku + zápis do Strapi `contact-messages` (cez `STRAPI_FORMS_TOKEN`). **Úspech = e-mail úradu odišiel**; zlyhanie archívu sa len zaloguje, zlyhanie potvrdenia tiež.
+- Bez `RESEND_API_KEY`/`MAIL_FROM` sa mimo produkcie e-mail iba zaloguje; v produkcii je to chyba (nikdy nepredstieraj úspech).
+
+### Formulár na exkurziu — NIE JE; rieši sa externe
+Exkurzie sa objednávajú cez **externý link** (David ho dodá). Až príde, pridať ho ako tlačidlo (ideálne ako pole v Strapi, nie hardcode). Strapi kolekcia `Excursion` a `createExcursion()` ostávajú nepoužité.
+
+### Rezervácie — čaká na rozhodnutie o MainSquare
+`ReservationForm` neexistuje. `Reservation` kolekcia a `createReservation()` sú pripravené, ale nevolané.
 
 ## MainSquare / QCode integrácia
 
@@ -306,7 +299,7 @@ Klient používa platformu **MainSquare.it** na turistické objednávky a digit�
 - QR kód k dispozícii (360x740)
 - Integrácia: tlačidlo "Pridať do Wallet" na stránke Návšteva
 
-**Otvorené otázky (stretnutie s klientom):**
+**Otvorené otázky (stretnutie s klientom; rozhodnutie zatiaľ nepadlo):**
 - [ ] Iframe embed alebo len redirect na MainSquare?
 - [ ] QR kódy na webe alebo len fyzická tlač?
 - [ ] Nahradí MainSquare plánované ReservationForm/ExcursionForm, alebo paralelne?
@@ -322,3 +315,46 @@ Klient používa platformu **MainSquare.it** na turistické objednávky a digit�
 6. Kostoly a kaplnky (4 karty s foto, link na listing)
 7. Kontakty (3 lokácie: Katedrála, Martineum, Farský úrad)
 8. Footer (4-stĺpcový, logo, nav skupiny, copyright)
+
+## Internacionalizácia (i18n)
+
+**Jediný zoznam povolených jazykov:** `i18n/config.ts` → `ENABLED_LOCALES` (dnes `sk`, `en`). Z neho sa odvodzuje všetko: routing, `generateStaticParams`, prepínač jazyka (`LanguageSwitcher`), sitemap (hreflang), `<html lang/dir>`, Open Graph locale, validácia locale v `lib/api.ts`. Katalóg všetkých známych jazykov (sk, en, de, cs, it, es, fr, hu, pl, pt, hr, nl, uk) je v `i18n/languages.json` (kódy ISO 639-1 — čeština je `cs`, nie `cz`).
+
+**Pridanie jazyka:**
+```bash
+pnpm i18n:add it      # povolí kód v i18n/config.ts a vytvorí messages/it.json (anglické znenie ako šablóna)
+# preložiť hodnoty v messages/it.json, potom:
+pnpm i18n:check       # overí, že každý povolený jazyk má všetky kľúče (exit 1 pri chýbajúcich)
+```
+Potom v Strapi admin → Settings → Internationalization pridať rovnaký locale a doplniť obsah. Chýbajúci kľúč v preklade nikdy nezhodí web — `i18n/request.ts` ho doplní zo slovenčiny.
+
+**Texty, ktoré závisia od jazyka, sú v `messages/<kód>.json`** (nikdy v komponentoch). Metadáta webu (`<title>`, description, názov webu) sú v namespace `Metadata`; `app/[locale]/layout.tsx` ich skladá cez `generateMetadata`. Právne texty sú dáta (`Privacy.sections`, `Cookies.sections`), nie JSX; čítajú sa cez `t.raw()`.
+
+**Plánované:** ďalšie jazyky (taliančina, španielčina a pod.) a automatická voľba jazyka podľa zariadenia návštevníka (`Accept-Language`; next-intl `localeDetection` je štandardne zapnuté — treba rozhodnúť, či má nepodporovaný jazyk padnúť na angličtinu namiesto slovenčiny).
+
+## Právne: GDPR a cookies
+
+- `/ochrana-udajov` (zásady ochrany osobných údajov) a `/cookies` — dátový obsah v i18n, vykresľuje `LegalDocument`. Prevádzkovateľ (adresa, e-mail, telefón, IČO) sa berie z Strapi `ContactPage.locations` (lokácia s `ico`, inak prvá). **Texty sú návrh bez právnej kontroly** — overiť právny názov prevádzkovateľa, dobu uchovávania (12 mesiacov je predpoklad), sprostredkovateľov (hosting, Resend). Pri každej zmene textov zvýšiť `LEGAL_LAST_UPDATED` v `lib/legal.ts`.
+- **Cookie lišta** (`components/consent/CookieConsent.tsx`, stav v `lib/consent.ts`): súhlas sa ukladá do cookie `cookie_consent` (JSON, 12 mesiacov, `SameSite=Lax`, `Secure` na HTTPS). Zatiaľ existujú len nevyhnutné cookies (`NEXT_LOCALE`, `cookie_consent`), preto je lišta v **informačnom režime** (jedno tlačidlo). Pravidlá pre súhlasový režim podľa stanoviska Telekomunikačného úradu k § 109 ods. 8 zákona 452/2021: opt-in, „Prijať všetky“ a „Odmietnuť nepovinné“ rovnako výrazné na prvej vrstve, zatvorenie = odmietnutie, odvolanie súhlasu rovnako jednoduché (tlačidlo „Nastavenia cookies“ v pätičke).
+- **Pridanie analytiky/marketingu:** v `lib/consent.ts` nastaviť `analytics.active: true`, skript načítavať až keď `hasConsent("analytics")` (počúvať `CONSENT_CHANGE_EVENT`), doplniť `Cookies.table` a zásady ochrany údajov. Návštevníci, ktorí už odpovedali, sa spýtajú znova.
+
+## SEO a Open Graph
+
+- `lib/seo.ts` → `buildMetadata()` je jediné miesto pre `<title>`/description/OG/Twitter na stránkach. Detailné stránky (kostol, oznam, udalosť) nemajú Strapi `seo` pole — metadáta sa odvodzujú z ich polí (pozri `cms/CLAUDE.md`).
+- Predvolený OG obrázok: `public/images/og-default.png` (logo na navy pozadí, 1200×630 PNG — nie SVG, sociálne siete ho nevykresľujú). Next **neslučuje** `openGraph`/`twitter` medzi layoutom a stránkou (podradený objekt nahradí rodičovský), preto ich `buildMetadata()` vždy zostaví celé.
+- `app/sitemap.ts`: pre každý povolený jazyk všetky statické stránky s hreflang alternatívami + `x-default`, plus kostoly, oznamy a udalosti z CMS; výpadok CMS sekciu len vynechá. `robots.ts` odkazuje na `/sitemap.xml`.
+
+## Premenné prostredia
+
+| Premenná | Povinná | Účel |
+|---|---|---|
+| `STRAPI_URL`, `NEXT_PUBLIC_STRAPI_URL` | áno | adresa CMS (na produkcii `https://`) |
+| `NEXT_PUBLIC_SITE_URL` | áno | verejná adresa webu (sitemap, OG, metadataBase) |
+| `STRAPI_API_TOKEN` | nie | read-only token (verejné čítanie funguje aj bez neho) |
+| `STRAPI_FORMS_TOKEN` | pre formulár | Custom token, len `create` na `contact-message` |
+| `RESEND_API_KEY` | pre formulár | kľúč z Resendu |
+| `MAIL_FROM` | pre formulár | odosielateľ na overenej doméne, napr. `Katedrála sv. Martina <web@katedralabratislava.sk>` |
+| `CONTACT_TO_EMAIL` | pre formulár | adresa farského úradu, kam chodia správy |
+
+## Stav: čo nie je hotové
+Aktuálny zoznam vedie Obsidian poznámka klienta (sekcia „Čo nie je hotové“). Skrátene: externý link na exkurzie, rozhodnutie o MainSquare/rezerváciách, reálne udalosti a koncerty, ďalšie jazyky + detekcia jazyka zariadenia, render kolekcie `Page`, alt texty médií, zavedenie cache (plán v Obsidiane), produkčná DB/uploady v CMS, právna kontrola GDPR textov.

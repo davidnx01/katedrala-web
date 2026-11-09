@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { HeroSlideshow } from "@/components/sections/HeroSlideshow";
+import { SplitHero } from "@/components/sections/SplitHero";
 import { Link } from "@/i18n/navigation";
 import { getStrapiMediaUrl } from "@/lib/strapi-media";
 import type { StrapiHeroSection } from "@/types/strapi";
@@ -9,10 +10,7 @@ interface HeroProps {
   hero?: StrapiHeroSection;
 }
 
-const FALLBACK_SLIDES: [string, string] = [
-  "/images/dom-martina.jpg",
-  "/images/hero-main-2.webp",
-];
+const FALLBACK_SLIDES = ["/images/dom-martina.jpg", "/images/hero-main-2.webp"];
 
 export function Hero({ hero }: HeroProps) {
   const t = useTranslations("Hero");
@@ -28,56 +26,45 @@ export function Hero({ hero }: HeroProps) {
     href: "#",
   };
 
-  const cmsSlideSrcs = (hero?.images ?? [])
-    .map((image) => getStrapiMediaUrl(image))
-    .filter((src): src is string => Boolean(src));
-  const [slideSrc1, slideSrc2] =
-    cmsSlideSrcs.length >= 2
-      ? cmsSlideSrcs
-      : cmsSlideSrcs.length === 1
-        ? [cmsSlideSrcs[0], cmsSlideSrcs[0]]
-        : FALLBACK_SLIDES;
+  const cmsSlides = (hero?.images ?? []).flatMap((image) => {
+    const src = getStrapiMediaUrl(image);
+    return src ? [{ src, alt: image.alternativeText || t("imageAlt") }] : [];
+  });
+  const slides =
+    cmsSlides.length > 0
+      ? cmsSlides
+      : FALLBACK_SLIDES.map((src) => ({ src, alt: t("imageAlt") }));
 
   return (
-    <section className="relative overflow-hidden pt-[400px] sm:pt-[500px] pb-[320px]">
-      <HeroSlideshow
-        slides={[
-          { src: slideSrc1, alt: eyebrow },
-          { src: slideSrc2, alt: eyebrow },
-        ]}
-      />
-      <div className="absolute inset-0 flex flex-col justify-end bg-linear-to-b from-navy/15 via-navy/40 to-navy/85 px-4 pb-12 md:px-8 md:pb-14 lg:px-12 lg:pb-32">
-        <div className="mx-auto w-full max-w-7xl">
-          <div className="mb-2.5 text-xs font-semibold tracking-[0.2em] text-gold uppercase md:mb-3 lg:mb-4 bg-navy w-fit px-3 py-1 rounded-md">
-            {eyebrow}
-          </div>
-          <h1 className="mb-4 max-w-3xl font-serif text-4xl leading-[1.02] font-normal tracking-tight text-white lg:text-[64px]">
-            {titleLine1}
-            <br />
-            {titleLine2} <span className="font-bold">{titleEmphasis}</span>
-          </h1>
-          <p className="mb-8 max-w-md text-lg leading-relaxed font-light text-white lg:text-xl text-balance">
-            {subtitle}
-          </p>
-          <div className="flex flex-wrap gap-3">
-            <Button
-              className={"w-full sm:w-fit whitespace-nowrap"}
-              render={<Link href={ctaPrimary.href} />}
-              nativeButton={false}
-            >
-              {ctaPrimary.label}
-            </Button>
-            <Button
-              render={<Link href={ctaSecondary.href} />}
-              nativeButton={false}
-              variant="outline"
-              className={"w-full sm:w-fit whitespace-nowrap"}
-            >
-              {ctaSecondary.label}
-            </Button>
-          </div>
-        </div>
+    <SplitHero media={<HeroSlideshow slides={slides} />}>
+      <div className="mb-3 w-fit rounded-md border border-gold/40 px-3 py-1 text-xs font-semibold tracking-[0.2em] text-gold uppercase lg:mb-4">
+        {eyebrow}
       </div>
-    </section>
+      <h1 className="mb-4 font-serif text-4xl leading-[1.05] font-normal tracking-tight text-white lg:text-5xl xl:text-[56px]">
+        {titleLine1}
+        <br />
+        {titleLine2} <span className="font-bold whitespace-nowrap">{titleEmphasis}</span>
+      </h1>
+      <p className="mb-8 max-w-md text-lg leading-relaxed text-white/80 lg:text-xl text-balance">
+        {subtitle}
+      </p>
+      <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
+        <Button
+          className="w-full whitespace-nowrap sm:w-fit lg:w-full"
+          render={<Link href={ctaPrimary.href} />}
+          nativeButton={false}
+        >
+          {ctaPrimary.label}
+        </Button>
+        <Button
+          render={<Link href={ctaSecondary.href} />}
+          nativeButton={false}
+          variant="outline"
+          className="w-full whitespace-nowrap border-white/30 bg-transparent text-white hover:bg-white/10 sm:w-fit lg:w-full"
+        >
+          {ctaSecondary.label}
+        </Button>
+      </div>
+    </SplitHero>
   );
 }

@@ -1,11 +1,14 @@
 import type { Metadata, Viewport } from "next";
 import { Playfair_Display } from "next/font/google";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { SITE_URL } from "@/lib/seo";
+import { CookieConsent } from "@/components/consent/CookieConsent";
+import { getLanguage } from "@/i18n/languages";
+import { DEFAULT_OG_IMAGE, SITE_URL } from "@/lib/seo";
 import "../globals.css";
 
 const playfairDisplay = Playfair_Display({
@@ -14,15 +17,29 @@ const playfairDisplay = Playfair_Display({
   style: ["normal"],
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
-  title: {
-    default: "Katedrála sv. Martina | Bratislava",
-    template: "%s | Katedrála sv. Martina",
-  },
-  description:
-    "Farnosť sv. Martina v Bratislave — korunovačná katedrála, kostoly a kaplnky, farské oznamy a informácie pre návštevníkov.",
-};
+export async function generateMetadata({ params }: LocaleLayoutProps): Promise<Metadata> {
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) return {};
+
+  const t = await getTranslations({ locale, namespace: "Metadata" });
+
+  return {
+    metadataBase: new URL(SITE_URL),
+    title: {
+      default: t("title"),
+      template: `%s | ${t("siteName")}`,
+    },
+    description: t("description"),
+    applicationName: t("siteName"),
+    openGraph: {
+      type: "website",
+      siteName: t("siteName"),
+      locale: getLanguage(locale).ogLocale,
+      images: [DEFAULT_OG_IMAGE],
+    },
+    twitter: { card: "summary_large_image", images: [DEFAULT_OG_IMAGE.url] },
+  };
+}
 
 // Site has one fixed light design (no dark theme). Without this, Chromium's
 // "Auto Dark Mode for Web Content" (Windows, tied to the OS theme) can
@@ -53,7 +70,7 @@ export default async function LocaleLayout({
   }
 
   return (
-    <html lang={locale} className={`${playfairDisplay.variable} h-full antialiased`}>
+    <html lang={locale} dir={getLanguage(locale).dir} className={`${playfairDisplay.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-warm">
         <NextIntlClientProvider>
           <Header />
@@ -67,6 +84,7 @@ export default async function LocaleLayout({
           */}
           <div className="w-full">{children}</div>
           <Footer />
+          <CookieConsent />
         </NextIntlClientProvider>
       </body>
     </html>

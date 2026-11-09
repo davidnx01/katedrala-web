@@ -4,11 +4,12 @@ import { MusicHero } from "@/components/sections/MusicHero";
 import { MusicOrganShowcase } from "@/components/sections/MusicOrganShowcase";
 import { MusicOrganQuote } from "@/components/sections/MusicOrganQuote";
 import { MusicChoir } from "@/components/sections/MusicChoir";
-import { MusicConcerts } from "@/components/sections/MusicConcerts";
+// import { MusicConcerts } from "@/components/sections/MusicConcerts"; // sekcia koncertov je dočasne vypnutá, kým nebude reálny program
 import { MusicSungMasses } from "@/components/sections/MusicSungMasses";
 import { MusicRecordings } from "@/components/sections/MusicRecordings";
 import { MusicChoralOrgan } from "@/components/sections/MusicChoralOrgan";
-import { getMusicPage, getConcerts, getGlobal } from "@/lib/api";
+import { getMusicPage, getGlobal } from "@/lib/api";
+// import { getConcerts } from "@/lib/api";
 import { buildMetadata, excerpt } from "@/lib/seo";
 
 interface MusicPageProps {
@@ -38,10 +39,9 @@ export default async function MusicPage() {
   const t = await getTranslations("MusicPage");
   const tNav = await getTranslations("Nav");
   const locale = await getLocale();
-  const [musicPage, concerts] = await Promise.all([
-    getMusicPage({ locale }).catch(() => null),
-    getConcerts({ locale, upcomingOnly: true }).catch(() => []),
-  ]);
+  const musicPage = await getMusicPage({ locale }).catch(() => null);
+  // Koncerty dočasne vypnuté — po doplnení reálneho programu odkomentovať aj <MusicConcerts> nižšie:
+  // const concerts = await getConcerts({ locale, upcomingOnly: true }).catch(() => []);
 
   if (!musicPage) return null;
 
@@ -69,12 +69,14 @@ export default async function MusicPage() {
         socialLinks={musicPage.choirSocialLinks}
         imageLabel={t("choirImageAlt")}
       />
+      {/*
       <MusicConcerts
         eyebrow={musicPage.concertsEyebrow ?? ""}
         title={musicPage.concertsTitle ?? ""}
         concerts={concerts}
         freeLabel={t("freeLabel")}
       />
+      */}
       <MusicSungMasses
         eyebrow={musicPage.massesEyebrow ?? ""}
         title={musicPage.massesTitle ?? ""}

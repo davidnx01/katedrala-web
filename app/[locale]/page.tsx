@@ -2,11 +2,9 @@ import type { Metadata } from "next";
 import { getLocale } from "next-intl/server";
 import { Hero } from "@/components/sections/Hero";
 import { QuickLinks } from "@/components/sections/QuickLinks";
-import { AnnouncementsPreview } from "@/components/sections/AnnouncementsPreview";
-import { EventsCalendar } from "@/components/sections/EventsCalendar";
-import { MassSchedule } from "@/components/sections/MassSchedule";
-import { ChurchesPreview } from "@/components/sections/ChurchesPreview";
 import { ContactsSection } from "@/components/sections/ContactsSection";
+import { CalendarWithAnnouncements } from "@/components/sections/CalendarWithAnnouncements";
+import { ChurchesPreview } from "@/components/sections/ChurchesPreview";
 import { getHomepage, getEvents, getGlobal } from "@/lib/api";
 import { buildMetadata } from "@/lib/seo";
 
@@ -44,9 +42,6 @@ export default async function HomePage() {
   const announcementsSection = homepage?.sections.find(
     (section) => section.__component === "sections.announcements-preview",
   );
-  const massScheduleSection = homepage?.sections.find(
-    (section) => section.__component === "sections.mass-schedule",
-  );
   const contactsSection = homepage?.sections.find(
     (section) => section.__component === "sections.contacts",
   );
@@ -55,11 +50,12 @@ export default async function HomePage() {
     <main>
       <Hero hero={homepage?.hero} />
       <QuickLinks quickLinks={homepage?.quickLinks} />
-      <AnnouncementsPreview section={announcementsSection} />
-      <EventsCalendar events={events} />
-      <MassSchedule section={massScheduleSection} />
-      <ChurchesPreview />
       <ContactsSection section={contactsSection} />
+      <CalendarWithAnnouncements
+        events={events}
+        section={announcementsSection}
+      />
+      <ChurchesPreview />
     </main>
   );
 }

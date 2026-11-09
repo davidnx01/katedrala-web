@@ -43,7 +43,10 @@
   "Calendar": {
     "eyebrow": "Rozpis",
     "title": "Kalendár udalostí",
+    "combinedEyebrow": "Čo sa deje",
+    "combinedTitle": "Kalendár a oznamy",
     "upcoming": "Najbližšie udalosti",
+    "noUpcoming": "Momentálne nie sú naplánované žiadne udalosti.",
     "viewDetail": "Zobraziť detail",
     "viewFullCalendar": "Zobraziť celý kalendár",
     "previousMonth": "Predchádzajúci mesiac",
@@ -129,6 +132,8 @@
     "massScheduleTitle": "Sväté omše",
     "aboutTitle": "O tomto mieste",
     "galleryTitle": "Fotogaléria",
+    "contactTitle": "Kontakt",
+    "moreChurchesTitle": "Ďalšie kostoly a kaplnky",
     "announcementsCta": "Oznamy tohto kostola"
   },
   "Contacts": {
@@ -250,7 +255,9 @@
     "kapitulska": "Kapitulská ulica",
     "privacy": "Ochrana údajov",
     "copyright": "© {year} Farnosť sv. Martina v Bratislave",
-    "diocese": "Bratislavská arcidiecéza"
+    "diocese": "Bratislavská arcidiecéza",
+    "cookies": "Cookies",
+    "cookieSettings": "Nastavenia cookies"
   },
   "VisitPage": {
     "breadcrumb": "Návšteva",
@@ -258,7 +265,10 @@
     "martineumImageAlt": "Foto: Martineum",
     "spacesImageAlt": "Foto: priestor Martinea",
     "journeyImageAlt": "Foto: krok cesty návštevníka",
-    "cellarsImageAlt": "Foto: historické pivnice"
+    "cellarsImageAlt": "Foto: historické pivnice",
+    "hoursTitle": "Otváracie hodiny",
+    "ticketsTitle": "Vstupné",
+    "pricesNote": "Ceny sú orientačné — presné ceny v Martineum."
   },
   "HistoryPage": {
     "breadcrumb": "História",
@@ -275,5 +285,213 @@
     "massesImageAlt": "Foto: Spievaná svätá omša — zbor a organ",
     "choralOrganImageAlt": "Foto: Chórový organ",
     "freeLabel": "Vstup voľný"
+  },
+  "Metadata": {
+    "siteName": "Katedrála sv. Martina",
+    "title": "Katedrála sv. Martina | Bratislava",
+    "description": "Farnosť sv. Martina v Bratislave — korunovačná katedrála, kostoly a kaplnky, farské oznamy a informácie pre návštevníkov."
+  },
+  "ContactForm": {
+    "eyebrow": "Napíšte nám",
+    "title": "Kontaktný formulár",
+    "intro": "Vyplňte formulár a farský úrad Vám odpovie e-mailom. Povinné polia sú označené hviezdičkou.",
+    "nameLabel": "Meno a priezvisko",
+    "emailLabel": "E-mail",
+    "subjectLabel": "Predmet (nepovinné)",
+    "messageLabel": "Správa",
+    "consent": "Súhlasím so spracovaním osobných údajov na vybavenie mojej správy. Podrobnosti nájdete v <link>zásadách ochrany osobných údajov</link>.",
+    "submit": "Odoslať správu",
+    "sending": "Odosielam…",
+    "successTitle": "Ďakujeme, správa bola odoslaná",
+    "successBody": "Na Vašu e-mailovú adresu sme poslali potvrdenie. Farský úrad sa Vám ozve čo najskôr.",
+    "sendAnother": "Napísať ďalšiu správu",
+    "errors": {
+      "required": "Vyplňte toto pole.",
+      "invalidEmail": "Zadajte platnú e-mailovú adresu.",
+      "tooShort": "Zadajte aspoň {min} znakov.",
+      "tooLong": "Použite najviac {max} znakov.",
+      "consent": "Na odoslanie je potrebný Váš súhlas.",
+      "sendFailed": "Správu sa nepodarilo odoslať. Skúste to prosím znova alebo nám napíšte priamo e-mailom.",
+      "rateLimited": "Príliš veľa pokusov. Skúste to prosím o niekoľko minút."
+    },
+    "email": {
+      "ownerSubject": "Nová správa z webu: {name}",
+      "ownerIntro": "Z kontaktného formulára na webe prišla nová správa.",
+      "fromLabel": "Od",
+      "emailLabel": "E-mail",
+      "subjectLabel": "Predmet",
+      "languageLabel": "Jazyk stránky",
+      "messageLabel": "Správa",
+      "noSubject": "(bez predmetu)",
+      "confirmSubject": "Potvrdenie: Vaša správa bola prijatá",
+      "confirmGreeting": "Dobrý deň, {name},",
+      "confirmBody": "ďakujeme za Vašu správu. Farský úrad ju prijal a ozve sa Vám čo najskôr.",
+      "confirmCopyLabel": "Kópia Vašej správy:",
+      "confirmFooter": "Toto je automatická správa. Ak potrebujete niečo doplniť, napíšte nám na {email}.",
+      "signature": "Farnosť sv. Martina v Bratislave"
+    }
+  },
+  "CookieConsent": {
+    "regionLabel": "Informácie o cookies",
+    "infoTitle": "Cookies",
+    "infoBody": "Tento web používa iba nevyhnutné cookies, ktoré zabezpečujú jeho základné fungovanie (napríklad zapamätanie zvoleného jazyka). Na ne súhlas nepotrebujete.",
+    "infoAccept": "Rozumiem",
+    "consentTitle": "Nastavenie cookies",
+    "consentBody": "Používame nevyhnutné cookies a, s Vaším súhlasom, aj ďalšie, ktoré nám pomáhajú web zlepšovať. Svoj výber môžete kedykoľvek zmeniť.",
+    "acceptAll": "Prijať všetky",
+    "rejectAll": "Odmietnuť nepovinné",
+    "customize": "Nastavenia",
+    "save": "Uložiť výber",
+    "back": "Späť",
+    "close": "Zavrieť a odmietnuť nepovinné cookies",
+    "learnMore": "Viac o cookies",
+    "alwaysOn": "Vždy zapnuté",
+    "categories": {
+      "necessary": {
+        "title": "Nevyhnutné",
+        "description": "Zabezpečujú základné fungovanie webu — zapamätanie jazyka a Vášho rozhodnutia o cookies. Nedajú sa vypnúť."
+      },
+      "analytics": {
+        "title": "Analytické",
+        "description": "Pomáhajú nám zistiť, ktoré časti webu návštevníci využívajú, aby sme ich mohli zlepšovať. Údaje sú štatistické."
+      }
+    }
+  },
+  "Cookies": {
+    "eyebrow": "Právne informácie",
+    "title": "Cookies",
+    "breadcrumb": "Cookies",
+    "imageAlt": "Foto: katedrála sv. Martina",
+    "updated": "Posledná aktualizácia: {date}",
+    "intro": "Cookie je malý textový súbor, ktorý si web ukladá vo Vašom zariadení. Podľa § 109 ods. 8 zákona č. 452/2021 Z. z. o elektronických komunikáciách potrebujeme Váš súhlas na ukladanie iných ako nevyhnutných cookies.",
+    "tableTitle": "Cookies, ktoré používame",
+    "columns": {
+      "name": "Názov",
+      "purpose": "Účel",
+      "duration": "Platnosť",
+      "category": "Druh"
+    },
+    "table": [
+      {
+        "name": "NEXT_LOCALE",
+        "purpose": "Zapamätá zvolený jazyk stránky.",
+        "duration": "1 rok",
+        "category": "Nevyhnutné"
+      },
+      {
+        "name": "cookie_consent",
+        "purpose": "Uloží Vaše rozhodnutie o cookies, aby sme sa neopýtali znova.",
+        "duration": "12 mesiacov",
+        "category": "Nevyhnutné"
+      }
+    ],
+    "sections": [
+      {
+        "id": "pouzivame",
+        "title": "Čo používame",
+        "paragraphs": [
+          "V čase poslednej aktualizácie používame iba nevyhnutné (technické) cookies, na ktoré sa súhlas nevyžaduje. Nepoužívame analytické, reklamné ani sledovacie cookies tretích strán. Písma sú súčasťou webu a nenačítavajú sa z externých serverov."
+        ]
+      },
+      {
+        "id": "zmena",
+        "title": "Ako zmeniť nastavenie",
+        "paragraphs": [
+          "Svoje rozhodnutie môžete kedykoľvek zmeniť tlačidlom „Nastavenia cookies“ v pätičke stránky. Cookies môžete odstrániť aj v nastaveniach svojho prehliadača."
+        ]
+      },
+      {
+        "id": "buducnost",
+        "title": "Budúce zmeny",
+        "paragraphs": [
+          "Ak na webe začneme používať analytické alebo iné nepovinné cookies, pred ich použitím Vás požiadame o súhlas a túto stránku aktualizujeme."
+        ]
+      }
+    ]
+  },
+  "Privacy": {
+    "eyebrow": "Právne informácie",
+    "title": "Zásady ochrany osobných údajov",
+    "breadcrumb": "Ochrana údajov",
+    "imageAlt": "Foto: katedrála sv. Martina",
+    "updated": "Posledná aktualizácia: {date}",
+    "intro": "Tieto zásady vysvetľujú, aké osobné údaje spracúvame pri prevádzke tohto webu, prečo ich potrebujeme a aké práva máte. Údaje spracúvame v súlade s nariadením (EÚ) 2016/679 (GDPR) a zákonom č. 18/2018 Z. z. o ochrane osobných údajov.",
+    "operatorTitle": "Prevádzkovateľ",
+    "operatorName": "Farnosť sv. Martina v Bratislave",
+    "operatorLabels": {
+      "address": "Adresa",
+      "email": "E-mail",
+      "phone": "Telefón",
+      "ico": "IČO"
+    },
+    "relatedCookies": "Informácie o cookies",
+    "sections": [
+      {
+        "id": "ucely",
+        "title": "Aké údaje spracúvame a prečo",
+        "paragraphs": [
+          "Na webe nie je potrebná registrácia a nepoužívame reklamné ani sledovacie nástroje."
+        ],
+        "items": [
+          "Kontaktný formulár — meno, e-mailová adresa, predmet (nepovinný), text správy a jazyk stránky. Účel: vybavenie Vašej otázky a odpoveď na ňu. Právny základ: Váš súhlas (čl. 6 ods. 1 písm. a) GDPR), ktorý udeľujete zaškrtnutím políčka pred odoslaním. Doba uchovávania: najdlhšie 12 mesiacov od vybavenia správy.",
+          "Technické údaje o návšteve — IP adresa, čas prístupu a typ prehliadača sa zapisujú do bezpečnostných záznamov servera. Účel: zabezpečenie a stabilná prevádzka webu a ochrana pred zneužitím. Právny základ: oprávnený záujem (čl. 6 ods. 1 písm. f) GDPR). Doba uchovávania: krátkodobo, v rozsahu štandardných záznamov poskytovateľa hostingu.",
+          "Cookies — informácie o nich sú na samostatnej stránke."
+        ]
+      },
+      {
+        "id": "prijemcovia",
+        "title": "Komu údaje poskytujeme",
+        "paragraphs": [
+          "Osobné údaje nepredávame ani nezverejňujeme. K údajom z kontaktného formulára majú prístup poverené osoby farnosti a naši sprostredkovatelia:"
+        ],
+        "items": [
+          "poskytovateľ e-mailových služieb Resend (Resend, Inc., USA) — doručovanie správ z formulára; prenos údajov mimo Európskeho hospodárskeho priestoru sa uskutočňuje na základe primeraných záruk (štandardné zmluvné doložky alebo rozhodnutie o primeranosti),",
+          "poskytovateľ hostingu a serverovej infraštruktúry, na ktorej beží web a jeho obsahový systém (uloženie správ z formulára a záznamov servera)."
+        ],
+        "outro": [
+          "Externé služby, na ktoré web odkazuje (napríklad MainSquare pre online objednávky a vstupenky), spracúvajú údaje vo vlastnej zodpovednosti podľa svojich zásad."
+        ]
+      },
+      {
+        "id": "prava",
+        "title": "Vaše práva",
+        "paragraphs": [
+          "Máte právo:"
+        ],
+        "items": [
+          "na prístup k svojim osobným údajom (čl. 15 GDPR),",
+          "na opravu nesprávnych údajov (čl. 16),",
+          "na vymazanie údajov (čl. 17),",
+          "na obmedzenie spracúvania (čl. 18),",
+          "na prenosnosť údajov (čl. 20),",
+          "namietať proti spracúvaniu založenému na oprávnenom záujme (čl. 21),",
+          "kedykoľvek odvolať udelený súhlas — odvolanie nemá vplyv na zákonnosť spracúvania pred jeho odvolaním."
+        ],
+        "outro": [
+          "Svoje práva uplatníte e-mailom alebo písomne na kontaktných údajoch prevádzkovateľa uvedených vyššie."
+        ]
+      },
+      {
+        "id": "staznost",
+        "title": "Sťažnosť dozornému orgánu",
+        "paragraphs": [
+          "Ak sa domnievate, že Vaše osobné údaje spracúvame nezákonne, môžete podať sťažnosť Úradu na ochranu osobných údajov Slovenskej republiky, Hraničná 12, 820 07 Bratislava 27, dataprotection.gov.sk."
+        ]
+      },
+      {
+        "id": "bezpecnost",
+        "title": "Bezpečnosť a automatizované rozhodovanie",
+        "paragraphs": [
+          "Údaje chránime technickými a organizačnými opatreniami, napríklad šifrovaným spojením (HTTPS) a obmedzeným prístupom do administrácie obsahu. Nevykonávame automatizované rozhodovanie ani profilovanie."
+        ]
+      },
+      {
+        "id": "zmeny",
+        "title": "Zmeny týchto zásad",
+        "paragraphs": [
+          "Zásady môžeme aktualizovať. Platné znenie je vždy zverejnené na tejto stránke spolu s dátumom poslednej aktualizácie."
+        ]
+      }
+    ]
   }
 }

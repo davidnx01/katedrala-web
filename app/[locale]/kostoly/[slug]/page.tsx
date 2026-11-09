@@ -6,7 +6,10 @@ import { Container } from "@/components/layout/Container";
 import { ChurchHero } from "@/components/sections/ChurchHero";
 import { ChurchInfoCard } from "@/components/sections/ChurchInfoCard";
 import { ChurchGallery } from "@/components/sections/ChurchGallery";
+import { ChurchMassSchedule } from "@/components/sections/ChurchMassSchedule";
+import { RelatedChurches } from "@/components/sections/RelatedChurches";
 import { getChurchBySlug, getGlobal } from "@/lib/api";
+import { getDirectionsUrl } from "@/lib/maps";
 import { buildMetadata, excerpt } from "@/lib/seo";
 
 interface ChurchDetailPageProps {
@@ -51,6 +54,8 @@ export default async function ChurchDetailPage({
       ? tChurches("typeChurch")
       : tChurches("typeChapel");
 
+  const directionsUrl = getDirectionsUrl(church);
+
   return (
     <main>
       <ChurchHero
@@ -58,6 +63,8 @@ export default async function ChurchDetailPage({
         address={church.address}
         typeLabel={typeLabel}
         photo={church.photo}
+        directionsUrl={directionsUrl}
+        directionsLabel={t("directions")}
         breadcrumbItems={[
           { label: tNav("home"), href: "/" },
           { label: t("breadcrumbChurches"), href: "/kostoly" },
@@ -66,13 +73,34 @@ export default async function ChurchDetailPage({
       />
 
       <section className="py-12 md:py-16 lg:py-20">
-        <Container className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_360px] lg:gap-14">
-          <div className="flex flex-col gap-10">
-            <div>
-              <h2 className="mb-4 font-serif text-2xl sm:text-3xl font-bold text-navy lg:text-4xl">
+        <Container className="grid grid-cols-1 gap-y-10 lg:grid-cols-[1fr_380px] lg:gap-x-12 lg:gap-y-14">
+          <ChurchMassSchedule
+            title={t("massScheduleTitle")}
+            schedule={church.massSchedule}
+            className="lg:col-start-1"
+          />
+
+          <ChurchInfoCard
+            church={church}
+            directionsUrl={directionsUrl}
+            className="lg:col-start-2 lg:row-span-3 lg:row-start-1"
+            labels={{
+              title: t("contactTitle"),
+              addressLabel: t("addressLabel"),
+              rectorLabel: t("rectorLabel"),
+              phoneLabel: t("phoneLabel"),
+              emailLabel: t("emailLabel"),
+              directions: t("directions"),
+              announcementsCta: t("announcementsCta"),
+            }}
+          />
+
+          {church.about && (
+            <div className="lg:col-start-1">
+              <h2 className="mb-4 font-serif text-2xl font-bold text-navy sm:text-3xl lg:text-4xl">
                 {t("aboutTitle")}
               </h2>
-              <div className="church-markdown flex flex-col gap-4 text-[15px] leading-relaxed text-[#2C2A26] md:text-base">
+              <div className="church-markdown flex max-w-[68ch] flex-col gap-4 text-base leading-relaxed text-[#2C2A26] md:text-lg">
                 <ReactMarkdown
                   components={{
                     h2: ({ children }) => (
@@ -82,9 +110,7 @@ export default async function ChurchDetailPage({
                     ),
                     p: ({ children }) => <p>{children}</p>,
                     strong: ({ children }) => (
-                      <strong className="font-semibold text-navy">
-                        {children}
-                      </strong>
+                      <strong className="font-semibold text-navy">{children}</strong>
                     ),
                     ul: ({ children }) => (
                       <ul className="ml-5 list-disc space-y-1">{children}</ul>
@@ -95,27 +121,19 @@ export default async function ChurchDetailPage({
                 </ReactMarkdown>
               </div>
             </div>
+          )}
 
+          <div className="lg:col-start-1 empty:hidden">
             <ChurchGallery
               title={t("galleryTitle")}
               churchName={church.name}
               images={church.gallery}
             />
           </div>
-
-          <ChurchInfoCard
-            church={church}
-            labels={{
-              addressLabel: t("addressLabel"),
-              rectorLabel: t("rectorLabel"),
-              phoneLabel: t("phoneLabel"),
-              emailLabel: t("emailLabel"),
-              directions: t("directions"),
-              massScheduleTitle: t("massScheduleTitle"),
-            }}
-          />
         </Container>
       </section>
+
+      <RelatedChurches currentSlug={church.slug} />
     </main>
   );
 }

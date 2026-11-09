@@ -1,128 +1,102 @@
-import { Mail, MapPin, Phone, User } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import type { LucideIcon } from "lucide-react";
+import { ExternalLink, Mail, MapPin, Phone, User } from "lucide-react";
 import type { Church } from "@/types/content";
 
 interface ChurchInfoCardLabels {
+  title: string;
   addressLabel: string;
   rectorLabel: string;
   phoneLabel: string;
   emailLabel: string;
   directions: string;
-  massScheduleTitle: string;
+  announcementsCta: string;
 }
 
 interface ChurchInfoCardProps {
   church: Church;
+  directionsUrl: string;
   labels: ChurchInfoCardLabels;
+  className?: string;
 }
 
-function getDirectionsUrl(church: Church): string {
-  if (church.latitude !== null && church.longitude !== null) {
-    return `https://www.google.com/maps?q=${church.latitude},${church.longitude}`;
-  }
-  return `https://www.google.com/maps?q=${encodeURIComponent(church.address)}`;
+interface InfoRowProps {
+  icon: LucideIcon;
+  label: string;
+  value: string;
+  href?: string;
 }
 
-export function ChurchInfoCard({ church, labels }: ChurchInfoCardProps) {
+function InfoRow({ icon: Icon, label, value, href }: InfoRowProps) {
+  const content = (
+    <>
+      <Icon size={20} className="mt-0.5 shrink-0 text-gold" aria-hidden="true" />
+      <span>
+        <span className="block text-xs font-semibold tracking-wide text-[#7A756B] uppercase">
+          {label}
+        </span>
+        <span className="block text-base font-medium break-words text-[#2C2A26] group-hover:text-gold-dark">{value}</span>
+      </span>
+    </>
+  );
+
+  return href ? (
+    <a href={href} className="group flex items-start gap-3 py-3">
+      {content}
+    </a>
+  ) : (
+    <div className="flex items-start gap-3 py-3">{content}</div>
+  );
+}
+
+export function ChurchInfoCard({ church, directionsUrl, labels, className }: ChurchInfoCardProps) {
   return (
-    <div className="rounded-2xl border border-stone bg-white p-6 lg:sticky lg:top-24 h-fit">
-      <div className="flex flex-col gap-3.5 text-sm text-[#2C2A26] md:text-[15px]">
-        <div className="flex items-start gap-2.5">
-          <MapPin
-            size={18}
-            className="mt-0.5 shrink-0 text-gold"
-            aria-hidden="true"
-          />
-          <div>
-            <p className="text-xs font-medium tracking-wide text-[#A39E94] uppercase">
-              {labels.addressLabel}
-            </p>
-            <p className="font-medium">{church.address}</p>
+    <aside className={className}>
+      <div className="rounded-2xl border border-stone bg-white p-5 md:p-6 lg:sticky lg:top-24">
+        <h2 className="mb-2 font-serif text-2xl font-bold text-navy">{labels.title}</h2>
+        <div className="divide-y divide-stone">
+          {church.rector && (
+            <InfoRow icon={User} label={labels.rectorLabel} value={church.rector} />
+          )}
+          {church.phone && (
+            <InfoRow
+              icon={Phone}
+              label={labels.phoneLabel}
+              value={church.phone}
+              href={`tel:${church.phone.replace(/\s+/g, "")}`}
+            />
+          )}
+          {church.email && (
+            <InfoRow
+              icon={Mail}
+              label={labels.emailLabel}
+              value={church.email}
+              href={`mailto:${church.email}`}
+            />
+          )}
+          <div className="pb-2">
+            <InfoRow icon={MapPin} label={labels.addressLabel} value={church.address} />
             <a
-              href={getDirectionsUrl(church)}
+              href={directionsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-0.5 inline-block text-sm font-medium text-gold hover:underline"
+              className="ml-8 inline-flex min-h-12 items-center text-sm font-semibold text-navy underline decoration-gold decoration-2 underline-offset-4 hover:text-gold-dark"
             >
               {labels.directions} →
             </a>
           </div>
         </div>
-
-        {church.rector && (
-          <div className="flex items-center gap-2.5">
-            <User size={18} className="shrink-0 text-gold" aria-hidden="true" />
-            <div>
-              <p className="text-xs font-medium tracking-wide text-[#A39E94] uppercase">
-                {labels.rectorLabel}
-              </p>
-              <p className="font-medium">{church.rector}</p>
-            </div>
-          </div>
-        )}
-
-        {church.phone && (
+        {church.announcementsUrl && (
           <a
-            href={`tel:${church.phone.replace(/\s+/g, "")}`}
-            className="flex items-center gap-2.5"
+            href={church.announcementsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-3 flex min-h-12 items-center justify-center gap-2 rounded-lg bg-navy px-4 text-base font-bold text-white hover:bg-navy/80"
           >
-            <Phone
-              size={18}
-              className="shrink-0 text-gold"
-              aria-hidden="true"
-            />
-            <div>
-              <p className="text-xs font-medium tracking-wide text-[#A39E94] uppercase">
-                {labels.phoneLabel}
-              </p>
-              <p className="font-medium hover:text-gold">{church.phone}</p>
-            </div>
-          </a>
-        )}
-
-        {church.email && (
-          <a
-            href={`mailto:${church.email}`}
-            className="flex items-center gap-2.5"
-          >
-            <Mail size={18} className="shrink-0 text-gold" aria-hidden="true" />
-            <div>
-              <p className="text-xs font-medium tracking-wide text-[#A39E94] uppercase">
-                {labels.emailLabel}
-              </p>
-              <p className="font-medium hover:text-gold">{church.email}</p>
-            </div>
+            {labels.announcementsCta}
+            <ExternalLink size={16} aria-hidden="true" />
           </a>
         )}
       </div>
-
-      {church.massSchedule.length > 0 && (
-        <div className="mt-5 border-t border-stone pt-5">
-          <h3 className="mb-3 text-sm font-semibold text-navy">
-            {labels.massScheduleTitle}
-          </h3>
-          <div className="flex flex-col gap-2.5">
-            {church.massSchedule.map((row) => (
-              <div
-                key={row.dayLabel}
-                className="flex flex-wrap items-center justify-between gap-2"
-              >
-                <span className="text-sm text-[#2C2A26]">{row.dayLabel}</span>
-                <div className="flex flex-wrap gap-1.5">
-                  {row.times.map((time) => (
-                    <Badge
-                      key={time}
-                      className="rounded-lg bg-gold-light px-2.5 py-0.5 text-xs font-semibold text-gold-dark"
-                    >
-                      {time}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
+    </aside>
   );
 }

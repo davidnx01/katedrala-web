@@ -3,6 +3,7 @@ import { getTranslations, getLocale } from "next-intl/server";
 import { PageHero } from "@/components/sections/PageHero";
 import { ContactLocations } from "@/components/sections/ContactLocations";
 import { ContactCta } from "@/components/sections/ContactCta";
+import { ContactFormSection } from "@/components/sections/ContactFormSection";
 import { getContactPage, getGlobal } from "@/lib/api";
 import { buildMetadata } from "@/lib/seo";
 
@@ -46,6 +47,7 @@ export default async function ContactPage() {
         ]}
       />
       <ContactLocations locations={locations} />
+      <ContactFormSection />
       <ContactCta contact={locations[0]} />
     </main>
   );

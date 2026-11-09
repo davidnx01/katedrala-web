@@ -1,0 +1,15 @@
+{
+  "sk": { "nativeName": "Slovenčina", "englishName": "Slovak", "ogLocale": "sk_SK", "dir": "ltr" },
+  "en": { "nativeName": "English", "englishName": "English", "ogLocale": "en_US", "dir": "ltr" },
+  "de": { "nativeName": "Deutsch", "englishName": "German", "ogLocale": "de_DE", "dir": "ltr" },
+  "cs": { "nativeName": "Čeština", "englishName": "Czech", "ogLocale": "cs_CZ", "dir": "ltr" },
+  "it": { "nativeName": "Italiano", "englishName": "Italian", "ogLocale": "it_IT", "dir": "ltr" },
+  "es": { "nativeName": "Español", "englishName": "Spanish", "ogLocale": "es_ES", "dir": "ltr" },
+  "fr": { "nativeName": "Français", "englishName": "French", "ogLocale": "fr_FR", "dir": "ltr" },
+  "hu": { "nativeName": "Magyar", "englishName": "Hungarian", "ogLocale": "hu_HU", "dir": "ltr" },
+  "pl": { "nativeName": "Polski", "englishName": "Polish", "ogLocale": "pl_PL", "dir": "ltr" },
+  "pt": { "nativeName": "Português", "englishName": "Portuguese", "ogLocale": "pt_PT", "dir": "ltr" },
+  "hr": { "nativeName": "Hrvatski", "englishName": "Croatian", "ogLocale": "hr_HR", "dir": "ltr" },
+  "nl": { "nativeName": "Nederlands", "englishName": "Dutch", "ogLocale": "nl_NL", "dir": "ltr" },
+  "uk": { "nativeName": "Українська", "englishName": "Ukrainian", "ogLocale": "uk_UA", "dir": "ltr" }
+}

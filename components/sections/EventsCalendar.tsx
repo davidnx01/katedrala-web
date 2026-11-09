@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, type ReactNode } from "react";
 import { useTranslations } from "next-intl";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
@@ -18,13 +18,22 @@ import type { Event } from "@/types/content";
 
 interface EventsCalendarProps {
   events?: Event[];
+  eyebrow?: string;
+  title?: string;
+  /** Optional third column, e.g. the parish announcements panel on the homepage. */
+  aside?: ReactNode;
 }
 
 function toDateKey(year: number, month: number, day: number) {
   return `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
 }
 
-export function EventsCalendar({ events = [] }: EventsCalendarProps) {
+export function EventsCalendar({
+  events = [],
+  eyebrow,
+  title,
+  aside,
+}: EventsCalendarProps) {
   const t = useTranslations("Calendar");
   const [currentDate, setCurrentDate] = useState(() => new Date());
   const today = useMemo(() => new Date(), []);
@@ -68,8 +77,8 @@ export function EventsCalendar({ events = [] }: EventsCalendarProps) {
     <section id="kalendar" className="bg-navy py-12 md:py-16 lg:py-20">
       <Container>
         <SectionHeading
-          eyebrow={t("eyebrow")}
-          title={t("title")}
+          eyebrow={eyebrow || t("eyebrow")}
+          title={title || t("title")}
           light
           center
         />
@@ -227,11 +236,17 @@ export function EventsCalendar({ events = [] }: EventsCalendarProps) {
             <div className="mb-4 text-base lg:text-lg font-semibold tracking-widest text-white/75 uppercase">
               {t("upcoming")}
             </div>
-            <div className="flex flex-col gap-2">
-              {upcomingEvents.map((event) => (
-                <EventCard key={event.id} event={event} />
-              ))}
-            </div>
+            {upcomingEvents.length > 0 ? (
+              <div className="flex flex-col gap-2">
+                {upcomingEvents.map((event) => (
+                  <EventCard key={event.id} event={event} />
+                ))}
+              </div>
+            ) : (
+              <p className="rounded-xl border border-white/5 bg-white/3 px-4 py-5 text-base text-white/75">
+                {t("noUpcoming")}
+              </p>
+            )}
             <Link
               href="/udalosti"
               className="mt-3 inline-block text-sm font-semibold text-gold hover:underline"
@@ -239,6 +254,8 @@ export function EventsCalendar({ events = [] }: EventsCalendarProps) {
               {t("viewFullCalendar")} →
             </Link>
           </div>
+
+          {aside}
         </div>
       </Container>
     </section>

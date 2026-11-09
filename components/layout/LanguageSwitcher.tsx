@@ -2,6 +2,7 @@
 
 import { useLocale } from "next-intl";
 import { usePathname, useRouter } from "@/i18n/navigation";
+import { getLanguage } from "@/i18n/languages";
 import { routing } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
@@ -20,6 +21,9 @@ export function LanguageSwitcher({ className }: LanguageSwitcherProps) {
         <button
           key={l}
           type="button"
+          lang={l}
+          title={getLanguage(l).nativeName}
+          aria-label={getLanguage(l).nativeName}
           aria-pressed={l === locale}
           onClick={() => router.replace(pathname, { locale: l })}
           className={cn(

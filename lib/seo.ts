@@ -6,6 +6,21 @@ import type { Global } from "@/types/content";
 /** Production domain — used by sitemap.ts, robots.ts and the root layout's metadataBase. */
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
+/** Brand name used as `og:site_name` on pages that build their own Open Graph block. */
+export const SITE_NAME = "Katedrála sv. Martina";
+
+/**
+ * Default share image (logo on the navy brand background, 1200×630 PNG). Used
+ * whenever a page has no image of its own. A PNG on purpose: most social
+ * crawlers (Facebook, LinkedIn, WhatsApp) do not render SVG.
+ */
+export const DEFAULT_OG_IMAGE = {
+  url: "/images/og-default.png",
+  width: 1200,
+  height: 630,
+  alt: SITE_NAME,
+};
+
 /** Strips common markdown syntax so richtext content reads cleanly as a plain-text meta description. */
 export function stripMarkdown(text: string): string {
   return text
@@ -59,10 +74,20 @@ export function buildMetadata({
     title,
     description: resolvedDescription,
     robots: noIndex ? { index: false } : undefined,
+    // Next replaces a parent's `openGraph`/`twitter` wholesale instead of merging
+    // them, so the fallback image and card type must be repeated here.
     openGraph: {
+      type: "website",
+      siteName: SITE_NAME,
       title,
       description: resolvedDescription,
-      images: imageUrl ? [imageUrl] : undefined,
+      images: imageUrl ? [imageUrl] : [DEFAULT_OG_IMAGE],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: resolvedDescription,
+      images: [imageUrl ?? DEFAULT_OG_IMAGE.url],
     },
   };
 }

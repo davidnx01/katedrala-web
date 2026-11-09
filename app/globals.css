@@ -99,40 +99,23 @@
   }
 }
 
-@keyframes hero-kenburns {
-  0%,
-  21.67% {
-    opacity: 0;
+/* Hero: každá fotka sa počas 4 s zobrazenia a 1 s prelínania jemne priblíži o 4 %. */
+@keyframes hero-zoom {
+  from {
     transform: scale(1);
   }
-  28.33%,
-  71.67% {
-    opacity: 1;
-  }
-  78.33% {
-    opacity: 0;
-    transform: scale(1.13);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(1);
+  to {
+    transform: scale(1.04);
   }
 }
 
-.animate-hero-kenburns {
-  animation: hero-kenburns 12s ease-in-out infinite;
+.animate-hero-zoom {
+  animation: hero-zoom 5s linear forwards;
+  will-change: transform;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .animate-hero-kenburns {
+  .animate-hero-zoom {
     animation: none;
-    opacity: 1;
-    transform: scale(1);
-  }
-  .animate-hero-kenburns:first-child {
-    opacity: 1;
-  }
-  .animate-hero-kenburns:not(:first-child) {
-    opacity: 0;
   }
 }

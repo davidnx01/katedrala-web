@@ -13,7 +13,8 @@ export function ContactCard({ contact }: ContactCardProps) {
   const t = useTranslations("Contacts");
 
   const hoursText = contact.hours?.length
-    ? contact.hours.map((row) => `${row.dayLabel}: ${row.time}`).join(", ")
+    ? contact.hours
+        .map((row) => `${row.dayLabel.replace(/:\s*$/, "")}: ${row.time}`).join(", ")
     : undefined;
 
   const rows = [

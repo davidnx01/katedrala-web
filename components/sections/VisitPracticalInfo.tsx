@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { Clock, Ticket, Globe } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { SectionHeading } from "@/components/sections/SectionHeading";
@@ -24,6 +25,8 @@ export function VisitPracticalInfo({
   reservationCtaLabel,
   mainSquareUrl,
 }: VisitPracticalInfoProps) {
+  const t = useTranslations("VisitPage");
+
   return (
     <section id="info" className="bg-surface py-12 md:py-16 lg:py-20">
       <Container>
@@ -33,7 +36,7 @@ export function VisitPracticalInfo({
             <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gold-light text-gold">
               <Clock size={24} aria-hidden="true" />
             </div>
-            <h3 className="mb-3.5 font-serif text-xl font-semibold text-navy md:text-2xl">Otváracie hodiny</h3>
+            <h3 className="mb-3.5 font-serif text-xl font-semibold text-navy md:text-2xl">{t("hoursTitle")}</h3>
             {hours.map((row, i) => (
               <div
                 key={i}
@@ -51,7 +54,7 @@ export function VisitPracticalInfo({
             <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gold-light text-gold">
               <Ticket size={24} aria-hidden="true" />
             </div>
-            <h3 className="mb-3.5 font-serif text-xl font-semibold text-navy md:text-2xl">Vstupné</h3>
+            <h3 className="mb-3.5 font-serif text-xl font-semibold text-navy md:text-2xl">{t("ticketsTitle")}</h3>
             {tickets.map((ticket) => (
               <div
                 key={ticket.label}
@@ -61,7 +64,7 @@ export function VisitPracticalInfo({
                 <span className="font-semibold text-gold">{ticket.price}</span>
               </div>
             ))}
-            <p className="mt-2.5 text-xs font-bold text-[#A39E94]">Ceny sú orientačné — presné ceny v Martineum.</p>
+            <p className="mt-2.5 text-xs font-bold text-[#A39E94]">{t("pricesNote")}</p>
           </div>
 
           <div className="flex flex-col rounded-[20px] border border-white/6 bg-navy p-6 md:p-7 lg:p-8">
