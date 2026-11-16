@@ -486,7 +486,10 @@ export async function getHomepage({ locale }: { locale: string }): Promise<Homep
     {
       locale: sanitizeLocale(locale),
       populate: {
-        hero: { populate: { images: true, ctaPrimary: true, ctaSecondary: true } },
+        // `*` (not an explicit field list) so the request keeps working against a
+        // CMS that doesn't have the newer `videos` field yet — with strictParams
+        // an explicit unknown key would make Strapi reject the whole request.
+        hero: { populate: "*" },
         quickLinks: { populate: { image: true, icon: true } },
         ...homepageSectionsPopulate,
         ...seoPopulate,

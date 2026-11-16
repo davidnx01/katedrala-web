@@ -3,6 +3,7 @@ export interface StrapiMedia {
   alternativeText?: string | null;
   width?: number;
   height?: number;
+  mime?: string;
 }
 
 export interface StrapiPagination {
@@ -243,6 +244,8 @@ export interface StrapiHeroSection {
   subtitle?: string;
   /** 2+ photos for the Ken Burns crossfade slideshow. */
   images: StrapiMedia[];
+  /** Short muted clips, interleaved with the photos (photo → video → photo …). */
+  videos?: StrapiMedia[] | null;
   ctaPrimary?: StrapiCta;
   ctaSecondary?: StrapiCta;
 }

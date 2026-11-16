@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
-import { HeroSlideshow } from "@/components/sections/HeroSlideshow";
+import { HeroSlideshow, type HeroSlide } from "@/components/sections/HeroSlideshow";
 import { SplitHero } from "@/components/sections/SplitHero";
 import { Link } from "@/i18n/navigation";
 import { getStrapiMediaUrl } from "@/lib/strapi-media";
@@ -11,6 +11,20 @@ interface HeroProps {
 }
 
 const FALLBACK_SLIDES = ["/images/dom-martina.jpg", "/images/hero-main-2.webp"];
+
+/**
+ * photo → video → photo → video …, then the remaining videos once photos run out.
+ * Always starts with a photo, which is the LCP element and must not wait on video.
+ */
+function interleave(photos: HeroSlide[], videos: HeroSlide[]): HeroSlide[] {
+  const result: HeroSlide[] = [];
+  const length = Math.max(photos.length, videos.length);
+  for (let index = 0; index < length; index += 1) {
+    if (index < photos.length) result.push(photos[index]);
+    if (index < videos.length) result.push(videos[index]);
+  }
+  return result;
+}
 
 export function Hero({ hero }: HeroProps) {
   const t = useTranslations("Hero");
@@ -26,14 +40,21 @@ export function Hero({ hero }: HeroProps) {
     href: "#",
   };
 
-  const cmsSlides = (hero?.images ?? []).flatMap((image) => {
+  const cmsPhotos = (hero?.images ?? []).flatMap((image): HeroSlide[] => {
     const src = getStrapiMediaUrl(image);
-    return src ? [{ src, alt: image.alternativeText || t("imageAlt") }] : [];
+    // `images` only accepts photos, but guard anyway: a video here would break <Image>.
+    if (!src || image.mime?.startsWith("video/")) return [];
+    return [{ kind: "image", src, alt: image.alternativeText || t("imageAlt") }];
   });
-  const slides =
-    cmsSlides.length > 0
-      ? cmsSlides
-      : FALLBACK_SLIDES.map((src) => ({ src, alt: t("imageAlt") }));
+  const photos: HeroSlide[] =
+    cmsPhotos.length > 0
+      ? cmsPhotos
+      : FALLBACK_SLIDES.map((src) => ({ kind: "image", src, alt: t("imageAlt") }));
+  const videos = (hero?.videos ?? []).flatMap((video): HeroSlide[] => {
+    const src = getStrapiMediaUrl(video);
+    return src && (!video.mime || video.mime.startsWith("video/")) ? [{ kind: "video", src }] : [];
+  });
+  const slides = interleave(photos, videos);
 
   return (
     <SplitHero media={<HeroSlideshow slides={slides} />}>
